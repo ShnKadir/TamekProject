@@ -20,6 +20,12 @@ export const styles = StyleSheet.create({
         backgroundColor: "#F2F2F2"
 
     },
+    input: {
+        fontSize: 20,
+        marginLeft: 10,
+        width: "90%",
+        backgroundColor: "red"
+    },
     details: {
         fontSize: 14,
         marginBottom: 8
@@ -41,9 +47,8 @@ export const styles = StyleSheet.create({
         flexDirection: "row"
     },
     buttonStyle: {
-        paddingHorizontal:15,
-        backgroundColor:"#F2F2F2",
-       
+        paddingHorizontal: 16,
+        backgroundColor:"#FFFFFF"
     },
     denialButton: {
         height: 44,
@@ -51,20 +56,20 @@ export const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         borderRadius: 8,
-        padding: 8,
-        marginTop: 24,
-        backgroundColor: 'rgba(3, 179, 84, 0.11)',
+        marginTop: 8,
+        marginBottom: 8,
         fontSize: 14,
+        backgroundColor: '#F3E1E0'
     },
     approveButton: {
         height: 44,
-        minWidth: 180,
+        width: 180,
         alignItems: "center",
         justifyContent: "center",
         borderRadius: 8,
-        padding: 8,
-        marginTop: 24,
-        backgroundColor: 'rgba(152, 146, 146, 0.11)',
+        marginTop: 8,
+        marginBottom: 8,
+        backgroundColor: 'rgba(3, 179, 84, 0.11)',
         fontSize: 14,
     },
 })

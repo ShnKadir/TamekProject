@@ -1,6 +1,6 @@
 //React Native
 import { HStack, View } from 'native-base'
-import { TouchableOpacity } from 'react-native'
+import { TouchableOpacity, Text } from 'react-native'
 import { Icon } from 'react-native-elements'
 
 // Styles
@@ -31,8 +31,9 @@ export default function Header({
 
     return (
 
-        <HStack style={styles.container} space={"16px"}>
-            <HStack space={"4px"} style={styles.side}>
+        <HStack style={styles.container}>
+            <Text>asadasdassa</Text>
+            {/* <HStack style={styles.side}>
                 {
                     (navBackTo || isGoBack) &&
                     <TouchableOpacity
@@ -40,47 +41,22 @@ export default function Header({
                         style={{ width: 24, height: 24, alignItems: "center" }}
                         onPress={goBack}>
                         <Icon
-                            name="arrow-left"
-                            type="font-awesome-5"
+                            name="ios-chevron-back-outline"
+                            type="ionicon"
                             size={24}
-                            color="#FFFFFF"
+                            color="#007AFF"
                         />
                     </TouchableOpacity>
-                }
 
-                {
-                    hasMenuIcon &&
-                    <TouchableOpacity
-                        testID="menuIcon"
-                        hitSlop={{ top: 25, bottom: 25, left: 7, right: 25 }}
-                        style={{ width: 24, height: 24, alignItems: "center" }}
-                        onPress={handleOnDrawerPress}>
-                        <Icon
-                            name='three-bars'
-                            type='octicon'
-                            size={24}
-                            color="#4173ff"
-                        />
-                    </TouchableOpacity>
                 }
-
+                
+            <Text style={{ color: "#007AFF", fontSize: 16, textAlign: "center", alignSelf: "center" }}>Back</Text>
             </HStack>
-
             <View style={[styles.center, isTitleCenter && { alignItems: "center" }]}>
+                
                 {centerComponent}
-            </View>
-
-            {
-                hasAlert &&
-                <HStack>
-                    <Icon
-                        name='bell-badge-outline'
-                        type='material-community'
-                        size={24}
-                        color="#4173ff"
-                    />
-                </HStack>
-            }
+            </View> */}
+           
         </HStack>
     )
 }

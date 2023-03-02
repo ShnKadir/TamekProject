@@ -1,12 +1,15 @@
 import { StyleSheet } from "react-native";
+import Constants from 'expo-constants'
 
 export const styles = StyleSheet.create({
     container: {
         alignItems: "center",
         justifyContent: "space-between",
         height: 50,
-        paddingHorizontal: 16,
-        backgroundColor: "#B30312",
+        paddingHorizontal: 8,
+        backgroundColor: "#FFFFFF",
+        // borderBottomColor:"#B1B1B1",
+        // borderBottomWidth:0.3
     },
     center: {
         flex: 1

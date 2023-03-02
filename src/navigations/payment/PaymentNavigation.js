@@ -14,7 +14,7 @@ export default function PaymentNavigation() {
                 paymentRequestRoutes.map((item, index) => {
                     return (
                         <Stack.Screen
-                            key={index}                            
+                            key={index}
                             name={item?.name}
                             component={item?.component}
                             options={item?.screenOption}

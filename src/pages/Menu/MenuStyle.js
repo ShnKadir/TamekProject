@@ -8,18 +8,26 @@ export const styles = StyleSheet.create({
 		marginLeft: 16,
 		marginTop: 16,
 		marginBottom: 18,
+		backgroundColor:"#FFFFFF"
 	},
     subContainer: {
+		height:70,
 		paddingTop: 16,
 		paddingBottom: 16,
+		backgroundColor:"#FFFFFF",
+		borderWidth:0.2,
+		borderColor:"#DFDFDF",
+		marginBottom:4
 	},
     list: {
 		paddingHorizontal: 16,
 		justifyContent: "space-between",
 		alignItems: "center",
+		backgroundColor:"#FFFFFF"
 	},
     labelStyle:{
         marginLeft: 16, 
-        fontSize: 16
+        fontSize: 16,
+		backgroundColor:"#FFFFFF"
     }
 })

@@ -1,8 +1,9 @@
 // React
 import React from 'react'
+import { useEffect,useState } from 'react'
 
 // React Native
-import { Text, SafeAreaView, TouchableOpacity } from 'react-native'
+import { Text, TouchableOpacity, ScrollView,View ,SafeAreaView } from 'react-native'
 import { Icon } from 'react-native-elements'
 import { VStack, HStack } from 'native-base'
 
@@ -13,9 +14,119 @@ import { styles } from './MenuStyle'
 import { useNavigation } from '@react-navigation/native'
 import { MENU_NAV } from '../../navigations/constants'
 
+// Redux
+import { setIsTest } from '../../redux/slice/testSlice'
+
 export default function Menu() {
 
     const navigation = useNavigation()
+
+    useEffect(() => {
+        setIsTest(true)
+    }, [])
+
+    const dummyDdata = [
+        {
+            id: "1",
+            name: "Cost Approval",
+            iconName: "coins",
+            iconType: "font-awesome-5"
+        },
+        {
+            id: "2",
+            name: "Payment Order",
+            iconName: "credit-card",
+            iconType: "font-awesome-5"
+        },
+        {
+            id: "3",
+            name: "Purchase Request",
+            iconName: "file-document-multiple",
+            iconType: "material-community"
+        },
+        {
+            id: "4",
+            name: "Purchase Order",
+            iconName: "document-text",
+            iconType: "ionicon"
+        },
+        {
+            id: "4",
+            name: "Purchase Contract",
+            iconName: "text-document",
+            iconType: "entypo"
+        },
+        {
+            id: "5",
+            name: "Purchase Invoices",
+            iconName: "file-invoice-dollar",
+            iconType: "font-awesome-5"
+        },
+    ]
+
+    const [data, setData] = useState()
+
+    useEffect(() => {
+        setData(dummyDdata)
+    }, [])
+
+    // useLayoutEffect(() => {
+    //     navigation.setOptions({
+    //         headerLargeTitle: true,
+    //         headerSearchBarOptions: {
+    //             placeholder: "Search",
+    //             onChangeText: (event) => searchFilterFunction(event.nativeEvent.text)
+    //         }
+    //     })
+    // }, [navigation])
+
+
+    function searchFilterFunction(searchTerm) {
+
+        // if (searchTerm) {
+
+        //     const newData = data?.filter(item => {
+        //         const itemData = item?.name.toUpperCase()
+        //         const textData = searchTerm.toUpperCase()
+
+        //         return itemData.indexOf(textData) > -1
+        //     })
+
+        //     setData(newData)
+        // }
+        // else {
+        //     setData(dummyDdata)
+        // }
+
+        const dummyDdata = [
+            {
+                id: "1",
+                name: "Cost Approval"
+            },
+            {
+                id: "2",
+                name: "Payment Order"
+            },
+            {
+                id: "3",
+                name: "Purchase Request"
+            },
+            {
+                id: "4",
+                name: "Purchase Order"
+            },
+            {
+                id: "4",
+                name: "Purchase Contract"
+            },
+            {
+                id: "5",
+                name: "Purchase Invoices"
+            },
+        ]
+        let filteredData = dummyDdata?.filter(item => item.name.toLowerCase().includes(searchTerm.toLowerCase()))
+        setData(filteredData)
+    }
 
     const goToPaymentRequestScreen = () => {
         navigation.navigate(MENU_NAV.PAYMENT_REQUEST)
@@ -26,244 +137,58 @@ export default function Menu() {
     }
 
     return (
-        <SafeAreaView style={{ backgroundColor: "#ffffff", flex: 1 }}>
-            <Text style={styles.headerStyle}>
-                First Group
-            </Text>
 
-            <VStack style={styles.subContainer}>
-                <HStack style={styles.list}>
-                    <TouchableOpacity onPress={() => goToPaymentRequestScreen()}>
-                        <HStack style={{ alignItems: "center" }}>
-                            <Icon
-                                name="ios-document-outline"
-                                type="ionicon"
-                                size={24}
-                                color="#000000"
-                                style={{ backgroundColor: "#F2F2F2", borderRadius: 50, padding: 5 }}
+        <SafeAreaView style={{ backgroundColor: "#FFFFFF", flex: 1 }}>
 
-                            />
-                            <Text
-                                style={styles.labelStyle}>
-                                Ödeme Talepleri
-                            </Text>
-                        </HStack>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        hitSlop={{
-                            top: 20,
-                            bottom: 20,
-                            left: 20,
-                            right: 20,
-                        }}
-                        onPress={goToPaymentRequestScreen}
-                    >
-                        <Icon
-                            name="angle-right"
-                            type="font-awesome"
-                            size={28}
-                            color="#A9A9A9"
-                            style={{ marginRight: 16 }}
-                           
-                        />
-                    </TouchableOpacity>
+            <ScrollView style={{ backgroundColor: "#FFFFFF" }}>
+                {
+                    dummyDdata?.map((item, index) => {
+                        return (
+                            <View key={index}>
+                                <VStack style={styles.subContainer}>
+                                    <HStack style={styles.list}>
+                                        <TouchableOpacity onPress={() => goToWaitingApprovalScreen()}>
+                                            <HStack style={{ alignItems: "center" }}>
+                                                <Icon
+                                                    name={item.iconName}
+                                                    type={item.iconType}
+                                                    size={20}
+                                                    color="#007041"
+                                                    style={{ backgroundColor: "#CCE2D9", borderRadius: 50, padding: 8 }}
 
-                </HStack>
-            </VStack>
+                                                />
+                                                <Text
+                                                    style={styles.labelStyle}>
+                                                    {item?.name}
+                                                </Text>
+                                            </HStack>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity
+                                            hitSlop={{
+                                                top: 20,
+                                                bottom: 20,
+                                                left: 20,
+                                                right: 20,
+                                            }}
+                                            onPress={goToWaitingApprovalScreen}
+                                        >
+                                            <Icon
+                                                name="angle-right"
+                                                type="font-awesome"
+                                                size={16}
+                                                color="#A9A9A9"
+                                                style={{ marginRight: 16 }}
 
-            <VStack style={styles.subContainer}>
-                <HStack style={styles.list}>
-                    <TouchableOpacity onPress={() => goToWaitingApprovalScreen()}>
-
-                        <HStack style={{ alignItems: "center" }}>
-                            <Icon
-                                name="credit-card"
-                                type="feather"
-                                size={22}
-                                color="#000000"
-                                style={{ backgroundColor: "#F2F2F2", borderRadius: 50, padding: 5 }}
-
-                            />
-                            <Text
-                                style={styles.labelStyle}>
-                                Onay Bekleyenler
-                            </Text>
-                        </HStack>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                        hitSlop={{
-                            top: 20,
-                            bottom: 20,
-                            left: 20,
-                            right: 20,
-                        }}
-                        onPress={goToWaitingApprovalScreen}
-                    >
-                        <Icon
-                            name="angle-right"
-                            type="font-awesome"
-                            size={28}
-                            color="#A9A9A9"
-                            style={{ marginRight: 16 }}
-                        />
-                    </TouchableOpacity>
-
-                </HStack>
-            </VStack>
-
-            <VStack style={styles.subContainer}>
-                <HStack style={styles.list}>
-                    <HStack style={{ alignItems: "center" }}>
-                        <Icon
-                            name="ios-swap-vertical-outline"
-                            type="ionicon"
-                            size={24}
-                            color="#000000"
-                            style={{ backgroundColor: "#F2F2F2", borderRadius: 50, padding: 5 }}
-
-                        />
-                        <Text
-                            style={styles.labelStyle}>
-                            No have idea
-                        </Text>
-                    </HStack>
-                    <HStack>
-                    </HStack>
-                    <TouchableOpacity
-                        hitSlop={{
-                            top: 20,
-                            bottom: 20,
-                            left: 20,
-                            right: 20,
-                        }}
-                    >
-                        <Icon
-                            name="angle-right"
-                            type="font-awesome"
-                            size={28}
-                            color="#A9A9A9"
-                            style={{ marginRight: 16 }}
-                        />
-                    </TouchableOpacity>
-                </HStack>
-            </VStack>
-
-            <Text style={styles.headerStyle}>
-                Second Group
-            </Text>
-
-            <VStack style={styles.subContainer}>
-                <HStack style={styles.list}>
-                    <HStack style={{ alignItems: "center" }}>
-                        <Icon
-                            name="divide"
-                            type="feather"
-                            size={22}
-                            color="#000000"
-                            style={{ backgroundColor: "#F2F2F2", borderRadius: 50, padding: 5 }}
-
-                        />
-                        <Text
-                            style={styles.labelStyle}>
-                            No have idea
-                        </Text>
-                    </HStack>
-                    <HStack>
-                    </HStack>
-                    <TouchableOpacity
-                        hitSlop={{
-                            top: 20,
-                            bottom: 20,
-                            left: 20,
-                            right: 20,
-                        }}
-                    >
-                        <Icon
-                            name="angle-right"
-                            type="font-awesome"
-                            size={28}
-                            color="#A9A9A9"
-                            style={{ marginRight: 16 }}
-                        />
-                    </TouchableOpacity>
-                </HStack>
-            </VStack>
-
-            <VStack style={styles.subContainer}>
-                <HStack style={styles.list}>
-                    <HStack style={{ alignItems: "center" }}>
-                        <Icon
-                            name="percent"
-                            type="feather"
-                            size={22}
-                            color="#000000"
-                            style={{ backgroundColor: "#F2F2F2", borderRadius: 50, padding: 5 }}
-
-                        />
-                        <Text
-                            style={styles.labelStyle}>
-                            No have idea
-                        </Text>
-                    </HStack>
-                    <HStack>
-                    </HStack>
-                    <TouchableOpacity
-                        hitSlop={{
-                            top: 20,
-                            bottom: 20,
-                            left: 20,
-                            right: 20,
-                        }}
-                    >
-                        <Icon
-                            name="angle-right"
-                            type="font-awesome"
-                            size={28}
-                            color="#A9A9A9"
-                            style={{ marginRight: 16 }}
-                        />
-                    </TouchableOpacity>
-                </HStack>
-            </VStack>
-
-            <VStack style={styles.subContainer}>
-                <HStack style={styles.list}>
-                    <HStack style={{ alignItems: "center" }}>
-                        <Icon
-                            name="percent"
-                            type="feather"
-                            size={22}
-                            color="#000000"
-                            style={{ backgroundColor: "#F2F2F2", borderRadius: 50, padding: 5 }}
-
-                        />
-                        <Text
-                            style={styles.labelStyle}>
-                            No have idea
-                        </Text>
-                    </HStack>
-                    <HStack>
-                    </HStack>
-                    <TouchableOpacity
-                        hitSlop={{
-                            top: 20,
-                            bottom: 20,
-                            left: 20,
-                            right: 20,
-                        }}
-                    >
-                        <Icon
-                            name="angle-right"
-                            type="font-awesome"
-                            size={28}
-                            color="#A9A9A9"
-                            style={{ marginRight: 16 }}
-                        />
-                    </TouchableOpacity>
-                </HStack>
-            </VStack>
-
+                                            />
+                                        </TouchableOpacity>
+                                    </HStack>
+                                </VStack>
+                            </View>
+                        )
+                    })
+                }
+            </ScrollView>
         </SafeAreaView>
+
     )
 }

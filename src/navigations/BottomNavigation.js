@@ -4,9 +4,9 @@ import React from 'react'
 import { Icon } from 'react-native-elements'
 
 // Components
-import Home from '../pages/Home/Home'
-import Search from '../pages/Search/Search'
+
 import PaymentNavigation from '../navigations/payment/PaymentNavigation'
+import Account from '../pages/Account/Account'
 
 // Navigation
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
@@ -20,36 +20,23 @@ export default function BottomNavigation() {
             screenOptions={screenOptions}
         >
             <Tab.Screen
-                name='Search'
-                component={Search}
-                options={{
-                    tabBarIcon: () =>
-                        <Icon
-                            name="google-analytics"
-                            type="material-community"
-                            size={18}
-                            color="#ffffff"
-                        />
-                }}
-
-            />
-            <Tab.Screen
-                name='Home'
-                component={Home}
+                name='Categories'
+                component={PaymentNavigation}
                 options={{
                     tabBarIcon: () =>
                         <Icon
                             name="home"
                             type="font-awesome"
-                            size={18}
+                            size={22}
                             color="#ffffff"
                         />
                 }}
             />
             <Tab.Screen
-                name='Menü'
-                component={PaymentNavigation}
+                name='Account'
+                component={Account}
                 options={{
+                    headerShown: false,
                     tabBarIcon: () =>
                         <Icon
                             name="settings"
@@ -67,18 +54,22 @@ export default function BottomNavigation() {
 const screenOptions = {
     tabBarInactiveTintColor: "#ffffff",
     tabBarActiveTintColor: "#B30312",
+    headerShown: false,
     tabBarStyle: {
         backgroundColor: "black",
         position: "absolute",
         height: 80,
-        paddinBottom: 1,
+        marginBottom: 0,
     },
     headerStyle: {
-        backgroundColor: "#B30312",
+        backgroundColor: "#FFFFFF",
+       
     },
     headerTintColor: '#fff',
     headerTitleStyle: {
-        marginLeft: 28
+        marginLeft: 28,
+        color:"#000000"
+        // display: "none"
     },
     tabBarLabelStyle: {
         textAlign: 'center',
@@ -87,5 +78,6 @@ const screenOptions = {
     tabBarOptions: {
         activeTintColor: '#B30312',
         inactiveTintColor: '#ffffff',
+        // showLabel: false
     }
 }
