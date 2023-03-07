@@ -14,6 +14,7 @@ import PaymentRequestDetail from '../../pages/Payment/PaymentRequestDetail/Payme
 // Navigations
 import { MENU_NAV } from './../../navigations/constants'
 import SearchBar from '../../common/SearchBar/SearchBar'
+import PurchaseRequest from '../../pages/Purchase/PurchaseRequest/PurchaseRequest'
 
 export default paymentRequestRoutes = [
     {
@@ -44,5 +45,10 @@ export default paymentRequestRoutes = [
         screenOption: {
             headerShown: true
         }
+    },
+    {
+        name: MENU_NAV.PURCHASE_REQUEST,
+        component: PurchaseRequest,
+       
     }
 ]

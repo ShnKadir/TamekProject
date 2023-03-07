@@ -11,14 +11,25 @@ import loginBackgroundImage from "@assets/image/loginBackgroundImage.png"
 
 // Style
 import { styles } from "./LoginScreenStyle"
+import { useNavigation } from '@react-navigation/native'
+import { MENU_NAV } from './../../navigations/constants'
+import BottomNavigation from "../../navigations/BottomNavigation"
+import { setIsLogin } from "../../redux/slice/testSlice"
+import store from './../../redux/store';
 
-export default function LoginScreen() {
+export default function LoginScreen(
+) {
 
-    const [email, setEmail] = useState()
-    const [password, setPassword] = useState()
+    const navigation = useNavigation()
+
+    const [email, setEmail] = useState('filizgursan@hotmail.com')
+    const [password, setPassword] = useState('123123')
+    const [emailTest, setEmailTest] = useState('filizgursan@hotmail.com')
+    const [passwordTest, setPasswordTest] = useState('123123')
     const [emailIsFocused, setEmailIsFocused] = useState(false)
     const [passwordIsFocused, setPasswordIsFocused] = useState(false)
     const [isPasswordVisible, setIsPasswordVisible] = useState(false)
+    const [emailValidate, setEmailValidate] = useState(true)
 
 
     const emailHandleFocus = () => {
@@ -41,14 +52,30 @@ export default function LoginScreen() {
         setIsPasswordVisible(!isPasswordVisible)
     }
 
-    useEffect(() => {
-        setEmail(email)
-    }, [email])
+    const handleOnDeleteEmail = () => {
+        setEmail('')
+    }
 
-    useEffect(() => {
-        setPassword(password)
-    }, [password])
+    const validateText = (text) => {
+        setEmail(text)
+        let reg = (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
+        if (reg.test(text) === false) {
+            setEmailValidate(false)
+        }
+    }
 
+    const handleOnChangePassword = (pass) => {
+        setPassword(pass)
+    }
+
+    const handleOnLogin = () => {
+        if (passwordTest === password && emailTest === email) {
+            store.dispatch(setIsLogin(true))
+        }
+        else {
+            alert('Bilgiler hatalı')
+        }
+    }
     return (
         <TouchableWithoutFeedback
             touchSoundDisabled={true}
@@ -70,20 +97,55 @@ export default function LoginScreen() {
                                 :
                                 styles.emailStyle
                             ]}>
-                                <Text style={[emailIsFocused ?
-                                    styles.emailFocusTextStyle :
-                                    styles.emailTextStyle
+                                <Text style={[
+                                    emailIsFocused ?
+                                        styles.emailFocusTextStyle
+                                        : styles.emailTextStyle
                                 ]}>
                                     Email address
                                 </Text>
 
-                                <TextInput
-                                    style={[emailIsFocused ?
-                                        styles.emailFocusTextInputStyle :
-                                        styles.emailTextInputStyle]}
-                                    onFocus={emailHandleFocus}
-                                    onBlur={emailHandleBlur}
-                                />
+                                <View style={{
+                                    flexDirection: 'row',
+                                }}>
+
+                                    <TextInput
+                                        style={[emailIsFocused ?
+                                            styles.emailFocusTextInputStyle :
+                                            styles.emailTextInputStyle]}
+                                        onFocus={emailHandleFocus}
+                                        onBlur={emailHandleBlur}
+                                        value={email}
+                                        onChangeText={(text) => validateText(text)}
+                                    />
+
+                                    <TouchableOpacity
+                                        style={[!passwordIsFocused && { marginTop: 8 }, { justifyContent: "center" }]}
+                                        hitSlop={{
+                                            top: 20,
+                                            bottom: 20,
+                                            left: 20,
+                                            right: 20,
+                                        }}
+                                        onPress={handleOnDeleteEmail}
+                                    >
+                                        <Icon
+                                            name={
+                                                email?.length > 0 &&
+                                                "closecircleo"
+                                            }
+                                            type="antdesign"
+                                            size={18}
+                                            color="#535353"
+                                            style={{ marginLeft: 12, marginRight: 12 }}
+
+                                        />
+                                    </TouchableOpacity>
+
+                                </View>
+
+
+
                             </View>
                         </View>
 
@@ -113,6 +175,8 @@ export default function LoginScreen() {
                                     secureTextEntry={!isPasswordVisible}
                                     onFocus={passwordHandleFocus}
                                     onBlur={passwordHandleBlur}
+                                    onChangeText={(pass) => handleOnChangePassword(pass)}
+                                    value={password}
 
                                 />
 
@@ -146,7 +210,10 @@ export default function LoginScreen() {
                     </View>
 
                     <View style={{ paddingHorizontal: 16 }}>
-                        <TouchableOpacity style={styles.btnContainerStyle}>
+                        <TouchableOpacity
+                            style={styles.btnContainerStyle}
+                            onPress={handleOnLogin}
+                        >
                             <Text style={styles.buttonTextStyle}>
                                 LOGIN
                             </Text>

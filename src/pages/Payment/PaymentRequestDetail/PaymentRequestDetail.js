@@ -7,8 +7,25 @@ import { HStack, VStack } from 'native-base'
 
 // Styles
 import { styles } from './PaymentRequestDetailStyle'
+import { useState } from 'react'
+import { useEffect } from 'react'
+import { useLayoutEffect } from 'react'
+import { useNavigation } from '@react-navigation/native';
+import { Icon } from 'react-native-elements'
 
-export default function PaymentRequestDetail() {
+export default function PaymentRequestDetail({
+    route
+}) {
+
+    const navigation = useNavigation()
+
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            headerLargeTitle: false,
+            title: route?.params?.title,
+        })
+    }, [navigation])
+
     return (
         <ScrollView style={{ flex: 1, backgroundColor: "#FFFFFF" }}>
             <View style={{
@@ -29,6 +46,7 @@ export default function PaymentRequestDetail() {
                     <Text>Talep Eden</Text>
                     <Text>Belge Tarihi</Text>
                     <Text>Ödeme Tarihi</Text>
+                    <Text style={{marginTop:32,fontWeight:"bold"}}>Dosya</Text>
                 </VStack>
                 <VStack style={{ flex: 1, backgroundColor: "#FFFFFF" }} space={"8px"} >
                     <Text>BORUSAN LOJİSTİK DAĞITIM</Text>
@@ -38,11 +56,18 @@ export default function PaymentRequestDetail() {
                     <Text>Onur SALMAN</Text>
                     <Text>17.12.2022</Text>
                     <Text>21.12.2022</Text>
+                    <TouchableOpacity style={{marginTop:16,maxWidth:26}}>
+                        <Icon
+                            name="ios-attach-sharp"
+                            type="ionicon"
+                            size={22}
+                            color="black"
+                           
+                        />
+                    </TouchableOpacity>
                 </VStack>
-
             </View>
-
-
+          
             <HStack style={styles.buttonStyle} space={"8px"}>
                 <TouchableOpacity
                     style={styles.denialButton}

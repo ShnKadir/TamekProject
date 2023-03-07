@@ -1,9 +1,9 @@
 // React
-import React from 'react'
-import { useEffect,useState } from 'react'
+import React, { useLayoutEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 // React Native
-import { Text, TouchableOpacity, ScrollView,View ,SafeAreaView } from 'react-native'
+import { Text, TouchableOpacity, ScrollView, View, SafeAreaView } from 'react-native'
 import { Icon } from 'react-native-elements'
 import { VStack, HStack } from 'native-base'
 
@@ -70,15 +70,13 @@ export default function Menu() {
         setData(dummyDdata)
     }, [])
 
-    // useLayoutEffect(() => {
-    //     navigation.setOptions({
-    //         headerLargeTitle: true,
-    //         headerSearchBarOptions: {
-    //             placeholder: "Search",
-    //             onChangeText: (event) => searchFilterFunction(event.nativeEvent.text)
-    //         }
-    //     })
-    // }, [navigation])
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            headerLargeTitle: true,
+            title: 'Main'
+
+        })
+    }, [navigation])
 
 
     function searchFilterFunction(searchTerm) {
@@ -128,12 +126,13 @@ export default function Menu() {
         setData(filteredData)
     }
 
-    const goToPaymentRequestScreen = () => {
-        navigation.navigate(MENU_NAV.PAYMENT_REQUEST)
-    }
-
-    const goToWaitingApprovalScreen = () => {
-        navigation.navigate(MENU_NAV.WAITING_APPROVAL)
+    const goToWaitingApprovalScreen = (id) => {
+        if (id === "1") {
+            navigation.navigate(MENU_NAV.WAITING_APPROVAL)
+        }
+        else if(id === "2"){
+            navigation.navigate(MENU_NAV.PURCHASE_REQUEST)
+        }
     }
 
     return (
@@ -147,7 +146,7 @@ export default function Menu() {
                             <View key={index}>
                                 <VStack style={styles.subContainer}>
                                     <HStack style={styles.list}>
-                                        <TouchableOpacity onPress={() => goToWaitingApprovalScreen()}>
+                                        <TouchableOpacity>
                                             <HStack style={{ alignItems: "center" }}>
                                                 <Icon
                                                     name={item.iconName}
@@ -170,7 +169,7 @@ export default function Menu() {
                                                 left: 20,
                                                 right: 20,
                                             }}
-                                            onPress={goToWaitingApprovalScreen}
+                                            onPress={(id) => goToWaitingApprovalScreen(item?.id)}
                                         >
                                             <Icon
                                                 name="angle-right"
@@ -178,7 +177,7 @@ export default function Menu() {
                                                 size={16}
                                                 color="#A9A9A9"
                                                 style={{ marginRight: 16 }}
-
+                                                onPress={(id) => goToWaitingApprovalScreen(item?.id)}
                                             />
                                         </TouchableOpacity>
                                     </HStack>

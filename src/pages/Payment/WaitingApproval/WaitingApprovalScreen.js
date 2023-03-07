@@ -1,9 +1,9 @@
 // React
 import React from 'react'
-import { useState,useEffect ,useLayoutEffect} from 'react'
+import { useState, useEffect, useLayoutEffect } from 'react'
 
 // React Native
-import { View, Text, TouchableOpacity, SafeAreaView,Keyboard,TouchableWithoutFeedback } from 'react-native'
+import { View, Text, TouchableOpacity, SafeAreaView, Keyboard, TouchableWithoutFeedback, ScrollView } from 'react-native'
 import { VStack, HStack } from 'native-base'
 import { Icon } from 'react-native-elements'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -24,7 +24,7 @@ export default function WaitingApprovalScreen() {
     {
       id: "1",
       number: "1",
-      name: "BORUSAN LOJISTIK DAGITIM A.Ş.",
+      name: "BORUSAN LOJISTIK DAGITIM A.Ş. 222",
       costName: "ABD Masraflar",
       costDetail: "Borusan lojistik Zone 3",
       costTotal: "87,736.00 USD",
@@ -73,9 +73,37 @@ export default function WaitingApprovalScreen() {
       costName: "ABD Masraflar",
       costDetail: "Borusan lojistik Zone 3",
       costTotal: "87,736.00 USD",
-      coster: "Onur SALMAN"
+      coster: "filiz gürsan"
+    },
+    {
+      id: "7",
+      number: "7",
+      name: "BORUSAN LOJISTIK DAGITIM A.Ş.",
+      costName: "ABD Masraflar",
+      costDetail: "Borusan lojistik Zone 3",
+      costTotal: "87,736.00 USD",
+      coster: "filiz gürsan"
+    },
+    {
+      id: "8",
+      number: "8",
+      name: "BORUSAN LOJISTIK DAGITIM A.Ş.",
+      costName: "ABD Masraflar",
+      costDetail: "Borusan lojistik Zone 3",
+      costTotal: "87,736.00 USD",
+      coster: "filiz gürsan"
+    },
+    {
+      id: "9",
+      number: "9",
+      name: "BORUSAN LOJISTIK DAGITIM A.Ş.",
+      costName: "ABD Masraflar",
+      costDetail: "Borusan lojistik Zone 3",
+      costTotal: "87,736.00 USD",
+      coster: "filiz gürsan"
     },
   ]
+
 
   const goToWaitingApprovalScreen = (title) => {
     navigation.navigate(MENU_NAV.PAYMENT_REQUEST, { title: title })
@@ -102,16 +130,16 @@ export default function WaitingApprovalScreen() {
       {
         id: "1",
         number: "1",
-        name: "LOJISTIK DAGITIM A.Ş.",
+        name: "BORUSAN LOJISTIK DAGITIM A.Ş. 222",
         costName: "ABD Masraflar",
         costDetail: "Borusan lojistik Zone 3",
         costTotal: "87,736.00 USD",
-        coster: "Filiz"
+        coster: "Onur SALMAN"
       },
       {
         id: "2",
         number: "2",
-        name: "BORUSAN LOJISTIK DAGITIM A.Ş.",
+        name: "BORUSAN LOJISTIK DAGITIM A.Ş. 3344556",
         costName: "ABD Masraflar",
         costDetail: "Borusan lojistik Zone 3",
         costTotal: "87,736.00 USD",
@@ -151,27 +179,44 @@ export default function WaitingApprovalScreen() {
         costName: "ABD Masraflar",
         costDetail: "Borusan lojistik Zone 3",
         costTotal: "87,736.00 USD",
-        coster: "Onur SALMAN"
+        coster: "filiz gürsan"
+      },
+      {
+        id: "7",
+        number: "7",
+        name: "BORUSAN LOJISTIK DAGITIM A.Ş.",
+        costName: "ABD Masraflar",
+        costDetail: "Borusan lojistik Zone 3",
+        costTotal: "87,736.00 USD",
+        coster: "filiz gürsan"
+      },
+      {
+        id: "8",
+        number: "8",
+        name: "BORUSAN LOJISTIK DAGITIM A.Ş.",
+        costName: "ABD Masraflar",
+        costDetail: "Borusan lojistik Zone 3",
+        costTotal: "87,736.00 USD",
+        coster: "filiz gürsan"
+      },
+      {
+        id: "9",
+        number: "9",
+        name: "BORUSAN LOJISTIK DAGITIM A.Ş.",
+        costName: "ABD Masraflar",
+        costDetail: "Borusan lojistik Zone 3",
+        costTotal: "87,736.00 USD",
+        coster: "filiz gürsan"
       },
     ]
 
-    let filteredData = dummyDdata?.filter(item => item.name.toLowerCase().includes(searchTerm.toLowerCase()))
+    let filteredData = dummyDdata?.filter(item => item.name.toUpperCase().includes(searchTerm.toUpperCase()) || item.coster.toUpperCase().includes(searchTerm.toUpperCase()))
     setData(filteredData)
   }
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <KeyboardAwareScrollView
-          extraHeight={0}
-          style={{
-            width: "100%",
-            backgroundColor: "#FFFFFF",
-            flex: 1
-          }}
-          contentContainerStyle={{ flex: 1 }}
-        >
-          <VStack style={styles.container}>
+          <ScrollView style={styles.container} contentContainerStyle={{paddingBottom:60}}>
 
             {
               data?.map((item, index) => {
@@ -248,15 +293,7 @@ export default function WaitingApprovalScreen() {
                 )
 
               })}
-          </VStack>
-        </KeyboardAwareScrollView>
-        {/* <ScrollView
-          style={{ backgroundColor: "#ffffff" }}
-          contentContainerStyle={{ paddingBottom: 60, flex: 1 }}
-        >
-         
-        </ScrollView> */}
-      </TouchableWithoutFeedback>
+          </ScrollView>
     </SafeAreaView>
   )
 }

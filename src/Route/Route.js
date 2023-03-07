@@ -5,10 +5,13 @@ import React, { useState } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import BottomNavigation from '../navigations/BottomNavigation'
 import LoginNavigation from '../navigations/LoginNavigation'
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 export default function Route() {
 
-  const [isLogin, setIsLogin] = useState(true)
+
+  const isLogin = useSelector(state => state.test.isLogin)
 
   return (
     <NavigationContainer>
@@ -17,7 +20,6 @@ export default function Route() {
           <BottomNavigation />
           :
           <LoginNavigation />
-
       }
     </NavigationContainer>
   )

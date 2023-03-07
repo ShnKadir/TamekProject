@@ -9,8 +9,9 @@
                 "alias": {
                     // Public
                     "@assets": "./assets",                   
-                    "@images": "./assets/images"                   
-
+                    "@images": "./assets/images",
+                    //Src     
+                    "@helpers": "./src/helpers"             
                 }
             }
         ]

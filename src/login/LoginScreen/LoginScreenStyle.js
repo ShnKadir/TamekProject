@@ -37,17 +37,19 @@ export const styles = StyleSheet.create({
         fontSize: 12,
         color: "#007041"
     },
-    emailTextInputStyle: {
-        height: 26,
-        fontSize: 12,
-        paddingLeft: 16,
-        marginTop: 8,
-        color: "#000000"
-    },
     emailFocusTextInputStyle: {
         height: 26,
-        fontSize: 12,
-        color: "#000000"
+        fontSize: 14,
+        color: "#000000",
+        flex: 1
+    },
+    emailTextInputStyle:{
+        height: 26,
+        fontSize: 14,
+        color: "#000",
+        paddingLeft: 16,
+        marginTop: 8,
+        flex: 1
     },
     passwordStyle: {
         height: 56,

@@ -20,7 +20,7 @@ export default function BottomNavigation() {
             screenOptions={screenOptions}
         >
             <Tab.Screen
-                name='Categories'
+                name='Main'
                 component={PaymentNavigation}
                 options={{
                     tabBarIcon: () =>
