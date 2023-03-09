@@ -2,9 +2,15 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
     buttonStyle: {
-        paddingHorizontal:16,
-        backgroundColor:"#FFFFFF",
-       
+        paddingHorizontal: 16,
+        backgroundColor: "#FFFFFF",
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute', //Here is the trick
+        bottom: 80, //Here is the trick
+        height: 76,
+        alignContent: "center"
     },
     denialButton: {
         height: 44,
@@ -13,8 +19,8 @@ export const styles = StyleSheet.create({
         justifyContent: "center",
         borderRadius: 8,
         padding: 8,
-        marginTop: 24,
-        backgroundColor: 'rgba(3, 179, 84, 0.11)',
+
+        backgroundColor: '#F3E1E0',
         fontSize: 14,
     },
     approveButton: {
@@ -24,8 +30,7 @@ export const styles = StyleSheet.create({
         justifyContent: "center",
         borderRadius: 8,
         padding: 8,
-        marginTop: 24,
-        backgroundColor: 'rgba(152, 146, 146, 0.11)',
+        backgroundColor: '#CCE2D9',
         fontSize: 14,
     },
 })

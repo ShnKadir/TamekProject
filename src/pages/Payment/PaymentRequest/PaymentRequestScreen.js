@@ -3,15 +3,12 @@ import React, { useLayoutEffect, useEffect, useState } from 'react'
 
 // React Native
 import { View, Text, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native'
-import { VStack, HStack, useDisclose } from 'native-base'
+import { VStack, HStack } from 'native-base'
 import { Icon, SearchBar } from 'react-native-elements'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 // Styles
 import { styles } from './PaymentRequestScreenStyle'
-
-// Common Components
-import ApprovalActionSheet from '../../../common/actionSheet/ApprovalActionSheet'
 
 // Navigation
 import { useNavigation } from '@react-navigation/native'
@@ -22,17 +19,76 @@ export default function PaymentRequestScreen({
 
     const navigation = useNavigation()
 
-    const sheetModal = useDisclose()
+    const dummyDdata = [
+        {
+            id: "1",
+            number: "1",
+            name: "PARKER-Otopark",
+            date: " 19.12.2022",
+            cost: "570 TL",
+            category: "Araç",
+            type: "Otopark/Otoyol/Köprü",
+            isCreditCard: "Hayır"
+        },
+        {
+            id: "2",
+            number: "2",
+            name: "Starbucks-Pazar günü Starbucks-Pazar günü Starbucks-Pazar günü Starbucks-Pazar günü Starbucks-Pazar günü Starbucks-Pazar günü Starbucks-Pazar günü Starbucks-Pazar günü",
+            date: " 21.12.2022",
+            cost: "200 TL",
+            category: "Araç",
+            type: "Otopark/Otoyol/Köprü",
+            isCreditCard: "Evet"
+        },
+        {
+            id: "3",
+            number: "3",
+            name: "Otopark masrafı",
+            date: " 20.12.2022",
+            cost: "570 TL",
+            category: "Araç",
+            type: "Otopark/Otoyol/Köprü",
+            isCreditCard: "Evet"
+        },
+        {
+            id: "4",
+            number: "4",
+            name: "PARKER-Otopark 222",
+            date: " 19.12.2022",
+            cost: "400 TL",
+            category: "Araç",
+            type: "Otopark/Otoyol/Köprü",
+            isCreditCard: "Hayır"
+        },
+        {
+            id: "5",
+            number: "5",
+            name: "PARKER-Otopark",
+            date: " 30.12.2022",
+            cost: "620 TL",
+            category: "Araç",
+            type: "Otopark/Otoyol/Köprü",
+            isCreditCard: "Evet"
+        },
+        {
+            id: "6",
+            number: "6",
+            name: "PARKER-Otopark",
+            date: " 19.12.2022",
+            cost: "570 TL",
+            category: "Araç",
+            type: "Otopark/Otoyol/Köprü",
+            isCreditCard: "Hayır"
+        },
 
-    const handleOnOpenActionSheeet = () => {
-        sheetModal.onOpen()
-    }
+    ]
 
-    const [costTitle, setCostTitle] = useState()
+    const [data, setData] = useState(dummyDdata)
+    const [search, setSearch] = useState("")
 
     useEffect(() => {
-        setCostTitle(route?.params?.title)
-    }, [route])
+        setData(dummyDdata)
+    }, [])
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -40,6 +96,14 @@ export default function PaymentRequestScreen({
             title: route?.params?.title,
         })
     }, [navigation])
+
+
+    const updateSearch = (search) => {
+
+        setSearch(search)
+        let filteredData = dummyDdata?.filter(item => item.name.toLowerCase().includes(search.toLowerCase()))
+        setData(filteredData)
+    }
 
     return (
 
@@ -110,6 +174,9 @@ export default function PaymentRequestScreen({
                             platform="ios"
                             inputContainerStyle={{ backgroundColor: "rgba(118, 118, 128, 0.12)", height: 36 }}
                             searchIcon={{ color: "#3C3C43" }}
+                            onChangeText={updateSearch}
+                            value={search}
+
                         />
                     </VStack>
 
@@ -124,542 +191,75 @@ export default function PaymentRequestScreen({
                     contentContainerStyle={{ paddingBottom: 700 }}
 
                 >
-                    <ScrollView contentContainerStyle={{ flex: 1 }} style={{ paddingBottom: 170 }}>
+                    <ScrollView contentContainerStyle={{ flex: 1 }} style={{ backgroundColor: "#F5F5F5" }}>
 
-                        <HStack style={[styles.list, { marginTop: 8 }]}>
-                            <HStack style={{ alignItems: "center", paddingBottom: 18 }}>
-                                <View
-                                    style={{
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        backgroundColor: '#F2F2F2',
-                                        width: 24,
-                                        height: 24,
-                                        borderRadius: 12
-                                    }}
-                                >
-                                    <Text
-                                        style={{
-                                            textAlign: 'center',
-                                            fontSize: 12,
-                                            lineHeight: 12,
-                                            color: '#000000'
-                                        }}
-                                    >
-                                        {1}
-                                    </Text>
-                                </View>
-                                <VStack style={{ paddingLeft: 8 }} space={"4px"}>
+                        {
+                            data?.map((item, index) => {
+                                return (
+                                    <HStack style={styles.list} key={index}>
+                                        <HStack style={{ alignItems: "center" }}>
+                                            <View
+                                                style={{
+                                                    justifyContent: 'center',
+                                                    backgroundColor: "#CCE2D9",
+                                                    width: 24,
+                                                    height: 24,
+                                                    borderRadius: 12
+                                                }}
+                                            >
+                                                <Text
+                                                    style={{
 
-                                    <Text style={{ fontWeight: "bold" }}>
-                                        PARKER-Otopark
-                                    </Text>
-                                    <Text style={{ fontWeight: "bold" }}>
-                                        19.12.2022-570 TRY
-                                    </Text>
-                                    <Text>
-                                        Kategori: Araç
-                                    </Text>
-                                    <Text>
-                                        Tip: Otopark/OtoyolKopru
-                                    </Text>
-                                    <Text>
-                                        Kredi Kart: Hayır
-                                    </Text>
-                                </VStack>
+                                                        fontSize: 14,
+                                                        lineHeight: 16,
+                                                        color: "#007041",
+                                                        textAlign: "center",
+                                                        alignSelf: "center"
 
-                            </HStack>
-                            <TouchableOpacity>
-                                <Icon
-                                    name="ios-attach-sharp"
-                                    type="ionicon"
-                                    size={24}
-                                    color="black"
-                                    style={{ marginRight: 12 }}
-                                />
-                            </TouchableOpacity>
-                        </HStack>
+                                                    }}
+                                                >
+                                                    {item?.number}
+                                                </Text>
+                                            </View>
+                                            <VStack style={{ marginLeft: 16, maxWidth: 260 }} space={"4px"}>
 
-                        <HStack style={styles.list}>
-                            <HStack style={{ alignItems: "center", paddingBottom: 18 }}>
-                                <View
-                                    style={{
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        backgroundColor: '#F2F2F2',
-                                        width: 24,
-                                        height: 24,
-                                        borderRadius: 12
-                                    }}
-                                >
-                                    <Text
-                                        style={{
-                                            textAlign: 'center',
-                                            fontSize: 12,
-                                            lineHeight: 12,
-                                            color: '#000000'
-                                        }}
-                                    >
-                                        {2}
-                                    </Text>
-                                </View>
-                                <VStack style={{ paddingLeft: 8 }} space={"4px"}>
+                                                <Text style={{ fontWeight: "bold", flexWrap: "wrap" }}>
+                                                    {item?.name}
+                                                </Text>
+                                                <Text>
+                                                    {item?.date} - {item.cost}
+                                                </Text>
+                                                <Text style={{ fontWeight: "bold" }}>
+                                                    Kategori: {item?.category}
+                                                </Text>
+                                                <Text>
+                                                    Tip: {item?.type}
+                                                </Text>
+                                                <Text>
+                                                    Kredi Kart: {item.isCreditCard}
+                                                </Text>
+                                            </VStack>
 
-                                    <Text style={{ fontWeight: "bold", marginTop: 8 }}>
-                                        Starbucks-Pazar günü Gemlik yardim sinaw günd
-                                    </Text>
-                                    <Text style={{ fontWeight: "bold" }}>
-                                        19.12.2022-570 TRY
-                                    </Text>
-                                    <Text>
-                                        Kategori: Araç
-                                    </Text>
-                                    <Text>
-                                        Tip: Otopark/OtoyolKopru
-                                    </Text>
-                                    <Text>
-                                        Kredi Kart: Hayır
-                                    </Text>
-                                </VStack>
-                            </HStack>
-                            <TouchableOpacity>
-                                <Icon
-                                    name="ios-attach-sharp"
-                                    type="ionicon"
-                                    size={24}
-                                    color="black"
-                                    style={{ marginRight: 12 }}
-                                />
-                            </TouchableOpacity>
-                        </HStack>
+                                        </HStack>
+                                        <TouchableOpacity>
+                                            <Icon
+                                                name="ios-attach-sharp"
+                                                type="ionicon"
+                                                size={24}
+                                                color="black"
+                                                style={{ marginRight: 12 }}
+                                            />
+                                        </TouchableOpacity>
+                                    </HStack>
 
-                        <HStack style={[styles.list]}>
-                            <HStack style={{ alignItems: "center" }}>
-                                <View
-                                    style={{
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        backgroundColor: '#F2F2F2',
-                                        width: 24,
-                                        height: 24,
-                                        borderRadius: 12
-                                    }}
-                                >
-                                    <Text
-                                        style={{
-                                            textAlign: 'center',
-                                            fontSize: 12,
-                                            lineHeight: 12,
-                                            color: '#000000'
-                                        }}
-                                    >
-                                        {3}
-                                    </Text>
-                                </View>
-                                <VStack style={{ paddingLeft: 8 }} space={"4px"}>
-
-                                    <Text style={{ fontWeight: "bold", marginTop: 8 }}>
-                                        PARKER-Otopark
-                                    </Text>
-                                    <Text style={{ fontWeight: "bold" }}>
-                                        19.12.2022-570 TRY
-                                    </Text>
-                                    <Text>
-                                        Kategori: Araç
-                                    </Text>
-                                    <Text>
-                                        Tip: Otopark/OtoyolKopru
-                                    </Text>
-                                    <Text style={{ marginBottom: 0 }}>
-                                        Kredi Kart: Hayır
-                                    </Text>
-                                </VStack>
-                            </HStack>
-                            <TouchableOpacity>
-                                <Icon
-                                    name="ios-attach-sharp"
-                                    type="ionicon"
-                                    size={24}
-                                    color="black"
-                                    style={{ marginRight: 12 }}
-                                />
-                            </TouchableOpacity>
-                        </HStack>
-                        <HStack style={[styles.list]}>
-                            <HStack style={{ alignItems: "center" }}>
-                                <View
-                                    style={{
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        backgroundColor: '#F2F2F2',
-                                        width: 24,
-                                        height: 24,
-                                        borderRadius: 12
-                                    }}
-                                >
-                                    <Text
-                                        style={{
-                                            textAlign: 'center',
-                                            fontSize: 12,
-                                            lineHeight: 12,
-                                            color: '#000000'
-                                        }}
-                                    >
-                                        {3}
-                                    </Text>
-                                </View>
-                                <VStack style={{ paddingLeft: 8 }} space={"4px"}>
-
-                                    <Text style={{ fontWeight: "bold", marginTop: 8 }}>
-                                        PARKER-Otopark
-                                    </Text>
-                                    <Text style={{ fontWeight: "bold" }}>
-                                        19.12.2022-570 TRY
-                                    </Text>
-                                    <Text>
-                                        Kategori: Araç
-                                    </Text>
-                                    <Text>
-                                        Tip: Otopark/OtoyolKopru
-                                    </Text>
-                                    <Text style={{ marginBottom: 0 }}>
-                                        Kredi Kart: Hayır
-                                    </Text>
-                                </VStack>
-                            </HStack>
-                            <TouchableOpacity>
-                                <Icon
-                                    name="ios-attach-sharp"
-                                    type="ionicon"
-                                    size={24}
-                                    color="black"
-                                    style={{ marginRight: 12 }}
-                                />
-                            </TouchableOpacity>
-                        </HStack>
-
-                        <HStack style={[styles.list]}>
-                            <HStack style={{ alignItems: "center" }}>
-                                <View
-                                    style={{
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        backgroundColor: '#F2F2F2',
-                                        width: 24,
-                                        height: 24,
-                                        borderRadius: 12
-                                    }}
-                                >
-                                    <Text
-                                        style={{
-                                            textAlign: 'center',
-                                            fontSize: 12,
-                                            lineHeight: 12,
-                                            color: '#000000'
-                                        }}
-                                    >
-                                        {3}
-                                    </Text>
-                                </View>
-                                <VStack style={{ paddingLeft: 8 }} space={"4px"}>
-
-                                    <Text style={{ fontWeight: "bold", marginTop: 8 }}>
-                                        PARKER-Otopark
-                                    </Text>
-                                    <Text style={{ fontWeight: "bold" }}>
-                                        19.12.2022-570 TRY
-                                    </Text>
-                                    <Text>
-                                        Kategori: Araç
-                                    </Text>
-                                    <Text>
-                                        Tip: Otopark/OtoyolKopru
-                                    </Text>
-                                    <Text style={{ marginBottom: 0 }}>
-                                        Kredi Kart: Hayır
-                                    </Text>
-                                </VStack>
-                            </HStack>
-                            <TouchableOpacity>
-                                <Icon
-                                    name="ios-attach-sharp"
-                                    type="ionicon"
-                                    size={24}
-                                    color="black"
-                                    style={{ marginRight: 12 }}
-                                />
-                            </TouchableOpacity>
-                        </HStack>
-
-                        <HStack style={[styles.list]}>
-                            <HStack style={{ alignItems: "center" }}>
-                                <View
-                                    style={{
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        backgroundColor: '#F2F2F2',
-                                        width: 24,
-                                        height: 24,
-                                        borderRadius: 12
-                                    }}
-                                >
-                                    <Text
-                                        style={{
-                                            textAlign: 'center',
-                                            fontSize: 12,
-                                            lineHeight: 12,
-                                            color: '#000000'
-                                        }}
-                                    >
-                                        {3}
-                                    </Text>
-                                </View>
-                                <VStack style={{ paddingLeft: 8 }} space={"4px"}>
-
-                                    <Text style={{ fontWeight: "bold", marginTop: 8 }}>
-                                        PARKER-Otopark
-                                    </Text>
-                                    <Text style={{ fontWeight: "bold" }}>
-                                        19.12.2022-570 TRY
-                                    </Text>
-                                    <Text>
-                                        Kategori: Araç
-                                    </Text>
-                                    <Text>
-                                        Tip: Otopark/OtoyolKopru
-                                    </Text>
-                                    <Text style={{ marginBottom: 0 }}>
-                                        Kredi Kart: Hayır
-                                    </Text>
-                                </VStack>
-                            </HStack>
-                            <TouchableOpacity>
-                                <Icon
-                                    name="ios-attach-sharp"
-                                    type="ionicon"
-                                    size={24}
-                                    color="black"
-                                    style={{ marginRight: 12 }}
-                                />
-                            </TouchableOpacity>
-                        </HStack>
-
-                        <HStack style={[styles.list]}>
-                            <HStack style={{ alignItems: "center" }}>
-                                <View
-                                    style={{
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        backgroundColor: '#F2F2F2',
-                                        width: 24,
-                                        height: 24,
-                                        borderRadius: 12
-                                    }}
-                                >
-                                    <Text
-                                        style={{
-                                            textAlign: 'center',
-                                            fontSize: 12,
-                                            lineHeight: 12,
-                                            color: '#000000'
-                                        }}
-                                    >
-                                        {3}
-                                    </Text>
-                                </View>
-                                <VStack style={{ paddingLeft: 8 }} space={"4px"}>
-
-                                    <Text style={{ fontWeight: "bold", marginTop: 8 }}>
-                                        PARKER-Otopark
-                                    </Text>
-                                    <Text style={{ fontWeight: "bold" }}>
-                                        19.12.2022-570 TRY
-                                    </Text>
-                                    <Text>
-                                        Kategori: Araç
-                                    </Text>
-                                    <Text>
-                                        Tip: Otopark/OtoyolKopru
-                                    </Text>
-                                    <Text style={{ marginBottom: 0 }}>
-                                        Kredi Kart: Hayır
-                                    </Text>
-                                </VStack>
-                            </HStack>
-                            <TouchableOpacity>
-                                <Icon
-                                    name="ios-attach-sharp"
-                                    type="ionicon"
-                                    size={24}
-                                    color="black"
-                                    style={{ marginRight: 12 }}
-                                />
-                            </TouchableOpacity>
-                        </HStack>
-
-                        <HStack style={[styles.list]}>
-                            <HStack style={{ alignItems: "center" }}>
-                                <View
-                                    style={{
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        backgroundColor: '#F2F2F2',
-                                        width: 24,
-                                        height: 24,
-                                        borderRadius: 12
-                                    }}
-                                >
-                                    <Text
-                                        style={{
-                                            textAlign: 'center',
-                                            fontSize: 12,
-                                            lineHeight: 12,
-                                            color: '#000000'
-                                        }}
-                                    >
-                                        {3}
-                                    </Text>
-                                </View>
-                                <VStack style={{ paddingLeft: 8 }} space={"4px"}>
-
-                                    <Text style={{ fontWeight: "bold", marginTop: 8 }}>
-                                        PARKER-Otopark
-                                    </Text>
-                                    <Text style={{ fontWeight: "bold" }}>
-                                        19.12.2022-570 TRY
-                                    </Text>
-                                    <Text>
-                                        Kategori: Araç
-                                    </Text>
-                                    <Text>
-                                        Tip: Otopark/OtoyolKopru
-                                    </Text>
-                                    <Text style={{ marginBottom: 0 }}>
-                                        Kredi Kart: Hayır
-                                    </Text>
-                                </VStack>
-                            </HStack>
-                            <TouchableOpacity>
-                                <Icon
-                                    name="ios-attach-sharp"
-                                    type="ionicon"
-                                    size={24}
-                                    color="black"
-                                    style={{ marginRight: 12 }}
-                                />
-                            </TouchableOpacity>
-                        </HStack>
-
-                        <HStack style={[styles.list]}>
-                            <HStack style={{ alignItems: "center" }}>
-                                <View
-                                    style={{
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        backgroundColor: '#F2F2F2',
-                                        width: 24,
-                                        height: 24,
-                                        borderRadius: 12
-                                    }}
-                                >
-                                    <Text
-                                        style={{
-                                            textAlign: 'center',
-                                            fontSize: 12,
-                                            lineHeight: 12,
-                                            color: '#000000'
-                                        }}
-                                    >
-                                        {3}
-                                    </Text>
-                                </View>
-                                <VStack style={{ paddingLeft: 8 }} space={"4px"}>
-
-                                    <Text style={{ fontWeight: "bold", marginTop: 8 }}>
-                                        PARKER-Otopark
-                                    </Text>
-                                    <Text style={{ fontWeight: "bold" }}>
-                                        19.12.2022-570 TRY
-                                    </Text>
-                                    <Text>
-                                        Kategori: Araç
-                                    </Text>
-                                    <Text>
-                                        Tip: Otopark/OtoyolKopru
-                                    </Text>
-                                    <Text style={{ marginBottom: 0 }}>
-                                        Kredi Kart: Hayır
-                                    </Text>
-                                </VStack>
-                            </HStack>
-                            <TouchableOpacity>
-                                <Icon
-                                    name="ios-attach-sharp"
-                                    type="ionicon"
-                                    size={24}
-                                    color="black"
-                                    style={{ marginRight: 12 }}
-                                />
-                            </TouchableOpacity>
-                        </HStack>
-
-                        <HStack style={[styles.list]}>
-                            <HStack style={{ alignItems: "center" }}>
-                                <View
-                                    style={{
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        backgroundColor: '#F2F2F2',
-                                        width: 24,
-                                        height: 24,
-                                        borderRadius: 12
-                                    }}
-                                >
-                                    <Text
-                                        style={{
-                                            textAlign: 'center',
-                                            fontSize: 12,
-                                            lineHeight: 12,
-                                            color: '#000000'
-                                        }}
-                                    >
-                                        {3}
-                                    </Text>
-                                </View>
-                                <VStack style={{ paddingLeft: 8 }} space={"4px"}>
-
-                                    <Text style={{ fontWeight: "bold", marginTop: 8 }}>
-                                        PARKER-Otopark
-                                    </Text>
-                                    <Text style={{ fontWeight: "bold" }}>
-                                        19.12.2022-570 TRY
-                                    </Text>
-                                    <Text>
-                                        Kategori: Araç
-                                    </Text>
-                                    <Text>
-                                        Tip: Otopark/OtoyolKopru
-                                    </Text>
-                                    <Text style={{ marginBottom: 0 }}>
-                                        Kredi Kart: Hayır
-                                    </Text>
-                                </VStack>
-                            </HStack>
-                            <TouchableOpacity>
-                                <Icon
-                                    name="ios-attach-sharp"
-                                    type="ionicon"
-                                    size={24}
-                                    color="black"
-                                    style={{ marginRight: 12 }}
-                                />
-                            </TouchableOpacity>
-                        </HStack>
+                                )
+                            })
+                        }
 
                         <HStack style={styles.buttonStyle} space={"8px"}>
                             <TouchableOpacity
                                 style={styles.denialButton}
-                                onPress={handleOnOpenActionSheeet}
+
                             >
                                 <Text style={{ color: "#DA291C", fontWeight: "600" }} >
                                     Reddet
@@ -672,10 +272,13 @@ export default function PaymentRequestScreen({
                                     Onayla
                                 </Text>
                             </TouchableOpacity>
-                            <ApprovalActionSheet sheetModal={sheetModal} />
+
                         </HStack>
+
+                        <VStack style={{ backgroundColor: "#FFFFFF", paddingBottom: 80 }} />
                     </ScrollView>
                 </KeyboardAwareScrollView>
+
             </View >
 
         </SafeAreaView>

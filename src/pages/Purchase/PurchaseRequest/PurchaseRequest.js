@@ -95,7 +95,8 @@ export default function PurchaseRequest() {
     }, [])
 
     useLayoutEffect(() => {
-        navigation.setOptions({
+        navigation.setOptions({   
+            title:"Payment Order",        
             headerSearchBarOptions: {
                 placeholder: "Search",
                 onChangeText: (event) => searchFilterFunction(event.nativeEvent.text)

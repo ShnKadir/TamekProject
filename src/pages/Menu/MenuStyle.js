@@ -15,9 +15,7 @@ export const styles = StyleSheet.create({
 		paddingTop: 16,
 		paddingBottom: 16,
 		backgroundColor:"#FFFFFF",
-		borderWidth:0.2,
-		borderColor:"#DFDFDF",
-		marginBottom:4
+		marginBottom:2
 	},
     list: {
 		paddingHorizontal: 16,

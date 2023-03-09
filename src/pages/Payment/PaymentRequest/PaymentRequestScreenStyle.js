@@ -40,6 +40,11 @@ export const styles = StyleSheet.create({
         paddingHorizontal: 8,
         justifyContent: "space-between",
         alignItems: "center",
+        marginBottom: 2,
+        backgroundColor: "#FFFFFF",
+        paddingTop: 8,
+        paddingBottom: 8
+
     },
     labelStyle: {
         marginLeft: 16,
@@ -48,7 +53,8 @@ export const styles = StyleSheet.create({
     },
     buttonStyle: {
         paddingHorizontal: 16,
-        backgroundColor:"#FFFFFF"
+        backgroundColor: "#FFFFFF",
+        flex: 1,
     },
     denialButton: {
         height: 44,

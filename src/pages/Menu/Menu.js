@@ -130,7 +130,7 @@ export default function Menu() {
         if (id === "1") {
             navigation.navigate(MENU_NAV.WAITING_APPROVAL)
         }
-        else if(id === "2"){
+        else if (id === "2") {
             navigation.navigate(MENU_NAV.PURCHASE_REQUEST)
         }
     }
@@ -139,29 +139,28 @@ export default function Menu() {
 
         <SafeAreaView style={{ backgroundColor: "#FFFFFF", flex: 1 }}>
 
-            <ScrollView style={{ backgroundColor: "#FFFFFF" }}>
-                {
-                    dummyDdata?.map((item, index) => {
-                        return (
-                            <View key={index}>
-                                <VStack style={styles.subContainer}>
-                                    <HStack style={styles.list}>
-                                        <TouchableOpacity>
-                                            <HStack style={{ alignItems: "center" }}>
-                                                <Icon
-                                                    name={item.iconName}
-                                                    type={item.iconType}
-                                                    size={20}
-                                                    color="#007041"
-                                                    style={{ backgroundColor: "#CCE2D9", borderRadius: 50, padding: 8 }}
+            <ScrollView style={{ backgroundColor: "#F5F5F5" }}>
+                <View style={{ marginTop: 8 }}>
+                    {
+                        dummyDdata?.map((item, index) => {
+                            return (
 
-                                                />
-                                                <Text
-                                                    style={styles.labelStyle}>
-                                                    {item?.name}
-                                                </Text>
-                                            </HStack>
-                                        </TouchableOpacity>
+                                <VStack style={styles.subContainer} key={index}>
+                                    <HStack style={styles.list}>
+                                        <HStack style={{ alignItems: "center", marginLeft: 16 }}>
+                                            <Icon
+                                                name={item.iconName}
+                                                type={item.iconType}
+                                                size={20}
+                                                color="#007041"
+                                                style={{ backgroundColor: "#CCE2D9", borderRadius: 50, padding: 8 }}
+
+                                            />
+                                            <Text
+                                                style={styles.labelStyle}>
+                                                {item?.name}
+                                            </Text>
+                                        </HStack>
                                         <TouchableOpacity
                                             hitSlop={{
                                                 top: 20,
@@ -182,10 +181,11 @@ export default function Menu() {
                                         </TouchableOpacity>
                                     </HStack>
                                 </VStack>
-                            </View>
-                        )
-                    })
-                }
+
+                            )
+                        })
+                    }
+                </View>
             </ScrollView>
         </SafeAreaView>
 

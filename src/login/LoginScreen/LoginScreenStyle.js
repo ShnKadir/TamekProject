@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
         overflow: "hidden",
         flex: 1,
         justifyContent: "center",
-        backgroundColor: "#FFFFFF",
+        backgroundColor: "#FFFFFF"
     },
     emailStyle: {
         height: 56,

@@ -1,19 +1,14 @@
 import React from 'react'
 
+// React Native
+import { HStack } from 'native-base'
+import { Icon } from 'react-native-elements'
+import { TouchableOpacity } from 'react-native'
+
 //Style
 import { styles } from "./SearchBarStyle"
 
-//Navigation
-import { useNavigation } from '@react-navigation/native';
-
-//Component
-import { Text } from 'react-native'
-import { HStack } from 'native-base';
-import { Icon } from 'react-native-elements';
-import { TouchableOpacity } from 'react-native';
-
 export default function SearchBar() {
-
 
     return (
         <TouchableOpacity>
