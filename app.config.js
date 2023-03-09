@@ -1,9 +1,8 @@
 export default ({ config }) => ({
     ...config,
-    API_URL: process.env.API_URL || null,
     extra: {
         eas: {
-            projectId: "e6c3d294-597e-40ae-8ed1-881f75bd50c7",
+            projectId: "b455fbc5-988d-40ad-a001-078cf2205b32",
         },
     },
 })

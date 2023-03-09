@@ -89,7 +89,7 @@ export default function LoginScreen(
                     style={styles.container}
                 >
 
-                    <View style={{ paddingHorizontal: 16 }}>
+                    <View style={{ paddingHorizontal: 16,marginTop:36 }}>
 
                         <View style={{ marginBottom: 24 }}>
                             <View style={[emailIsFocused ?
