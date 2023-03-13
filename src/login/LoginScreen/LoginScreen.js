@@ -3,34 +3,42 @@
 import { useEffect, useState } from "react"
 
 // React Native
-import { Text, TextInput, TouchableOpacity, View, Keyboard, TouchableWithoutFeedback, ImageBackground, ScrollView } from "react-native"
+import {
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View,
+    Keyboard,
+    TouchableWithoutFeedback,
+    ImageBackground,
+    ScrollView
+} from "react-native"
 import { Icon } from "react-native-elements"
 
 // Assets
 import loginBackgroundImage from "@assets/image/loginBackgroundImage.png"
 
+// Components
+import LoadingIndicator from "../../common/Loading/LoadingIndicator"
+
 // Style
 import { styles } from "./LoginScreenStyle"
-import { useNavigation } from '@react-navigation/native'
-import { MENU_NAV } from './../../navigations/constants'
-import BottomNavigation from "../../navigations/BottomNavigation"
+
+// Redux
 import { setIsLogin } from "../../redux/slice/testSlice"
-import store from './../../redux/store';
+import store from './../../redux/store'
 
 export default function LoginScreen(
 ) {
 
-    const navigation = useNavigation()
-
-    const [email, setEmail] = useState('filizgursan@hotmail.com')
-    const [password, setPassword] = useState('123123')
-    const [emailTest, setEmailTest] = useState('filizgursan@hotmail.com')
-    const [passwordTest, setPasswordTest] = useState('123123')
+    const [email, setEmail] = useState('tamekmobile@outlook.com')
+    const [password, setPassword] = useState('Tamek2023++')
+    const [emailTest, setEmailTest] = useState('tamekmobile@outlook.com')
+    const [passwordTest, setPasswordTest] = useState('Tamek2023++')
     const [emailIsFocused, setEmailIsFocused] = useState(false)
     const [passwordIsFocused, setPasswordIsFocused] = useState(false)
     const [isPasswordVisible, setIsPasswordVisible] = useState(false)
     const [emailValidate, setEmailValidate] = useState(true)
-
 
     const emailHandleFocus = () => {
         setEmailIsFocused(true)
@@ -76,7 +84,9 @@ export default function LoginScreen(
             alert('Bilgiler hatalı')
         }
     }
+
     return (
+
         <TouchableWithoutFeedback
             touchSoundDisabled={true}
             onPress={() => Keyboard.dismiss()}
@@ -89,7 +99,7 @@ export default function LoginScreen(
                     style={styles.container}
                 >
 
-                    <View style={{ paddingHorizontal: 16,marginTop:36 }}>
+                    <View style={{ paddingHorizontal: 16, marginTop: 36 }}>
 
                         <View style={{ marginBottom: 24 }}>
                             <View style={[emailIsFocused ?
@@ -120,7 +130,7 @@ export default function LoginScreen(
                                     />
 
                                     <TouchableOpacity
-                                        style={[!passwordIsFocused && { marginTop: 8 }, { justifyContent: "center" }]}
+                                        style={[!emailIsFocused && { marginTop: 8 }, { justifyContent: "center" }]}
                                         hitSlop={{
                                             top: 20,
                                             bottom: 20,
@@ -141,11 +151,7 @@ export default function LoginScreen(
 
                                         />
                                     </TouchableOpacity>
-
                                 </View>
-
-
-
                             </View>
                         </View>
 
