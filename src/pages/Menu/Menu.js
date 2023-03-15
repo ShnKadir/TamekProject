@@ -40,25 +40,25 @@ export default function Menu() {
         },
         {
             id: "3",
-            name: "Satınalma Talep",
+            name: "Satın Alma Talep",
             iconName: "file-document-multiple",
             iconType: "material-community"
         },
         {
             id: "4",
-            name: "Satınalma Sipariş",
+            name: "Satın Alma Sipariş",
             iconName: "document-text",
             iconType: "ionicon"
         },
         {
             id: "4",
-            name: "Satınalma Sözleşmeleri",
+            name: "Satın Alma Sözleşmeleri",
             iconName: "text-document",
             iconType: "entypo"
         },
         {
             id: "5",
-            name: "Satınalma Faturaları",
+            name: "Satın Alma Faturaları",
             iconName: "file-invoice-dollar",
             iconType: "font-awesome-5"
         },

@@ -179,7 +179,7 @@ export default function PurchaseRequest() {
 
         <SafeAreaView style={{ flex: 1 }}>
 
-            <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 60 }}>
+            <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 100 }}>
 
                 {
                     data?.map((item, index) => {
