@@ -12,45 +12,45 @@ import { useNavigation } from '@react-navigation/native'
 import { MENU_NAV } from './../../../navigations/constants'
 
 // Styles
-import { styles } from './PurchaseRequestStyle'
+import { styles } from './PaymentRequestStyle'
 
 
-export default function PurchaseRequest() {
+export default function PaymentRequest() {
     const navigation = useNavigation()
 
     const dummyDdata = [
         {
             id: "1",
             number: "1",
-            name: "Umut Baran BOZADA",
+            name: "BORUSAN LOJISTIK DAGITIM A.Ş. 222",
             date: "16/12/2023",
             costTotal: "87,736.00 USD",
         },
         {
             id: "2",
             number: "2",
-            name: "Nurak AYLADIN",
+            name: "BORUSAN LOJISTIK DAGITIM A.Ş. 3344556",
             date: "16/12/2023",
             costTotal: "87,736.00 USD",
         },
         {
             id: "3",
             number: "3",
-            name: "Yılmaz COSKAR",
+            name: " 44 BORUSAN LOJISTIK DAGITIM A.Ş.",
             date: "16/12/2023",
             costTotal: "87,736.00 USD",
         },
         {
             id: "4",
             number: "4",
-            name: "Çağatay KINALI",
+            name: "asd BORUSAN LOJISTIK DAGITIM A.Ş.",
             date: "16/12/2023",
             costTotal: "87,736.00 USD",
         },
         {
             id: "5",
             number: "5",
-            name: "Numan TOPRAK",
+            name: "555 BORUSAN LOJISTIK DAGITIM A.Ş.",
             date: "16/12/2023",
             costTotal: "87,736.00 USD",
         },
@@ -64,7 +64,7 @@ export default function PurchaseRequest() {
         {
             id: "7",
             number: "7",
-            name: "Soner Samet ERADAŞ",
+            name: "BORUSAN LOJISTIK DAGITIM A.Ş.",
             date: "16/12/2023",
             costTotal: "87,736.00 USD",
         },
@@ -85,7 +85,7 @@ export default function PurchaseRequest() {
     ]
 
     const goToDetailScreen = (title) => {
-        navigation.navigate(MENU_NAV.PURCHASE_REQUEST_DETAIL, { title: title })
+        navigation.navigate(MENU_NAV.PAYMENT_REQUEST_DETAIL, { title: title })
     }
 
     const [data, setData] = useState()
@@ -110,35 +110,35 @@ export default function PurchaseRequest() {
             {
                 id: "1",
                 number: "1",
-                name: "Umut Baran BOZADA",
+                name: "BORUSAN LOJISTIK DAGITIM A.Ş. 222",
                 date: "16/12/2023",
                 costTotal: "87,736.00 USD",
             },
             {
                 id: "2",
                 number: "2",
-                name: "Nurak AYLADIN",
+                name: "BORUSAN LOJISTIK DAGITIM A.Ş. 3344556",
                 date: "16/12/2023",
                 costTotal: "87,736.00 USD",
             },
             {
                 id: "3",
                 number: "3",
-                name: "Yılmaz COSKAR",
+                name: " 44 BORUSAN LOJISTIK DAGITIM A.Ş.",
                 date: "16/12/2023",
                 costTotal: "87,736.00 USD",
             },
             {
                 id: "4",
                 number: "4",
-                name: "Çağatay KINALI",
+                name: "asd BORUSAN LOJISTIK DAGITIM A.Ş.",
                 date: "16/12/2023",
                 costTotal: "87,736.00 USD",
             },
             {
                 id: "5",
                 number: "5",
-                name: "Numan TOPRAK",
+                name: "555 BORUSAN LOJISTIK DAGITIM A.Ş.",
                 date: "16/12/2023",
                 costTotal: "87,736.00 USD",
             },
@@ -152,7 +152,7 @@ export default function PurchaseRequest() {
             {
                 id: "7",
                 number: "7",
-                name: "Soner Samet ERADAŞ",
+                name: "BORUSAN LOJISTIK DAGITIM A.Ş.",
                 date: "16/12/2023",
                 costTotal: "87,736.00 USD",
             },
@@ -171,6 +171,8 @@ export default function PurchaseRequest() {
                 costTotal: "87,736.00 USD",
             },
         ]
+
+
         let filteredData = dummyDdata?.filter(item => item.name.toUpperCase().includes(searchTerm.toUpperCase()))
         setData(filteredData)
     }

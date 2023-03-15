@@ -9,55 +9,54 @@ import { Icon } from 'react-native-elements'
 
 // Navigation
 import { useNavigation } from '@react-navigation/native'
-import { MENU_NAV } from './../../../navigations/constants'
+import { MENU_NAV } from './../../navigations/constants'
 
 // Styles
-import { styles } from './PurchaseRequestStyle'
+import { styles } from './PurchaseInvoicesStyle'
 
-
-export default function PurchaseRequest() {
+export default function PurchaseInvoices() {
     const navigation = useNavigation()
 
     const dummyDdata = [
         {
             id: "1",
             number: "1",
-            name: "Umut Baran BOZADA",
+            name: "YILMAZ REDÜKTÖR SAN TİC A.Ş",
             date: "16/12/2023",
             costTotal: "87,736.00 USD",
         },
         {
             id: "2",
             number: "2",
-            name: "Nurak AYLADIN",
+            name: "ERSA ENDÜSTRİYEL YAĞLAR TİC.LTD.ŞTİ",
             date: "16/12/2023",
             costTotal: "87,736.00 USD",
         },
         {
             id: "3",
             number: "3",
-            name: "Yılmaz COSKAR",
+            name: "ÜMELSAN ELEKTRİK-INS.DAY.TÜK.MAL.",
             date: "16/12/2023",
             costTotal: "87,736.00 USD",
         },
         {
             id: "4",
             number: "4",
-            name: "Çağatay KINALI",
+            name: "GESSAN MAKİNA ELEKTRONİK LTD.ŞTİ",
             date: "16/12/2023",
             costTotal: "87,736.00 USD",
         },
         {
             id: "5",
             number: "5",
-            name: "Numan TOPRAK",
+            name: "İSMAİL BULUTER ELİT ELDİVEN",
             date: "16/12/2023",
             costTotal: "87,736.00 USD",
         },
         {
             id: "6",
             number: "6",
-            name: "BORUSAN LOJISTIK DAGITIM A.Ş.",
+            name: "NAM KİŞİSEL KORUYUCU A.Ş.",
             date: "16/12/2023",
             costTotal: "87,736.00 USD",
         },
@@ -85,7 +84,7 @@ export default function PurchaseRequest() {
     ]
 
     const goToDetailScreen = (title) => {
-        navigation.navigate(MENU_NAV.PURCHASE_REQUEST_DETAIL, { title: title })
+        navigation.navigate(MENU_NAV.PURCHASE_INVOICES_DETAIL, { title: title })
     }
 
     const [data, setData] = useState()
@@ -110,42 +109,42 @@ export default function PurchaseRequest() {
             {
                 id: "1",
                 number: "1",
-                name: "Umut Baran BOZADA",
+                name: "YILMAZ REDÜKTÖR SAN TİC A.Ş",
                 date: "16/12/2023",
                 costTotal: "87,736.00 USD",
             },
             {
                 id: "2",
                 number: "2",
-                name: "Nurak AYLADIN",
+                name: "ERSA ENDÜSTRİYEL YAĞLAR TİC.LTD.ŞTİ",
                 date: "16/12/2023",
                 costTotal: "87,736.00 USD",
             },
             {
                 id: "3",
                 number: "3",
-                name: "Yılmaz COSKAR",
+                name: "ÜMELSAN ELEKTRİK-INS.DAY.TÜK.MAL.",
                 date: "16/12/2023",
                 costTotal: "87,736.00 USD",
             },
             {
                 id: "4",
                 number: "4",
-                name: "Çağatay KINALI",
+                name: "GESSAN MAKİNA ELEKTRONİK LTD.ŞTİ",
                 date: "16/12/2023",
                 costTotal: "87,736.00 USD",
             },
             {
                 id: "5",
                 number: "5",
-                name: "Numan TOPRAK",
+                name: "İSMAİL BULUTER ELİT ELDİVEN",
                 date: "16/12/2023",
                 costTotal: "87,736.00 USD",
             },
             {
                 id: "6",
                 number: "6",
-                name: "BORUSAN LOJISTIK DAGITIM A.Ş.",
+                name: "NAM KİŞİSEL KORUYUCU A.Ş.",
                 date: "16/12/2023",
                 costTotal: "87,736.00 USD",
             },

@@ -1,20 +1,19 @@
 // React
 import React from 'react'
 
-// React Native
-import { Text } from 'react-native'
-
 // Components
-import PaymentRequestScreen from '../../pages/Payment/PaymentRequest/PaymentRequestScreen'
-import Header from '../../pages/Header/Header'
 import Menu from '../../pages/Menu/Menu'
 import WaitingApprovalScreen from '../../pages/Payment/WaitingApproval/WaitingApprovalScreen'
 import PaymentRequestDetail from '../../pages/Payment/PaymentRequestDetail/PaymentRequestDetail'
 
 // Navigations
 import { MENU_NAV } from './../../navigations/constants'
-import SearchBar from '../../common/SearchBar/SearchBar'
+import CostApprovalDetail from '../../pages/CostApprovalDetail/CostApprovalDetail'
+import PaymentRequest from '../../pages/Payment/PaymentRequest/PaymentRequest'
 import PurchaseRequest from '../../pages/Purchase/PurchaseRequest/PurchaseRequest'
+import PurchaseRequestDetail from '../../pages/Purchase/PurchaseRequestDetail/PurchaseRequestDetail'
+import PurchaseInvoices from '../../pages/PurchaseInvoices/PurchaseInvoices'
+import PurchaseInvoicesDetail from '../../pages/PurchaseInvoices/PurchaseInvoicesDetail/PurchaseInvoicesDetail'
 
 export default paymentRequestRoutes = [
     {
@@ -25,8 +24,8 @@ export default paymentRequestRoutes = [
         }
     },
     {
-        name: MENU_NAV.PAYMENT_REQUEST,
-        component: PaymentRequestScreen,
+        name: MENU_NAV.COST_APPROVAL_DETAIL,
+        component: CostApprovalDetail,
         screenOption: {
             headerShown: true,        }
     },
@@ -35,7 +34,7 @@ export default paymentRequestRoutes = [
         component: WaitingApprovalScreen,
         screenOption: {
             headerShown: true,
-            title: "Cost Approval",
+            title: "Onay Bekleyenler",
             headerBackTitle: "Back"
         }
     },
@@ -47,8 +46,24 @@ export default paymentRequestRoutes = [
         }
     },
     {
-        name: MENU_NAV.PURCHASE_REQUEST,
-        component: PurchaseRequest,
+        name: MENU_NAV.PAYMENT_REQUEST,
+        component: PaymentRequest,
        
+    },
+    {
+        name: MENU_NAV.PURCHASE_REQUEST,
+        component: PurchaseRequest
+    },
+    {
+        name: MENU_NAV.PURCHASE_REQUEST_DETAIL,
+        component: PurchaseRequestDetail
+    },
+    {
+        name: MENU_NAV.PURCHASE_INVOICES,
+        component: PurchaseInvoices
+    },
+    {
+        name: MENU_NAV.PURCHASE_INVOICES_DETAIL,
+        component: PurchaseInvoicesDetail
     }
 ]

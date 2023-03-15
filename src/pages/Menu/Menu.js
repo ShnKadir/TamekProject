@@ -28,37 +28,37 @@ export default function Menu() {
     const dummyDdata = [
         {
             id: "1",
-            name: "Cost Approval",
+            name: "Masraf Beyan",
             iconName: "coins",
             iconType: "font-awesome-5"
         },
         {
             id: "2",
-            name: "Payment Order",
+            name: "Ödeme Emri",
             iconName: "credit-card",
             iconType: "font-awesome-5"
         },
         {
             id: "3",
-            name: "Purchase Request",
+            name: "Satınalma Talep",
             iconName: "file-document-multiple",
             iconType: "material-community"
         },
         {
             id: "4",
-            name: "Purchase Order",
+            name: "Satınalma Sipariş",
             iconName: "document-text",
             iconType: "ionicon"
         },
         {
             id: "4",
-            name: "Purchase Contract",
+            name: "Satınalma Sözleşmeleri",
             iconName: "text-document",
             iconType: "entypo"
         },
         {
             id: "5",
-            name: "Purchase Invoices",
+            name: "Satınalma Faturaları",
             iconName: "file-invoice-dollar",
             iconType: "font-awesome-5"
         },
@@ -73,28 +73,13 @@ export default function Menu() {
     useLayoutEffect(() => {
         navigation.setOptions({
             headerLargeTitle: true,
-            title: 'Main'
+            title: 'Menü'
 
         })
     }, [navigation])
 
 
     function searchFilterFunction(searchTerm) {
-
-        // if (searchTerm) {
-
-        //     const newData = data?.filter(item => {
-        //         const itemData = item?.name.toUpperCase()
-        //         const textData = searchTerm.toUpperCase()
-
-        //         return itemData.indexOf(textData) > -1
-        //     })
-
-        //     setData(newData)
-        // }
-        // else {
-        //     setData(dummyDdata)
-        // }
 
         const dummyDdata = [
             {
@@ -131,7 +116,13 @@ export default function Menu() {
             navigation.navigate(MENU_NAV.WAITING_APPROVAL)
         }
         else if (id === "2") {
+            navigation.navigate(MENU_NAV.PAYMENT_REQUEST)
+        }
+        else if(id === "3"){
             navigation.navigate(MENU_NAV.PURCHASE_REQUEST)
+        }
+        else if(id === "5"){
+            navigation.navigate(MENU_NAV.PURCHASE_INVOICES)
         }
     }
 

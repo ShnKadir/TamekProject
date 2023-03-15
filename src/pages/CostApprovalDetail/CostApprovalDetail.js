@@ -8,12 +8,12 @@ import { Icon, SearchBar } from 'react-native-elements'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 // Styles
-import { styles } from './PaymentRequestScreenStyle'
+import { styles } from './CostApprovalDetailStyle'
 
 // Navigation
 import { useNavigation } from '@react-navigation/native'
 
-export default function PaymentRequestScreen({
+export default function CostApprovalDetail({
     route
 }) {
 

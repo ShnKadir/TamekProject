@@ -106,7 +106,7 @@ export default function WaitingApprovalScreen() {
 
 
   const goToWaitingApprovalScreen = (title) => {
-    navigation.navigate(MENU_NAV.PAYMENT_REQUEST, { title: title })
+    navigation.navigate(MENU_NAV.COST_APPROVAL_DETAIL, { title: title })
   }
 
   const [data, setData] = useState()
