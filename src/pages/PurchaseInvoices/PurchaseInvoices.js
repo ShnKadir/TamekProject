@@ -3,10 +3,18 @@ import React from 'react'
 import { useState, useEffect, useLayoutEffect } from 'react'
 
 // React Native
-import { View, Text, TouchableOpacity, SafeAreaView, TouchableWithoutFeedback, Keyboard } from 'react-native'
+import {
+    View,
+    Text,
+    TouchableOpacity,
+    SafeAreaView,
+    TouchableWithoutFeedback,
+    Keyboard,
+    KeyboardAvoidingView,
+    Platform
+} from 'react-native'
 import { VStack, HStack, ScrollView } from 'native-base'
 import { Icon } from 'react-native-elements'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 // Navigation
 import { useNavigation } from '@react-navigation/native'
@@ -178,15 +186,10 @@ export default function PurchaseInvoices() {
     return (
 
         <SafeAreaView style={{ flex: 1 }}>
-            <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-                <KeyboardAwareScrollView
-                    extraHeight={0}
-                    style={{
-                        width: "100%",
-                        flex: 1
-                    }}
-                    contentContainerStyle={{ flex: 1 }}
-                >
+
+            <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
+
+                <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
 
                     <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 60 }}>
 
@@ -270,8 +273,8 @@ export default function PurchaseInvoices() {
 
                             })}
                     </ScrollView>
-                </KeyboardAwareScrollView>
-            </TouchableWithoutFeedback>
+                </TouchableWithoutFeedback>
+            </KeyboardAvoidingView>
         </SafeAreaView>
 
     )

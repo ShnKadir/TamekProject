@@ -3,10 +3,19 @@ import React from 'react'
 import { useState, useEffect, useLayoutEffect } from 'react'
 
 // React Native
-import { View, Text, TouchableOpacity, SafeAreaView, Keyboard, TouchableWithoutFeedback, ScrollView } from 'react-native'
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  SafeAreaView,
+  Keyboard,
+  TouchableWithoutFeedback,
+  ScrollView,
+  KeyboardAvoidingView,
+  Platform
+} from 'react-native'
 import { VStack, HStack } from 'native-base'
 import { Icon } from 'react-native-elements'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 // Styles
 import { styles } from './WaitingApprovalStyle'
@@ -216,15 +225,10 @@ export default function WaitingApprovalScreen() {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <KeyboardAwareScrollView
-          extraHeight={0}
-          style={{
-            width: "100%",
-            flex: 1
-          }}
-          contentContainerStyle={{ flex: 1 }}
-        >
+
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
+
+        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
 
           <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 60 }} >
             <View style={{ marginTop: 8 }}>
@@ -311,8 +315,9 @@ export default function WaitingApprovalScreen() {
                 })}
             </View>
           </ScrollView>
-        </KeyboardAwareScrollView>
-      </TouchableWithoutFeedback>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
+
     </SafeAreaView>
   )
 }
