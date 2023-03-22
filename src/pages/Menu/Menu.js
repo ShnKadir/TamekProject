@@ -3,7 +3,7 @@ import React, { useLayoutEffect } from 'react'
 import { useEffect, useState } from 'react'
 
 // React Native
-import { Text, TouchableOpacity, ScrollView, View, SafeAreaView } from 'react-native'
+import { Text, ScrollView, View, SafeAreaView,TouchableOpacity } from 'react-native'
 import { Icon } from 'react-native-elements'
 import { VStack, HStack } from 'native-base'
 
@@ -118,10 +118,10 @@ export default function Menu() {
         else if (id === "2") {
             navigation.navigate(MENU_NAV.PAYMENT_REQUEST)
         }
-        else if(id === "3"){
+        else if (id === "3") {
             navigation.navigate(MENU_NAV.PURCHASE_REQUEST)
         }
-        else if(id === "5"){
+        else if (id === "5") {
             navigation.navigate(MENU_NAV.PURCHASE_INVOICES)
         }
     }
@@ -136,43 +136,44 @@ export default function Menu() {
                         dummyDdata?.map((item, index) => {
                             return (
 
-                                <VStack style={styles.subContainer} key={index}>
-                                    <HStack style={styles.list}>
-                                        <HStack style={{ alignItems: "center", marginLeft: 16 }}>
-                                            <Icon
-                                                name={item.iconName}
-                                                type={item.iconType}
-                                                size={20}
-                                                color="#007041"
-                                                style={{ backgroundColor: "#CCE2D9", borderRadius: 50, padding: 8 }}
+                                <TouchableOpacity onPress={() => goToWaitingApprovalScreen(item?.id)} key={index}>
+                                    <VStack style={styles.subContainer} >
+                                        <HStack style={styles.list}>
+                                            <HStack style={{ alignItems: "center", marginLeft: 16 }}>
+                                                <Icon
+                                                    name={item.iconName}
+                                                    type={item.iconType}
+                                                    size={20}
+                                                    color="#007041"
+                                                    style={{ backgroundColor: "#CCE2D9", borderRadius: 50, padding: 8 }}
 
-                                            />
-                                            <Text
-                                                style={styles.labelStyle}>
-                                                {item?.name}
-                                            </Text>
+                                                />
+                                                <Text
+                                                    style={styles.labelStyle}>
+                                                    {item?.name}
+                                                </Text>
+                                            </HStack>
+                                            <TouchableOpacity
+                                                hitSlop={{
+                                                    top: 20,
+                                                    bottom: 20,
+                                                    left: 20,
+                                                    right: 20,
+                                                }}
+                                                onPress={() => goToWaitingApprovalScreen(item?.id)}
+
+                                            >
+                                                <Icon
+                                                    name="angle-right"
+                                                    type="font-awesome"
+                                                    size={16}
+                                                    color="#A9A9A9"
+                                                    style={{ marginRight: 16 }}
+                                                />
+                                            </TouchableOpacity>
                                         </HStack>
-                                        <TouchableOpacity
-                                            hitSlop={{
-                                                top: 20,
-                                                bottom: 20,
-                                                left: 20,
-                                                right: 20,
-                                            }}
-                                            onPress={(id) => goToWaitingApprovalScreen(item?.id)}
-                                        >
-                                            <Icon
-                                                name="angle-right"
-                                                type="font-awesome"
-                                                size={16}
-                                                color="#A9A9A9"
-                                                style={{ marginRight: 16 }}
-                                                onPress={(id) => goToWaitingApprovalScreen(item?.id)}
-                                            />
-                                        </TouchableOpacity>
-                                    </HStack>
-                                </VStack>
-
+                                    </VStack>
+                                </TouchableOpacity>
                             )
                         })
                     }

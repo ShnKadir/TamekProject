@@ -3,7 +3,7 @@ import React from 'react'
 import { useState, useEffect, useLayoutEffect } from 'react'
 
 // React Native
-import { View, Text, TouchableOpacity, SafeAreaView,Keyboard ,TouchableWithoutFeedback} from 'react-native'
+import { View, Text, TouchableOpacity, SafeAreaView, Keyboard, TouchableWithoutFeedback } from 'react-native'
 import { VStack, HStack, ScrollView } from 'native-base'
 import { Icon } from 'react-native-elements'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -193,73 +193,79 @@ export default function PurchaseRequest() {
                         {
                             data?.map((item, index) => {
                                 return (
-                                    <HStack style={styles.list} key={index}>
-                                        <HStack style={{ alignItems: "center", maxWidth: 324 }}>
-                                            <View
-                                                style={{
-                                                    alignItems: 'center',
-                                                    justifyContent: 'center',
-                                                    backgroundColor: '#CCE2D9',
-                                                    width: 24,
-                                                    height: 24,
-                                                    borderRadius: 12
-                                                }}
-                                            >
-                                                <Text
+                                    <TouchableOpacity
+                                        onPress={() => goToDetailScreen(item.name)}
+                                        key={index}
+                                    >
+
+                                        <HStack style={styles.list} >
+                                            <HStack style={{ alignItems: "center", maxWidth: 324 }}>
+                                                <View
                                                     style={{
-                                                        textAlign: 'center',
-                                                        fontSize: 12,
-                                                        lineHeight: 12,
-                                                        color: '#007041'
+                                                        alignItems: 'center',
+                                                        justifyContent: 'center',
+                                                        backgroundColor: '#CCE2D9',
+                                                        width: 24,
+                                                        height: 24,
+                                                        borderRadius: 12
                                                     }}
                                                 >
-                                                    {item.number}
-                                                </Text>
-                                            </View>
-                                            <VStack style={{ paddingLeft: 8, maxWidth: 284 }} space={"5px"}>
-                                                <Text style={{ fontWeight: "bold", flexWrap: "wrap" }}>
-                                                    {item.name}
-                                                </Text>
+                                                    <Text
+                                                        style={{
+                                                            textAlign: 'center',
+                                                            fontSize: 12,
+                                                            lineHeight: 12,
+                                                            color: '#007041'
+                                                        }}
+                                                    >
+                                                        {item.number}
+                                                    </Text>
+                                                </View>
+                                                <VStack style={{ paddingLeft: 8, maxWidth: 284 }} space={"5px"}>
+                                                    <Text style={{ fontWeight: "bold", flexWrap: "wrap" }}>
+                                                        {item.name}
+                                                    </Text>
 
-                                                <Text style={{ fontSize: 15, color: "#6C6C6C" }}>
-                                                    {item.date}
-                                                </Text>
+                                                    <Text style={{ fontSize: 15, color: "#6C6C6C" }}>
+                                                        {item.date}
+                                                    </Text>
 
 
-                                                <HStack style={{ justifyContent: "space-between" }}>
-                                                    <HStack style={{ maxWidth: 156, paddingRight: 68 }}>
-                                                        <Text style={{ flexWrap: "wrap", fontSize: 16, fontWeight: "bold" }}>
-                                                            Count
-                                                        </Text>
+                                                    <HStack style={{ justifyContent: "space-between" }}>
+                                                        <HStack style={{ maxWidth: 156, paddingRight: 68 }}>
+                                                            <Text style={{ flexWrap: "wrap", fontSize: 16, fontWeight: "bold" }}>
+                                                                Count
+                                                            </Text>
+                                                        </HStack>
+                                                        <HStack style={{ maxWidth: 136 }}>
+                                                            <Text style={{ flexWrap: "wrap", fontSize: 16, fontWeight: "bold" }}>
+                                                                {item.costTotal}
+                                                            </Text>
+                                                        </HStack>
                                                     </HStack>
-                                                    <HStack style={{ maxWidth: 136 }}>
-                                                        <Text style={{ flexWrap: "wrap", fontSize: 16, fontWeight: "bold" }}>
-                                                            {item.costTotal}
-                                                        </Text>
-                                                    </HStack>
-                                                </HStack>
+                                                </VStack>
+                                            </HStack>
+                                            <VStack>
+                                                <TouchableOpacity
+                                                    hitSlop={{
+                                                        top: 20,
+                                                        bottom: 20,
+                                                        left: 20,
+                                                        right: 20,
+                                                    }}
+                                                    onPress={() => goToDetailScreen(item.name)}
+                                                >
+                                                    <Icon
+                                                        name="angle-right"
+                                                        type="font-awesome"
+                                                        size={20}
+                                                        color="#A9A9A9"
+                                                        style={{ marginRight: 16 }}
+                                                    />
+                                                </TouchableOpacity>
                                             </VStack>
                                         </HStack>
-                                        <VStack>
-                                            <TouchableOpacity
-                                                hitSlop={{
-                                                    top: 20,
-                                                    bottom: 20,
-                                                    left: 20,
-                                                    right: 20,
-                                                }}
-                                                onPress={() => goToDetailScreen(item.name)}
-                                            >
-                                                <Icon
-                                                    name="angle-right"
-                                                    type="font-awesome"
-                                                    size={20}
-                                                    color="#A9A9A9"
-                                                    style={{ marginRight: 16 }}
-                                                />
-                                            </TouchableOpacity>
-                                        </VStack>
-                                    </HStack>
+                                    </TouchableOpacity>
                                 )
 
                             })}
