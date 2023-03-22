@@ -27,6 +27,8 @@ import { styles } from "./LoginScreenStyle"
 // Redux
 import { setIsLogin } from "../../redux/slice/testSlice"
 import store from './../../redux/store'
+import { default as isEmail } from 'validator/lib/isEmail';
+import { HelperText } from 'react-native-paper';
 
 export default function LoginScreen(
 ) {
@@ -39,6 +41,10 @@ export default function LoginScreen(
     const [passwordIsFocused, setPasswordIsFocused] = useState(false)
     const [isPasswordVisible, setIsPasswordVisible] = useState(false)
     const [emailValidate, setEmailValidate] = useState(true)
+    const [
+        errorMessage,
+        setErrorMessage
+    ] = useState('');
 
     const emailHandleFocus = () => {
         setEmailIsFocused(true)
@@ -123,36 +129,52 @@ export default function LoginScreen(
                                         style={[emailIsFocused ?
                                             styles.emailFocusTextInputStyle :
                                             styles.emailTextInputStyle]}
-                                        onFocus={emailHandleFocus}
-                                        onBlur={emailHandleBlur}
                                         value={email}
                                         onChangeText={(text) => validateText(text)}
+                                        onFocus={emailHandleFocus}
+                                        onBlur={() => {
+                                            if (email === '' || isEmail(email)) {
+                                                setErrorMessage('')
+                                                setEmailIsFocused(false)
+                                            } else {
+                                                setErrorMessage('Please enter correct email or contact your team administrator to access app functionality')
+                                                setEmailIsFocused(false)
+                                            }
+                                        }}
                                     />
 
                                     <TouchableOpacity
-                                        style={[!emailIsFocused && { marginTop: 8 }, { justifyContent: "center" }]}
+                                        style={[!emailIsFocused && { marginTop: 8 }, { justifyContent: "center"}]}
                                         hitSlop={{
-                                            top: 20,
-                                            bottom: 20,
-                                            left: 20,
-                                            right: 20,
+                                            top: 30,
+                                            bottom: 30,
+                                            left: 30,
+                                            right: 30,
                                         }}
                                         onPress={handleOnDeleteEmail}
                                     >
                                         <Icon
                                             name={
-                                                email?.length > 0 &&
-                                                "closecircleo"
+                                                errorMessage ?
+                                                    "exclamationcircle"
+                                                    : email?.length > 0 &&
+                                                    "closecircleo"
                                             }
                                             type="antdesign"
                                             size={18}
-                                            color="#535353"
+                                            color={errorMessage ? "red" : "#535353"}
                                             style={{ marginLeft: 12, marginRight: 12 }}
 
                                         />
                                     </TouchableOpacity>
                                 </View>
+
                             </View>
+                            {errorMessage && (
+                                <HelperText type="error">
+                                    {errorMessage}
+                                </HelperText>
+                            )}
                         </View>
 
                         <View style={[passwordIsFocused ?
