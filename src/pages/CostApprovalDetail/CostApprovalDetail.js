@@ -266,7 +266,7 @@ export default function CostApprovalDetail({
                         width: "100%",
                         backgroundColor: "#FFFFFF",
                     }}
-                    contentContainerStyle={{ paddingBottom: 670 }}
+                    contentContainerStyle={{ paddingBottom: 700 }}
 
                 >
                     <ScrollView contentContainerStyle={{ flex: 1 }} style={{ backgroundColor: "#F5F5F5" }}>
