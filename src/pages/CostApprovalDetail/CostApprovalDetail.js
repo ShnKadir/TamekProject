@@ -109,15 +109,14 @@ export default function CostApprovalDetail({
 
         <SafeAreaView>
 
-            <View style={{ backgroundColor: "#FFFFFF" }}>
+            <View style={{ backgroundColor: "#FFFFFF" }}>             
 
                 <View style={{ paddingHorizontal: 16 }}>
-                    <VStack style={{
-                        flexDirection: 'row',
-                        paddingHorizontal: 16,
+
+                    <View style={{
                         paddingVertical: 32,
                         backgroundColor: "#FFFFFF",
-                        height: 180,
+                        height: 210,
                         marginTop: 8,
                         marginBottom: 17,
                         borderWidth: 1,
@@ -128,46 +127,125 @@ export default function CostApprovalDetail({
                         shadowOffset: { width: 0, height: 2 },
                         shadowOpacity: 0.1,
                         elevation: 10
-                    }}
-                    >
+                    }}>
 
-                        <VStack style={{ flex: 1 }} space={"8px"}>
-                            <Text style={{ color: "#000000", fontSize: 13 }}>Harcayan</Text>
+                        <View
+                            style={{
+                                flexDirection: "row",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                                paddingHorizontal: 16,
+                                marginBottom: 8
+                            }}
+                        >
+                            <Text style={{ color: "#000000", fontSize: 13, lineHeight: 18 }}>Harcayan</Text>
+
+                            <Text style={{
+                                fontWeight: "bold",
+                                color: "#000000",
+                                fontSize: 17,
+                                flex: 1,
+                                lineHeight: 22,
+                                textAlign: 'right'
+                            }}>
+                                Engin DADALI</Text>
+                        </View>
+
+                        <View
+                            style={{
+                                flexDirection: "row",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                                paddingHorizontal: 16,
+                                marginBottom: 8
+                            }}
+                        >
                             <Text style={{ color: "#000000", fontSize: 13 }}>Tarih</Text>
+
+                            <Text style={{
+                                color: "#000000",
+                                fontSize: 17,
+                                flex: 1,
+                                lineHeight: 22,
+                                textAlign: "right"
+                            }}>19.12.2022</Text>
+                        </View>
+
+                        <View
+                            style={{
+                                flexDirection: "row",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                                paddingHorizontal: 16,
+                                marginBottom: 8
+                            }}
+                        >
                             <Text style={{ color: "#000000", fontSize: 13 }}>Toplam</Text>
+
+                            <Text style={{
+                                color: "#000000",
+                                fontSize: 17,
+                                flex: 1,
+                                lineHeight: 22,
+                                textAlign: "right"
+                            }}>921.93 TL</Text>
+                        </View>
+
+                        <View
+                            style={{
+                                flexDirection: "row",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                                paddingHorizontal: 16,
+                                marginBottom: 8
+                            }}
+                        >
                             <Text style={{ color: "#000000", fontSize: 13 }}>Avans</Text>
-                        </VStack>
-                        <VStack space={"8px"}>
-                            <Text style={{ fontWeight: "bold", color: "#000000", fontSize: 17 }}>Engin DADALI</Text>
-                            <Text style={{ color: "#000000", fontSize: 17 }}>19.12.2022</Text>
-                            <Text style={{ color: "#000000", fontSize: 17 }}>921.93 TL</Text>
-                            <Text style={{ color: "#000000", fontSize: 17 }}>0.00</Text>
-                        </VStack>
+
+                            <Text style={{
+                                color: "#000000",
+                                fontSize: 17,
+                                flex: 1,
+                                lineHeight: 22,
+                                textAlign: "right"
+                            }}>0.00</Text>
+                        </View>
+
+                        <View
+                            style={{
+                                flexDirection: "row",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                                paddingHorizontal: 16,
+                                marginBottom: 8
+                            }}
+                        >
+                            <TouchableOpacity
+                                style={styles.denialButton}
+                            >
+                                <Text style={{ color: "#DA291C", fontWeight: "600" }} >
+                                    Reddet
+                                </Text>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                style={styles.approveButton}
+                            >
+                                <Text style={{ color: "#03B354", fontWeight: "600" }} >
+                                    Onayla
+                                </Text>
+                            </TouchableOpacity>
 
 
-                    </VStack>
+                        </View>
+                    </View>
                 </View>
-
-                <HStack style={{ justifyContent: "flex-end", paddingRight: 16 }}>
-                    <HStack style={{ alignItems: "center" }} space={"16px"}>
-                        <Text style={{ fontWeight: "bold", fontSize: 15 }}>Dosya</Text>
-                        <TouchableOpacity>
-                            <Icon
-                                name="ios-attach-sharp"
-                                type="ionicon"
-                                size={28}
-                                color="black"
-                                style={{ marginRight: 12 }}
-                            />
-                        </TouchableOpacity>
-                    </HStack>
-                </HStack>
 
                 <View style={{ backgroundColor: "#FFFFFF" }}>
 
                     <VStack style={{ borderBottomColor: "#F2F2F2", borderBottomWidth: 1 }}>
 
-                        <Text style={{ fontWeight: "bold", fontSize: 17, paddingLeft: 40, paddingTop: 27, marginBottom: 17, textAlign: "center" }}>Fatura Detayları</Text>
+                        <Text style={{ fontWeight: "bold", fontSize: 17, paddingTop: 17, marginBottom: 10, textAlign: "center" }}>Fatura Detayları</Text>
                         <SearchBar
                             placeholder="Search"
                             theme="light"
@@ -179,7 +257,6 @@ export default function CostApprovalDetail({
 
                         />
                     </VStack>
-
                 </View>
 
                 <KeyboardAwareScrollView
@@ -188,7 +265,7 @@ export default function CostApprovalDetail({
                         width: "100%",
                         backgroundColor: "#FFFFFF",
                     }}
-                    contentContainerStyle={{ paddingBottom: 750 }}
+                    contentContainerStyle={{ paddingBottom: 670 }}
 
                 >
                     <ScrollView contentContainerStyle={{ flex: 1 }} style={{ backgroundColor: "#F5F5F5" }}>
@@ -221,22 +298,21 @@ export default function CostApprovalDetail({
                                                     {item?.number}
                                                 </Text>
                                             </View>
-                                            <VStack style={{ marginLeft: 16, maxWidth: 260 }} space={"4px"}>
-
-                                                <Text style={{ fontWeight: "bold", flexWrap: "wrap" }}>
-                                                    {item?.name}
-                                                </Text>
-                                                <Text>
-                                                    {item?.date} - {item.cost}
-                                                </Text>
+                                            <VStack style={{ marginLeft: 16, maxWidth: 270}} space={"4px"}>
                                                 <Text style={{ fontWeight: "bold" }}>
                                                     Kategori: {item?.category}
                                                 </Text>
-                                                <Text>
+                                                <Text style={{ fontSize:13,lineHeight:18}}>
                                                     Tip: {item?.type}
                                                 </Text>
-                                                <Text>
+                                                <Text style={{ fontSize:13,lineHeight:18,paddingLeft:0,marginLeft:0}}>
+                                                    {item?.date} - {item.cost}
+                                                </Text>
+                                                <Text style={{ fontSize:13,lineHeight:18}}>
                                                     Kredi Kart: {item.isCreditCard}
+                                                </Text>
+                                                <Text style={{ fontWeight: "bold", flexWrap: "wrap" }}>
+                                                    Açıklama: {item?.name}
                                                 </Text>
                                             </VStack>
 
@@ -256,24 +332,7 @@ export default function CostApprovalDetail({
                             })
                         }
 
-                        <HStack style={styles.buttonStyle} space={"8px"}>
-                            <TouchableOpacity
-                                style={styles.denialButton}
 
-                            >
-                                <Text style={{ color: "#DA291C", fontWeight: "600" }} >
-                                    Reddet
-                                </Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                style={styles.approveButton}
-                            >
-                                <Text style={{ color: "#03B354", fontWeight: "600" }} >
-                                    Onayla
-                                </Text>
-                            </TouchableOpacity>
-
-                        </HStack>
 
                         <VStack style={{ backgroundColor: "#FFFFFF", paddingBottom: 80 }} />
                     </ScrollView>

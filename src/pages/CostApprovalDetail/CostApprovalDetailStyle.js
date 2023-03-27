@@ -54,26 +54,23 @@ export const styles = StyleSheet.create({
     buttonStyle: {
         paddingHorizontal: 16,
         backgroundColor: "#FFFFFF",
-        flex: 1,
     },
     denialButton: {
         height: 44,
-        width: 180,
+        width: 165,
         alignItems: "center",
         justifyContent: "center",
         borderRadius: 8,
-        marginTop: 8,
         marginBottom: 8,
         fontSize: 14,
         backgroundColor: '#F3E1E0'
     },
     approveButton: {
         height: 44,
-        width: 180,
+        width: 165,
         alignItems: "center",
         justifyContent: "center",
         borderRadius: 8,
-        marginTop: 8,
         marginBottom: 8,
         backgroundColor: 'rgba(3, 179, 84, 0.11)',
         fontSize: 14,

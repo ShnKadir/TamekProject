@@ -234,7 +234,7 @@ export default function PurchaseInvoices() {
                                                     </Text>
 
 
-                                                    <HStack style={{ justifyContent: "space-between" }}>
+                                                    <HStack style={{ width: 260, justifyContent: "space-between", maxWidth: 260 }}>
                                                         <HStack style={{ maxWidth: 156, paddingRight: 68 }}>
                                                             <Text style={{ flexWrap: "wrap", fontSize: 16, fontWeight: "bold" }}>
                                                                 Count

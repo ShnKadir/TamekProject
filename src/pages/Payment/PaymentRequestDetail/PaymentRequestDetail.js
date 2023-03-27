@@ -27,47 +27,185 @@ export default function PaymentRequestDetail() {
         <SafeAreaView style={{ flex: 1 }}>
 
             <ScrollView style={{ flex: 1, backgroundColor: "#F5F5F5" }}>
-                <View style={{
-                    flex: 1,
-                    flexDirection: 'row',
-                    paddingHorizontal: 16,
-                    paddingVertical: 32,
-                    backgroundColor: "#FFFFFF",
-                    marginHorizontal: 8,
-                    marginVertical: 8,
-                    borderRadius: 16
+                <View style={{ paddingHorizontal: 16 }}>
+                    <View style={{
+                        paddingVertical: 32,
+                        backgroundColor: "#FFFFFF",
+                        marginTop: 8,
+                        marginBottom: 17,
+                        borderWidth: 1,
+                        borderRadius: 16,
+                        borderColor: "#FFFFFF",
+                        shadowRadius: 20,
+                        shadowColor: "black",
+                        shadowOffset: { width: 0, height: 2 },
+                        shadowOpacity: 0.1,
+                        elevation: 10
+                    }}>
 
-                }}
-                >
-                    <VStack style={{ flex: 1, backgroundColor: "#FFFFFF" }} space={"8px"}>
-                        <Text>Şirket</Text>
-                        <Text>Kategori</Text>
-                        <Text>Tip</Text>
-                        <Text>Tutar</Text>
-                        <Text>Açıklama</Text>
-                        <Text>Talep Eden</Text>
-                        <Text>Belge Tarihi</Text>
-                        <Text>Ödeme Tarihi</Text>
-                        <Text style={{ marginTop: 32, fontWeight: "bold" }}>Dosya</Text>
-                    </VStack>
-                    <VStack style={{ flex: 1, backgroundColor: "#FFFFFF" }} space={"8px"} >
-                        <Text>BORUSAN LOJİSTİK DAĞITIM</Text>
-                        <Text>ABD Masraflar</Text>
-                        <Text>ABD Masrafları</Text>
-                        <Text style={{ maxWidth: 218, flexWrap: "wrap" }}>Borusan Lojistikten Zone 3 ABDSevkiyati icin alinan Navlun hizmet </Text>
-                        <Text>Onur SALMAN</Text>
-                        <Text>17.12.2022</Text>
-                        <Text>21.12.2022</Text>
-                        <TouchableOpacity style={{ marginTop: 16, maxWidth: 26 }}>
-                            <Icon
-                                name="ios-attach-sharp"
-                                type="ionicon"
-                                size={22}
-                                color="black"
+                        <View
+                            style={{
+                                flexDirection: "row",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                                paddingHorizontal: 16,
+                                marginBottom: 8
+                            }}
+                        >
+                            <Text style={{ color: "#000000", fontSize: 16, lineHeight: 18 }}>Şirket</Text>
 
-                            />
-                        </TouchableOpacity>
-                    </VStack>
+                            <Text style={{
+                                color: "#000000",
+                                fontSize: 16,
+                                lineHeight: 22,
+                                textAlign: 'right'
+                            }}>
+                                BORUSAN LOJİSTİK DAĞITIM</Text>
+                        </View>
+
+                        <View
+                            style={{
+                                flexDirection: "row",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                                paddingHorizontal: 16,
+                                marginBottom: 8
+                            }}
+                        >
+                            <Text style={{ color: "#000000", fontSize: 16, lineHeight: 22 }}>Kategori</Text>
+
+                            <Text style={{
+                                color: "#000000",
+                                fontSize: 16,
+                                lineHeight: 22,
+                                textAlign: 'right'
+                            }}>
+                                ABD Masraflar</Text>
+                        </View>
+
+                        <View
+                            style={{
+                                flexDirection: "row",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                                paddingHorizontal: 16,
+                                marginBottom: 8
+                            }}
+                        >
+                            <Text style={{ color: "#000000", fontSize: 16, lineHeight: 22 }}>Tip</Text>
+
+                            <Text style={{
+                                color: "#000000",
+                                fontSize: 16,
+                                lineHeight: 22,
+                                textAlign: 'right'
+                            }}>
+                                ABD Masrafları</Text>
+                        </View>
+
+                        <View
+                            style={{
+                                flexDirection: "row",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                                paddingHorizontal: 16,
+                                marginBottom: 8
+                            }}
+                        >
+                            <Text style={{ color: "#000000", fontSize: 16, lineHeight: 22 }}>Tutar</Text>
+
+                            <Text style={{
+                                color: "#000000",
+                                fontSize: 16,
+                                lineHeight: 22,
+                                textAlign: 'right'
+                            }}>
+                                87,736.00 USD</Text>
+                        </View>
+
+
+
+                        <View
+                            style={{
+                                flexDirection: "row",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                                paddingHorizontal: 16,
+                                marginBottom: 8
+                            }}
+                        >
+                            <Text style={{ color: "#000000", fontSize: 16, lineHeight: 22 }}>Talep Eden</Text>
+
+                            <Text style={{
+                                color: "#000000",
+                                fontSize: 16,
+                                lineHeight: 22,
+                                textAlign: 'right'
+                            }}>
+                                Onur SALMAN</Text>
+                        </View>
+
+                        <View
+                            style={{
+                                flexDirection: "row",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                                paddingHorizontal: 16,
+                                marginBottom: 8
+                            }}
+                        >
+                            <Text style={{ color: "#000000", fontSize: 16, lineHeight: 22 }}>Belge Tarihi</Text>
+
+                            <Text style={{
+                                color: "#000000",
+                                fontSize: 17,
+                                lineHeight: 22,
+                                textAlign: 'right'
+                            }}>
+                                17.12.2022</Text>
+                        </View>
+
+                        <View
+                            style={{
+                                flexDirection: "row",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                                paddingHorizontal: 16,
+                                marginBottom: 8
+                            }}
+                        >
+                            <Text style={{ color: "#000000", fontSize: 16, lineHeight: 22 }}>Ödeme Tarihi</Text>
+
+                            <Text style={{
+                                color: "#000000",
+                                fontSize: 17,
+                                lineHeight: 22,
+                                textAlign: 'right'
+                            }}>
+                                21.12.2022</Text>
+                        </View>
+
+                        <View
+                            style={{
+                                flexDirection: "row",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                                paddingHorizontal: 16,
+                                marginBottom: 8
+                            }}
+                        >
+                            <Text style={{ color: "#000000", fontSize: 16, lineHeight: 22 }}>Açıklama</Text>
+
+                            <Text style={{
+                                color: "#000000",
+                                fontSize: 17,
+                                lineHeight: 22,
+                                textAlign: 'right',
+                                maxWidth:220
+                            }}>
+                                Borusan Lojistikten Zone 3 ABDSevkiyati icin alinan Navlun hizmet</Text>
+                        </View>
+                    </View>
                 </View>
 
             </ScrollView>

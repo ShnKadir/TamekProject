@@ -47,7 +47,7 @@ export default function WaitingApprovalScreen() {
       costName: "ABD Masraflar",
       costDetail: "Borusan lojistik Zone 3",
       costTotal: "87,736.00 USD",
-      coster: "Onur SALMAN"
+      coster: "Engin DADALI"
     },
     {
       id: "3",
@@ -83,7 +83,7 @@ export default function WaitingApprovalScreen() {
       costName: "ABD Masraflar",
       costDetail: "Borusan lojistik Zone 3",
       costTotal: "87,736.00 USD",
-      coster: "filiz gürsan"
+      coster: "Onur SALMAN"
     },
     {
       id: "7",
@@ -92,7 +92,7 @@ export default function WaitingApprovalScreen() {
       costName: "ABD Masraflar",
       costDetail: "Borusan lojistik Zone 3",
       costTotal: "87,736.00 USD",
-      coster: "filiz gürsan"
+      coster: "Onur SALMAN"
     },
     {
       id: "8",
@@ -101,7 +101,7 @@ export default function WaitingApprovalScreen() {
       costName: "ABD Masraflar",
       costDetail: "Borusan lojistik Zone 3",
       costTotal: "87,736.00 USD",
-      coster: "filiz gürsan"
+      coster: "Onur SALMAN"
     },
     {
       id: "9",
@@ -110,7 +110,7 @@ export default function WaitingApprovalScreen() {
       costName: "ABD Masraflar",
       costDetail: "Borusan lojistik Zone 3",
       costTotal: "87,736.00 USD",
-      coster: "filiz gürsan"
+      coster: "Onur SALMAN"
     },
   ]
 
@@ -158,7 +158,7 @@ export default function WaitingApprovalScreen() {
         costName: "ABD Masraflar",
         costDetail: "Borusan lojistik Zone 3",
         costTotal: "87,736.00 USD",
-        coster: "Onur SALMAN"
+        coster: "Engin DADALI"
       },
       {
         id: "3",
@@ -194,7 +194,7 @@ export default function WaitingApprovalScreen() {
         costName: "ABD Masraflar",
         costDetail: "Borusan lojistik Zone 3",
         costTotal: "87,736.00 USD",
-        coster: "filiz gürsan"
+        coster: "Onur SALMAN"
       },
       {
         id: "7",
@@ -203,7 +203,7 @@ export default function WaitingApprovalScreen() {
         costName: "ABD Masraflar",
         costDetail: "Borusan lojistik Zone 3",
         costTotal: "87,736.00 USD",
-        coster: "filiz gürsan"
+        coster: "Onur SALMAN"
       },
       {
         id: "8",
@@ -212,7 +212,7 @@ export default function WaitingApprovalScreen() {
         costName: "ABD Masraflar",
         costDetail: "Borusan lojistik Zone 3",
         costTotal: "87,736.00 USD",
-        coster: "filiz gürsan"
+        coster: "Onur SALMAN"
       },
       {
         id: "9",
@@ -221,10 +221,9 @@ export default function WaitingApprovalScreen() {
         costName: "ABD Masraflar",
         costDetail: "Borusan lojistik Zone 3",
         costTotal: "87,736.00 USD",
-        coster: "filiz gürsan"
+        coster: "Onur SALMAN"
       },
     ]
-
     let filteredData = dummyDdata?.filter(item => item.name.toUpperCase().includes(searchTerm.toUpperCase()) || item.coster.toUpperCase().includes(searchTerm.toUpperCase()))
     setData(filteredData)
   }
@@ -281,7 +280,7 @@ export default function WaitingApprovalScreen() {
                               {item.costDetail}
                             </Text>
 
-                            <HStack style={{ justifyContent: "space-between" }}>
+                            <HStack style={{width: 260,justifyContent:"space-between",maxWidth:260 }}>
                               <HStack style={{ maxWidth: 156, paddingRight: 68 }}>
                                 <Text style={{ flexWrap: "wrap", fontSize: 11, fontWeight: "600" }}>
                                   {item.costTotal}
