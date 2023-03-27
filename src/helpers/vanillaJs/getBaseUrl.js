@@ -1,8 +1,6 @@
-import store from "@redux/store"
-
 export default function getBaseUrl() {
 
-	const url = ""
+	const url = "https://www.apidev.asetly.com"
 
 	return url
 }

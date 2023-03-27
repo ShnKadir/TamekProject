@@ -13,7 +13,9 @@ import {
     ImageBackground,
     ScrollView
 } from "react-native"
+import { HelperText } from 'react-native-paper'
 import { Icon } from "react-native-elements"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
 // Assets
 import loginBackgroundImage from "@assets/image/loginBackgroundImage.png"
@@ -25,33 +27,39 @@ import LoadingIndicator from "../../common/Loading/LoadingIndicator"
 import { styles } from "./LoginScreenStyle"
 
 // Redux
+import { postLoginSuccess } from "../../redux/slice/authSlice"
+import { useDispatch } from "react-redux"
+
+//Api
+import postLogin from "../../common/api/auth/postLogin"
+
+// Helper
+import { default as isEmail } from 'validator/lib/isEmail'
+import { useSelector } from 'react-redux';
+import { API_STATUS } from "../../common/Enums"
+import store from './../../redux/store';
 import { setIsLogin } from "../../redux/slice/testSlice"
-import store from './../../redux/store'
-import { default as isEmail } from 'validator/lib/isEmail';
-import { HelperText } from 'react-native-paper';
 
 export default function LoginScreen(
 ) {
+
+    // const dispatch = useDispatch()
+    // const loginApiStatus = useSelector(state => state.auth.loginApiStatus)
 
     const [email, setEmail] = useState('tamekmobile@outlook.com')
     const [password, setPassword] = useState('Tamek2023++')
     const [emailTest, setEmailTest] = useState('tamekmobile@outlook.com')
     const [passwordTest, setPasswordTest] = useState('Tamek2023++')
+
     const [emailIsFocused, setEmailIsFocused] = useState(false)
     const [passwordIsFocused, setPasswordIsFocused] = useState(false)
     const [isPasswordVisible, setIsPasswordVisible] = useState(false)
     const [emailValidate, setEmailValidate] = useState(true)
-    const [
-        errorMessage,
-        setErrorMessage
-    ] = useState('');
+    const [ready, setReady] = useState(false)
+    const [errorMessage, setErrorMessage] = useState('')
 
     const emailHandleFocus = () => {
         setEmailIsFocused(true)
-    }
-
-    const emailHandleBlur = () => {
-        setEmailIsFocused(false)
     }
 
     const passwordHandleFocus = () => {
@@ -72,6 +80,7 @@ export default function LoginScreen(
 
     const validateText = (text) => {
         setEmail(text)
+        setErrorMessage('')
         let reg = (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
         if (reg.test(text) === false) {
             setEmailValidate(false)
@@ -83,6 +92,8 @@ export default function LoginScreen(
     }
 
     const handleOnLogin = () => {
+        // postLogin(email, password)
+
         if (passwordTest === password && emailTest === email) {
             store.dispatch(setIsLogin(true))
         }
@@ -91,8 +102,40 @@ export default function LoginScreen(
         }
     }
 
+    // useEffect(() => {
+    //     if (!ready) {
+    //         let cancel = false
+    //         AsyncStorage.getItem("email").then((AsyncEmail) => {
+    //             if (cancel) {
+    //                 return
+    //             }
+    //         })
+    //         AsyncStorage.getItem("userData").then((data) => {
+    //             if (cancel) {
+    //                 return
+    //             }
+    //             if (data) {
+    //                 dispatch(postLoginSuccess(JSON.parse(data)))
+    //             }
+    //             setReady(true)
+    //         })
+    //         return () => {
+    //             cancel = true
+    //         }
+    //     }
+    // }, [])
+
+    // useEffect(() => {
+    //     if (loginApiStatus === API_STATUS.FAILURE) {
+    //         setErrorMessage('The email address or password is incorrect.')
+    //     }
+    // }, [loginApiStatus])
+
     return (
 
+        // !ready ?
+        //     <LoadingIndicator />
+        //     :
         <TouchableWithoutFeedback
             touchSoundDisabled={true}
             onPress={() => Keyboard.dismiss()}
@@ -144,7 +187,7 @@ export default function LoginScreen(
                                     />
 
                                     <TouchableOpacity
-                                        style={[!emailIsFocused && { marginTop: 8 }, { justifyContent: "center"}]}
+                                        style={[!emailIsFocused && { marginTop: 8 }, { justifyContent: "center" }]}
                                         hitSlop={{
                                             top: 30,
                                             bottom: 30,

@@ -1,11 +1,10 @@
 // Redux
-import store from '@redux/store'
-import { NativeModules } from 'react-native'
+import store from '../../redux/store'
 
 export default function fetchOptions(method, requestBody, contentType = "application/json") {
 
     const state = store.getState()
-    const token = state?.auth?.loginData?.AccessToken
+    const token = state?.auth?.loginData?.token
 
     let lang = "en"
 

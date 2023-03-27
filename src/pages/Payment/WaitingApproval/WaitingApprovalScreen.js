@@ -23,6 +23,7 @@ import { styles } from './WaitingApprovalStyle'
 // Navigation
 import { MENU_NAV } from './../../../navigations/constants'
 import { useNavigation } from '@react-navigation/native'
+import getCompaniesList from '../../../common/api/companies/getCompaniesList'
 
 
 export default function WaitingApprovalScreen() {
@@ -132,6 +133,11 @@ export default function WaitingApprovalScreen() {
       }
     })
   }, [navigation])
+
+  // useEffect(() => {
+  //   getCompaniesList()
+  // }, [])
+  
 
   function searchFilterFunction(searchTerm) {
 

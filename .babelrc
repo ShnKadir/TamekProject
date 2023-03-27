@@ -11,7 +11,8 @@
                     "@assets": "./assets",                   
                     "@images": "./assets/images",
                     //Src     
-                    "@helpers": "./src/helpers"             
+                    "@helpers": "./src/helpers",
+                    "@slice": "./src/redux/slice"           
                 }
             }
         ]
