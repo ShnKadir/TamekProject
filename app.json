@@ -4,7 +4,7 @@
     "slug": "TamekProject",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/iconn.png",
+    "icon": "./assets/image/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",

@@ -116,9 +116,9 @@ export default function CostApprovalDetail({
                     <View style={{
                         paddingVertical: 32,
                         backgroundColor: "#FFFFFF",
-                        height: 210,
+                        height: 220,
                         marginTop: 8,
-                        marginBottom: 17,
+                        marginBottom: 24,
                         borderWidth: 1,
                         borderRadius: 16,
                         borderColor: "#FFFFFF",
@@ -217,7 +217,8 @@ export default function CostApprovalDetail({
                                 alignItems: "center",
                                 justifyContent: "space-between",
                                 paddingHorizontal: 16,
-                                marginBottom: 8
+                                marginBottom: 10,
+                                marginTop:14
                             }}
                         >
                             <TouchableOpacity
