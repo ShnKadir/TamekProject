@@ -234,17 +234,10 @@ export default function PurchaseInvoices() {
                                                     </Text>
 
 
-                                                    <HStack style={{ width: 260, justifyContent: "space-between", maxWidth: 260 }}>
-                                                        <HStack style={{ maxWidth: 156, paddingRight: 68 }}>
-                                                            <Text style={{ flexWrap: "wrap", fontSize: 16, fontWeight: "bold" }}>
-                                                                Count
-                                                            </Text>
-                                                        </HStack>
-                                                        <HStack style={{ maxWidth: 136 }}>
-                                                            <Text style={{ flexWrap: "wrap", fontSize: 16, fontWeight: "bold" }}>
-                                                                {item.costTotal}
-                                                            </Text>
-                                                        </HStack>
+                                                    <HStack style={{ maxWidth: 260, width: 260 }}>
+                                                        <Text style={{ flexWrap: "wrap", fontSize: 14, fontWeight: "bold" }}>
+                                                            {item.costTotal}
+                                                        </Text>
                                                     </HStack>
                                                 </VStack>
                                             </HStack>

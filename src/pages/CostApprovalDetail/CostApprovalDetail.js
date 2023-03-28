@@ -109,7 +109,7 @@ export default function CostApprovalDetail({
 
         <SafeAreaView>
 
-            <View style={{ backgroundColor: "#FFFFFF" }}>             
+            <View style={{ backgroundColor: "#FFFFFF" }}>
 
                 <View style={{ paddingHorizontal: 16 }}>
 
@@ -218,25 +218,32 @@ export default function CostApprovalDetail({
                                 justifyContent: "space-between",
                                 paddingHorizontal: 16,
                                 marginBottom: 10,
-                                marginTop:14
+                                marginTop: 14
                             }}
                         >
-                            <TouchableOpacity
-                                style={styles.denialButton}
-                            >
-                                <Text style={{ color: "#DA291C", fontWeight: "600" }} >
-                                    Reddet
-                                </Text>
-                            </TouchableOpacity>
 
-                            <TouchableOpacity
-                                style={styles.approveButton}
-                            >
-                                <Text style={{ color: "#03B354", fontWeight: "600" }} >
-                                    Onayla
-                                </Text>
-                            </TouchableOpacity>
 
+                            <View style={{ paddingRight: 5 }}>
+
+                                <TouchableOpacity
+                                    style={styles.denialButton}
+                                >
+                                    <Text style={{ color: "#DA291C", fontWeight: "600" }} >
+                                        Reddet
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
+
+                            <View>
+
+                                <TouchableOpacity
+                                    style={styles.approveButton}
+                                >
+                                    <Text style={{ color: "#03B354", fontWeight: "600" }} >
+                                        Onayla
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
 
                         </View>
                     </View>
@@ -246,7 +253,7 @@ export default function CostApprovalDetail({
 
                     <VStack style={{ borderBottomColor: "#F2F2F2", borderBottomWidth: 1 }}>
 
-                        <Text style={{ fontWeight: "bold", fontSize: 17, paddingTop: 17, marginBottom: 10, textAlign: "center" }}>Fatura Detayları</Text>
+
                         <SearchBar
                             placeholder="Search"
                             theme="light"
@@ -299,20 +306,20 @@ export default function CostApprovalDetail({
                                                     {item?.number}
                                                 </Text>
                                             </View>
-                                            <VStack style={{ marginLeft: 16, maxWidth: 270}} space={"4px"}>
+                                            <VStack style={{ marginLeft: 16, maxWidth: 270 }} space={"4px"}>
                                                 <Text style={{ fontWeight: "bold" }}>
                                                     Kategori: {item?.category}
                                                 </Text>
-                                                <Text style={{ fontSize:13,lineHeight:18}}>
+                                                <Text style={{ fontSize: 13, lineHeight: 18 }}>
                                                     Tip: {item?.type}
                                                 </Text>
-                                                <Text style={{ fontSize:13,lineHeight:18,paddingLeft:0,marginLeft:0}}>
+                                                <Text style={{ fontSize: 13, lineHeight: 18, paddingLeft: 0, marginLeft: 0, fontWeight: "bold" }}>
                                                     {item?.date} - {item.cost}
                                                 </Text>
-                                                <Text style={{ fontSize:13,lineHeight:18}}>
+                                                <Text style={{ fontSize: 13, lineHeight: 18 }}>
                                                     Kredi Kart: {item.isCreditCard}
                                                 </Text>
-                                                <Text style={{ fontWeight: "bold", flexWrap: "wrap" }}>
+                                                <Text style={{ flexWrap: "wrap" }}>
                                                     Açıklama: {item?.name}
                                                 </Text>
                                             </VStack>

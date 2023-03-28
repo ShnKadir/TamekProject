@@ -74,7 +74,6 @@ export default function Menu() {
         navigation.setOptions({
             headerLargeTitle: true,
             title: 'Menü'
-
         })
     }, [navigation])
 
