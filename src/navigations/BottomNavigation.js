@@ -20,7 +20,7 @@ export default function BottomNavigation() {
             screenOptions={screenOptions}
         >
             <Tab.Screen
-                name='Main'
+                name='Menü'
                 component={PaymentNavigation}
                 options={{
                     tabBarIcon: () =>
@@ -33,7 +33,7 @@ export default function BottomNavigation() {
                 }}
             />
             <Tab.Screen
-                name='Account'
+                name='Profil'
                 component={Account}
                 options={{
                     headerShown: false,

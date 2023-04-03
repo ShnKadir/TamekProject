@@ -29,13 +29,13 @@ export default function Menu() {
         {
             id: "1",
             name: "Masraf Beyan",
-            iconName: "coins",
+            iconName: "user-check",
             iconType: "font-awesome-5"
         },
         {
             id: "2",
             name: "Ödeme Emri",
-            iconName: "credit-card",
+            iconName: "money-check-alt",
             iconType: "font-awesome-5"
         },
         {
@@ -47,14 +47,14 @@ export default function Menu() {
         {
             id: "4",
             name: "Satın Alma Sipariş",
-            iconName: "document-text",
-            iconType: "ionicon"
+            iconName: "shopping-basket-add",
+            iconType: "fontisto"
         },
         {
             id: "4",
             name: "Satın Alma Sözleşmeleri",
-            iconName: "text-document",
-            iconType: "entypo"
+            iconName: "file-signature",
+            iconType: "font-awesome-5"
         },
         {
             id: "5",
@@ -142,9 +142,9 @@ export default function Menu() {
                                                 <Icon
                                                     name={item.iconName}
                                                     type={item.iconType}
-                                                    size={20}
+                                                    size={18}
                                                     color="#007041"
-                                                    style={{ backgroundColor: "#CCE2D9", borderRadius: 50, padding: 8 }}
+                                                    style={{ backgroundColor: "#CCE2D9", borderRadius: 50,width:40,height:40,justifyContent:"center",padding:1}}
 
                                                 />
                                                 <Text

@@ -5,8 +5,7 @@ import React, { useState } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import BottomNavigation from '../navigations/BottomNavigation'
 import LoginNavigation from '../navigations/LoginNavigation'
-import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux'
 
 export default function Route() {
 

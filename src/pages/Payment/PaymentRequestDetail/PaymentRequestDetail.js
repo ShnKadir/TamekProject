@@ -4,7 +4,7 @@ import React, { useLayoutEffect } from 'react'
 // React Native
 import { View, Text, ScrollView, TouchableOpacity, SafeAreaView } from 'react-native'
 import { Icon } from 'react-native-elements'
-import { HStack, VStack } from 'native-base'
+import { HStack } from 'native-base'
 
 // Styles
 import { styles } from './PaymentRequestDetailStyle'
@@ -201,9 +201,31 @@ export default function PaymentRequestDetail() {
                                 fontSize: 17,
                                 lineHeight: 22,
                                 textAlign: 'right',
-                                maxWidth:220
+                                maxWidth: 220
                             }}>
                                 Borusan Lojistikten Zone 3 ABDSevkiyati icin alinan Navlun hizmet</Text>
+                        </View>
+
+                        <View
+                            style={{
+                                flexDirection: "row",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                                paddingHorizontal: 16,                               
+                                marginTop:20
+                            }}
+                        >
+                            <Text style={{ color: "#000000", fontSize: 16, lineHeight: 22, fontWeight: 'bold' }}>Dosya</Text>
+
+                            <TouchableOpacity>
+                                <Icon
+                                    name="ios-attach-sharp"
+                                    type="ionicon"
+                                    size={26}
+                                    color="black"
+                                    style={{ marginRight: 12 }}
+                                />
+                            </TouchableOpacity>
                         </View>
                     </View>
                 </View>

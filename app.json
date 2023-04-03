@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "TamekProject",
-    "slug": "TamekProject",
+    "name": "TEKTIK",
+    "slug": "TEKTIK",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/image/icon.png",
+    "icon": "./assets/image/tek-tık-ikon-02.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
