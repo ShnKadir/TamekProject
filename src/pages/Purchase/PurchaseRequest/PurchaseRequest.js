@@ -23,8 +23,15 @@ import { MENU_NAV } from './../../../navigations/constants'
 // Styles
 import { styles } from './PurchaseRequestStyle'
 
+// Redux
+import { useSelector } from 'react-redux'
+
 export default function PurchaseRequest() {
+
     const navigation = useNavigation()
+
+    const purchReqRequestData = useSelector(state => state.purchaseRequest.purchaseRequestData.resultObject.purchReqRequest)
+
 
     const dummyDdata = [
         {
@@ -92,8 +99,8 @@ export default function PurchaseRequest() {
         },
     ]
 
-    const goToDetailScreen = (title) => {
-        navigation.navigate(MENU_NAV.PURCHASE_REQUEST_DETAIL, { title: title })
+    const goToDetailScreen = (item) => {
+        navigation.navigate(MENU_NAV.PURCHASE_REQUEST_DETAIL, { data: item })
     }
 
     const [data, setData] = useState()
@@ -194,10 +201,10 @@ export default function PurchaseRequest() {
                     <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 60 }}>
 
                         {
-                            data?.map((item, index) => {
+                            purchReqRequestData?.map((item, index) => {
                                 return (
                                     <TouchableOpacity
-                                        onPress={() => goToDetailScreen(item.name)}
+                                        onPress={() => goToDetailScreen(item)}
                                         key={index}
                                     >
 
@@ -221,21 +228,21 @@ export default function PurchaseRequest() {
                                                             color: '#007041'
                                                         }}
                                                     >
-                                                        {item.number}
+                                                       1
                                                     </Text>
                                                 </View>
                                                 <VStack style={{ paddingLeft: 8, maxWidth: 284 }} space={"5px"}>
                                                     <Text style={{ fontWeight: "bold", flexWrap: "wrap" }}>
-                                                        {item.name}
+                                                        {item.header}
                                                     </Text>
 
                                                     <Text style={{ fontSize: 15, color: "#6C6C6C" }}>
-                                                        {item.date}
+                                                        {item.originator}
                                                     </Text>
 
                                                     <HStack style={{ maxWidth: 260, width: 260 }}>
                                                         <Text style={{ flexWrap: "wrap", fontSize: 14, fontWeight: "bold" }}>
-                                                            {item.costTotal}
+                                                            {item.createdDate}
                                                         </Text>
                                                     </HStack>
                                                 </VStack>
@@ -248,7 +255,7 @@ export default function PurchaseRequest() {
                                                         left: 20,
                                                         right: 20,
                                                     }}
-                                                    onPress={() => goToDetailScreen(item.name)}
+                                                    onPress={() => goToDetailScreen(item)}
                                                 >
                                                     <Icon
                                                         name="angle-right"

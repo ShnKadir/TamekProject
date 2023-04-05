@@ -3,7 +3,7 @@ import React, { useLayoutEffect } from 'react'
 import { useEffect, useState } from 'react'
 
 // React Native
-import { Text, ScrollView, View, SafeAreaView,TouchableOpacity } from 'react-native'
+import { Text, ScrollView, View, SafeAreaView, TouchableOpacity } from 'react-native'
 import { Icon } from 'react-native-elements'
 import { VStack, HStack } from 'native-base'
 
@@ -14,16 +14,12 @@ import { styles } from './MenuStyle'
 import { useNavigation } from '@react-navigation/native'
 import { MENU_NAV } from '../../navigations/constants'
 
-// Redux
-import { setIsTest } from '../../redux/slice/testSlice'
+// Api
+import getPurchaseRequests from '../../common/api/purchase/purchaseRequest/getPurchaseRequests'
 
 export default function Menu() {
 
     const navigation = useNavigation()
-
-    useEffect(() => {
-        setIsTest(true)
-    }, [])
 
     const dummyDdata = [
         {
@@ -125,6 +121,11 @@ export default function Menu() {
         }
     }
 
+    useEffect(() => {
+        getPurchaseRequests()
+    }, [])
+
+
     return (
 
         <SafeAreaView style={{ backgroundColor: "#FFFFFF", flex: 1 }}>
@@ -144,7 +145,7 @@ export default function Menu() {
                                                     type={item.iconType}
                                                     size={18}
                                                     color="#007041"
-                                                    style={{ backgroundColor: "#CCE2D9", borderRadius: 50,width:40,height:40,justifyContent:"center",padding:1}}
+                                                    style={{ backgroundColor: "#CCE2D9", borderRadius: 50, width: 40, height: 40, justifyContent: "center", padding: 1 }}
 
                                                 />
                                                 <Text

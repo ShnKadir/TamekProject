@@ -8,11 +8,14 @@
                 ],
                 "alias": {
                     // Public
-                    "@assets": "./assets",                   
+                    "@assets": "./assets",
                     "@images": "./assets/images",
                     //Src     
                     "@helpers": "./src/helpers",
-                    "@slice": "./src/redux/slice"           
+                    "@slice": "./src/redux/slice",
+                    // Common
+                    "@common": "./src/common",
+                    "@commonComponents": "./src/common/components"
                 }
             }
         ]

@@ -10,9 +10,7 @@ import { useSelector } from 'react-redux'
 export default function Route() {
 
 
-  // const isLogin = useSelector(state => state.auth.isLogin)
-
-  const isLogin = useSelector(state => state.test.isLogin)
+   const isLogin = useSelector(state => state.auth?.isLogin)
 
   return (
     <NavigationContainer>

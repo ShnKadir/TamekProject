@@ -28,28 +28,30 @@ import { styles } from "./LoginScreenStyle"
 
 // Redux
 import { postLoginSuccess } from "../../redux/slice/authSlice"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 
 //Api
 import postLogin from "../../common/api/auth/postLogin"
 
 // Helper
 import { default as isEmail } from 'validator/lib/isEmail'
-import { useSelector } from 'react-redux';
+
+// Enums
 import { API_STATUS } from "../../common/Enums"
-import store from './../../redux/store';
-import { setIsLogin } from "../../redux/slice/testSlice"
+
+// Navigation
+import { useNavigation } from "@react-navigation/native"
 
 export default function LoginScreen(
 ) {
 
-    // const dispatch = useDispatch()
-    // const loginApiStatus = useSelector(state => state.auth.loginApiStatus)
+    const dispatch = useDispatch()
+    const navigation = useNavigation()
 
-    const [email, setEmail] = useState('tamekmobile@outlook.com')
-    const [password, setPassword] = useState('Tamek2023++')
-    const [emailTest, setEmailTest] = useState('tamekmobile@outlook.com')
-    const [passwordTest, setPasswordTest] = useState('Tamek2023++')
+    const loginApiStatus = useSelector(state => state.auth.loginApiStatus)
+
+    const [email, setEmail] = useState('ibrahim.atilgan@tamekgrup.com.tr')
+    const [password, setPassword] = useState('1234')
 
     const [emailIsFocused, setEmailIsFocused] = useState(false)
     const [passwordIsFocused, setPasswordIsFocused] = useState(false)
@@ -92,76 +94,139 @@ export default function LoginScreen(
     }
 
     const handleOnLogin = () => {
-        // postLogin(email, password)
-
-        if (passwordTest === password && emailTest === email) {
-            store.dispatch(setIsLogin(true))
-        }
-        else {
-            alert('Bilgiler hatalı')
-        }
+        postLogin(email, password, navigation)
     }
 
-    // useEffect(() => {
-    //     if (!ready) {
-    //         let cancel = false
-    //         AsyncStorage.getItem("email").then((AsyncEmail) => {
-    //             if (cancel) {
-    //                 return
-    //             }
-    //         })
-    //         AsyncStorage.getItem("userData").then((data) => {
-    //             if (cancel) {
-    //                 return
-    //             }
-    //             if (data) {
-    //                 dispatch(postLoginSuccess(JSON.parse(data)))
-    //             }
-    //             setReady(true)
-    //         })
-    //         return () => {
-    //             cancel = true
-    //         }
-    //     }
-    // }, [])
+    useEffect(() => {
+        if (!ready) {
+            let cancel = false
+            AsyncStorage.getItem("email").then((AsyncEmail) => {
+                if (cancel) {
+                    return
+                }
+            })
+            AsyncStorage.getItem("userData").then((data) => {
+                if (cancel) {
+                    return
+                }
+                if (data) {
+                    dispatch(postLoginSuccess(JSON.parse(data)))
+                }
+                setReady(true)
+            })
+            return () => {
+                cancel = true
+            }
+        }
+    }, [])
 
-    // useEffect(() => {
-    //     if (loginApiStatus === API_STATUS.FAILURE) {
-    //         setErrorMessage('The email address or password is incorrect.')
-    //     }
-    // }, [loginApiStatus])
+    useEffect(() => {
+        if (loginApiStatus === API_STATUS.FAILURE) {
+            setErrorMessage('The email address or password is incorrect.')
+        }
+    }, [loginApiStatus])
+
 
     return (
 
-        // !ready ?
-        //     <LoadingIndicator />
-        //     :
-        <TouchableWithoutFeedback
-            touchSoundDisabled={true}
-            onPress={() => Keyboard.dismiss()}
-        >
+        !ready ?
+            <LoadingIndicator />
+            :
+            <TouchableWithoutFeedback
+                touchSoundDisabled={true}
+                onPress={() => Keyboard.dismiss()}
+            >
 
-            <ScrollView style={{ flex: 1 }}>
-                <ImageBackground
-                    source={loginBackgroundImage}
-                    resizeMode={"stretch"}
-                    style={styles.container}
-                >
+                <ScrollView style={{ flex: 1 }}>
+                    <ImageBackground
+                        source={loginBackgroundImage}
+                        resizeMode={"stretch"}
+                        style={styles.container}
+                    >
 
-                    <View style={{ paddingHorizontal: 16, marginTop: 36 }}>
+                        <View style={{ paddingHorizontal: 16, marginTop: 36 }}>
 
-                        <View style={{ marginBottom: 24 }}>
-                            <View style={[emailIsFocused ?
-                                styles.emailFocusStyle
-                                :
-                                styles.emailStyle
-                            ]}>
-                                <Text style={[
-                                    emailIsFocused ?
-                                        styles.emailFocusTextStyle
-                                        : styles.emailTextStyle
+                            <View style={{ marginBottom: 24 }}>
+                                <View style={[emailIsFocused ?
+                                    styles.emailFocusStyle
+                                    :
+                                    styles.emailStyle
                                 ]}>
-                                    Email address
+                                    <Text style={[
+                                        emailIsFocused ?
+                                            styles.emailFocusTextStyle
+                                            : styles.emailTextStyle
+                                    ]}>
+                                        Email address
+                                    </Text>
+
+                                    <View style={{
+                                        flexDirection: 'row',
+                                    }}>
+
+                                        <TextInput
+                                            style={[emailIsFocused ?
+                                                styles.emailFocusTextInputStyle :
+                                                styles.emailTextInputStyle]}
+                                            value={email}
+                                            onChangeText={(text) => validateText(text)}
+                                            onFocus={emailHandleFocus}
+                                            onBlur={() => {
+                                                if (email === '' || isEmail(email)) {
+                                                    setErrorMessage('')
+                                                    setEmailIsFocused(false)
+                                                } else {
+                                                    setErrorMessage('Please enter correct email or contact your team administrator to access app functionality')
+                                                    setEmailIsFocused(false)
+                                                }
+                                            }}
+                                        />
+
+                                        <TouchableOpacity
+                                            style={[!emailIsFocused && { marginTop: 8 }, { justifyContent: "center" }]}
+                                            hitSlop={{
+                                                top: 30,
+                                                bottom: 30,
+                                                left: 30,
+                                                right: 30,
+                                            }}
+                                            onPress={handleOnDeleteEmail}
+                                        >
+                                            <Icon
+                                                name={
+                                                    errorMessage ?
+                                                        "exclamationcircle"
+                                                        : email?.length > 0 &&
+                                                        "closecircleo"
+                                                }
+                                                type="antdesign"
+                                                size={18}
+                                                color={errorMessage ? "red" : "#535353"}
+                                                style={{ marginLeft: 12, marginRight: 12 }}
+
+                                            />
+                                        </TouchableOpacity>
+                                    </View>
+
+                                </View>
+                                {errorMessage && (
+                                    <HelperText type="error">
+                                        {errorMessage}
+                                    </HelperText>
+                                )}
+                            </View>
+
+                            <View style={[passwordIsFocused ?
+                                styles.passwordFocusStyle
+                                :
+                                styles.passwordStyle
+                            ]}>
+
+                                <Text style={[passwordIsFocused ?
+                                    styles.passwordFocusTextStyle :
+                                    styles.passwordTextStyle
+                                ]}>
+                                    Password
                                 </Text>
 
                                 <View style={{
@@ -169,43 +234,39 @@ export default function LoginScreen(
                                 }}>
 
                                     <TextInput
-                                        style={[emailIsFocused ?
-                                            styles.emailFocusTextInputStyle :
-                                            styles.emailTextInputStyle]}
-                                        value={email}
-                                        onChangeText={(text) => validateText(text)}
-                                        onFocus={emailHandleFocus}
-                                        onBlur={() => {
-                                            if (email === '' || isEmail(email)) {
-                                                setErrorMessage('')
-                                                setEmailIsFocused(false)
-                                            } else {
-                                                setErrorMessage('Please enter correct email or contact your team administrator to access app functionality')
-                                                setEmailIsFocused(false)
-                                            }
-                                        }}
+                                        style={[passwordIsFocused ?
+                                            styles.passwordFocusTextInptStyle
+                                            :
+                                            styles.passwordTextInptStyle
+                                        ]}
+                                        secureTextEntry={!isPasswordVisible}
+                                        onFocus={passwordHandleFocus}
+                                        onBlur={passwordHandleBlur}
+                                        onChangeText={(pass) => handleOnChangePassword(pass)}
+                                        value={password}
+
                                     />
 
                                     <TouchableOpacity
-                                        style={[!emailIsFocused && { marginTop: 8 }, { justifyContent: "center" }]}
+                                        style={[!passwordIsFocused && { marginTop: 8 }, { justifyContent: "center" }]}
                                         hitSlop={{
-                                            top: 30,
-                                            bottom: 30,
-                                            left: 30,
-                                            right: 30,
+                                            top: 20,
+                                            bottom: 20,
+                                            left: 20,
+                                            right: 20,
                                         }}
-                                        onPress={handleOnDeleteEmail}
+                                        onPress={changePasswordVisibility}
                                     >
                                         <Icon
                                             name={
-                                                errorMessage ?
-                                                    "exclamationcircle"
-                                                    : email?.length > 0 &&
-                                                    "closecircleo"
+                                                isPasswordVisible == true
+                                                    ?
+                                                    "ios-eye"
+                                                    : "ios-eye-off"
                                             }
-                                            type="antdesign"
-                                            size={18}
-                                            color={errorMessage ? "red" : "#535353"}
+                                            type="ionicon"
+                                            size={20}
+                                            color="#535353"
                                             style={{ marginLeft: 12, marginRight: 12 }}
 
                                         />
@@ -213,86 +274,21 @@ export default function LoginScreen(
                                 </View>
 
                             </View>
-                            {errorMessage && (
-                                <HelperText type="error">
-                                    {errorMessage}
-                                </HelperText>
-                            )}
                         </View>
 
-                        <View style={[passwordIsFocused ?
-                            styles.passwordFocusStyle
-                            :
-                            styles.passwordStyle
-                        ]}>
-
-                            <Text style={[passwordIsFocused ?
-                                styles.passwordFocusTextStyle :
-                                styles.passwordTextStyle
-                            ]}>
-                                Password
-                            </Text>
-
-                            <View style={{
-                                flexDirection: 'row',
-                            }}>
-
-                                <TextInput
-                                    style={[passwordIsFocused ?
-                                        styles.passwordFocusTextInptStyle
-                                        :
-                                        styles.passwordTextInptStyle
-                                    ]}
-                                    secureTextEntry={!isPasswordVisible}
-                                    onFocus={passwordHandleFocus}
-                                    onBlur={passwordHandleBlur}
-                                    onChangeText={(pass) => handleOnChangePassword(pass)}
-                                    value={password}
-
-                                />
-
-                                <TouchableOpacity
-                                    style={[!passwordIsFocused && { marginTop: 8 }, { justifyContent: "center" }]}
-                                    hitSlop={{
-                                        top: 20,
-                                        bottom: 20,
-                                        left: 20,
-                                        right: 20,
-                                    }}
-                                    onPress={changePasswordVisibility}
-                                >
-                                    <Icon
-                                        name={
-                                            isPasswordVisible == true
-                                                ?
-                                                "ios-eye"
-                                                : "ios-eye-off"
-                                        }
-                                        type="ionicon"
-                                        size={20}
-                                        color="#535353"
-                                        style={{ marginLeft: 12, marginRight: 12 }}
-
-                                    />
-                                </TouchableOpacity>
-                            </View>
-
+                        <View style={{ paddingHorizontal: 16 }}>
+                            <TouchableOpacity
+                                style={styles.btnContainerStyle}
+                                onPress={handleOnLogin}
+                            >
+                                <Text style={styles.buttonTextStyle}>
+                                    LOGIN
+                                </Text>
+                            </TouchableOpacity>
                         </View>
-                    </View>
 
-                    <View style={{ paddingHorizontal: 16 }}>
-                        <TouchableOpacity
-                            style={styles.btnContainerStyle}
-                            onPress={handleOnLogin}
-                        >
-                            <Text style={styles.buttonTextStyle}>
-                                LOGIN
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
-
-                </ImageBackground >
-            </ScrollView>
-        </TouchableWithoutFeedback>
+                    </ImageBackground >
+                </ScrollView>
+            </TouchableWithoutFeedback>
     )
 }

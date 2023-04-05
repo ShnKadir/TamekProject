@@ -14,9 +14,11 @@ import {
 
 // Helper
 import apiCall from "../apiCall"
-import { setIsLogin } from "../../../redux/slice/testSlice"
 
-export default async function postLogin(userMail, password) {
+// Navigations
+import { LOGIN_NAV } from "../../../navigations/constants"
+
+export default async function postLogin(userMail, password, navigation) {
 
 	store.dispatch(postLoginRequest())
 
@@ -31,11 +33,15 @@ export default async function postLogin(userMail, password) {
 	})
 
 	if (response) {
+
 		store.dispatch(postLoginSuccess(response))
+
+		if (response.resultStatus === false && response.returnText === "REDIRECT_CREATE_PASSWORD") {
+			navigation.navigate(LOGIN_NAV.SET_NEW_PASSWORD, { userMail: userMail })
+		}
 
 		AsyncStorage.setItem("userData", JSON.stringify(response))
 
-		store.dispatch(setIsLogin(true))
 	} else {
 		store.dispatch(postLoginFailure(""))
 	}

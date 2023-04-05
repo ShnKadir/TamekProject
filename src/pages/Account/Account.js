@@ -1,30 +1,26 @@
 // React
 import React from 'react'
-import { useEffect } from 'react'
-import { TouchableOpacity } from 'react-native'
 
 // React Native
-import { Text, SafeAreaView, View } from 'react-native'
+import { TouchableOpacity ,Text,View} from 'react-native'
+import { Icon } from 'react-native-elements'
+
+// Redux
 import clearRedux from '../../helpers/redux/clearRedux'
-import { Icon } from 'react-native-elements';
-import AsyncStorage  from '@react-native-async-storage/async-storage';
-import { useDispatch } from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useDispatch } from 'react-redux'
 import { logout } from '../../redux/slice/authSlice'
 
 export default function Account() {
 
-  useEffect(() => {
+  const dispatch = useDispatch()
+
+  const onLogoutPress = () => {
+    AsyncStorage.removeItem("userData")
+    dispatch(logout())
+    
     clearRedux()
-  }, [])
-
-  // const dispatch = useDispatch()
-
-  // const onLogoutPress = () => {
-
-  //   AsyncStorage.removeItem("userData")
-  //   dispatch(logout())
-  //   clearRedux()
-  // }
+  }
 
   return (
     <View style={{ justifyContent: "center", flex: 1 }}>
