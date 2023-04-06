@@ -32,15 +32,15 @@ export default async function postLogin(userMail, password, navigation) {
 		requestBody: requestBody,
 	})
 
-	if (response) {
+	if (response?.resultStatus) {
 
 		store.dispatch(postLoginSuccess(response))
 
-		if (response.resultStatus === false && response.returnText === "REDIRECT_CREATE_PASSWORD") {
+		if (response.returnText === "REDIRECT_CREATE_PASSWORD") {
 			navigation.navigate(LOGIN_NAV.SET_NEW_PASSWORD, { userMail: userMail })
 		}
 
-		AsyncStorage.setItem("userData", JSON.stringify(response))
+		await AsyncStorage.setItem("userData", JSON.stringify(response))
 
 	} else {
 		store.dispatch(postLoginFailure(""))

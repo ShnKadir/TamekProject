@@ -202,6 +202,7 @@ export default function PurchaseRequest() {
 
                         {
                             purchReqRequestData?.map((item, index) => {
+
                                 return (
                                     <TouchableOpacity
                                         onPress={() => goToDetailScreen(item)}
@@ -228,10 +229,10 @@ export default function PurchaseRequest() {
                                                             color: '#007041'
                                                         }}
                                                     >
-                                                       1
+                                                        {index + 1}
                                                     </Text>
                                                 </View>
-                                                <VStack style={{ paddingLeft: 8, maxWidth: 284 }} space={"5px"}>
+                                                <VStack style={{ paddingLeft: 16, maxWidth: 284 }} space={"5px"}>
                                                     <Text style={{ fontWeight: "bold", flexWrap: "wrap" }}>
                                                         {item.header}
                                                     </Text>
@@ -242,7 +243,7 @@ export default function PurchaseRequest() {
 
                                                     <HStack style={{ maxWidth: 260, width: 260 }}>
                                                         <Text style={{ flexWrap: "wrap", fontSize: 14, fontWeight: "bold" }}>
-                                                            {item.createdDate}
+                                                            {new Date(item.createdDate).toLocaleDateString("tr-TR")}
                                                         </Text>
                                                     </HStack>
                                                 </VStack>

@@ -6,8 +6,8 @@ import purchaseRequestSlice from "./slice/purchaseRequestSlice"
 const store = configureStore({
 	reducer: {
 		auth: authSlice,
-		companies: companiesListSlice,
-		purchaseRequest:purchaseRequestSlice
+		purchaseRequest: purchaseRequestSlice,
+		companies: companiesListSlice
 	},
 })
 

@@ -1,5 +1,5 @@
 // React
-import React, { useLayoutEffect,useState } from 'react'
+import React, { useLayoutEffect, useState } from 'react'
 
 // React Native
 import {
@@ -33,7 +33,6 @@ export default function PurchaseRequestDetail({
         })
     }, [navigation])
 
-    console.log(data)
     return (
         <SafeAreaView style={{ flex: 1 }}>
 
@@ -52,7 +51,7 @@ export default function PurchaseRequestDetail({
                 >
                     <VStack style={{ flex: 1, backgroundColor: "#FFFFFF" }} space={"8px"}>
                         <Text>Talep No</Text>
-                        <Text>Açan</Text>
+                        <Text>Talep Sahibi</Text>
                         <Text>Talep Tarihi</Text>
                         <Text>Toplam</Text>
 
@@ -60,7 +59,7 @@ export default function PurchaseRequestDetail({
                     <VStack style={{ flex: 1, backgroundColor: "#FFFFFF" }} space={"8px"} >
                         <Text>{data?.reqNo}</Text>
                         <Text>{data?.originator}</Text>
-                        <Text>{data?.createdDate}</Text>
+                        <Text> {new Date(data?.createdDate).toLocaleDateString("tr-TR")}</Text>
                         <Text>2,549.94 USD</Text>
                     </VStack>
                 </View>
@@ -94,25 +93,27 @@ export default function PurchaseRequestDetail({
                                             style={{
                                                 justifyContent: 'center',
                                                 backgroundColor: "#CCE2D9",
-                                                width: 24,
-                                                height: 24,
-                                                borderRadius: 12
+                                                width: 26,
+                                                height: 26,
+                                                borderRadius: 13,
+
                                             }}
                                         >
                                             <Text
                                                 style={{
 
-                                                    fontSize: 14,
-                                                    lineHeight: 16,
+                                                    fontSize: 13,
+                                                    lineHeight: 15,
                                                     color: "#007041",
                                                     textAlign: "center",
-                                                    alignSelf: "center"
-
+                                                    alignSelf: "center",
+                                                    justifyContent: 'center',
                                                 }}
                                             >
                                                 {index + 1}
                                             </Text>
                                         </View>
+
                                         <VStack style={{ marginLeft: 16, maxWidth: 270 }} space={"4px"}>
 
                                             <Text style={{ fontWeight: "bold", flexWrap: "wrap", fontSize: 12 }}>
@@ -121,11 +122,11 @@ export default function PurchaseRequestDetail({
                                             <Text style={{ fontSize: 11 }}>
                                                 Departman: {item?.inventSiteName}
                                             </Text>
+                                            {/* <Text style={{ fontSize: 11 }}>
+                                                Tedarikçi: ROBOSET OTOMAS MAK. MÜH. LTD. ŞTİ.
+                                            </Text> */}
                                             <Text style={{ fontSize: 11 }}>
-                                                TEDARİKÇİ:ROBOSET OTOMAS MAK. MÜH. LTD. ŞTİ.
-                                            </Text>
-                                            <Text style={{ fontSize: 11 }}>
-                                                Miktar:{item?.qty}- Tutar: {item?.lineAmountMst} {item?.currencyCode}
+                                                Miktar:{item?.qty} - Tutar: {item?.lineAmountMst} {item?.currencyCode}
                                             </Text>
                                             <Text style={{ fontSize: 11 }}>
                                                 Açıklama: {item?.specialityDescription}

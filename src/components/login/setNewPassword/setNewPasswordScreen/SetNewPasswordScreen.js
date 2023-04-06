@@ -47,15 +47,13 @@ export default function SetNewPasswordScreen({
     }
 
     const handleOnLogin = () => {
-        // postChangePassword(route.params.email, currentPassword, newPassword)
-        debugger
         postCreatePassword(route.params.userMail, newPassword, navigation)
     }
     return (
         <VStack style={styles.container}>
             <ScrollView>
 
-                <Text style={styles.info}>
+                {/* <Text style={styles.info}>
                     Geçici Şifre
                 </Text>
 
@@ -89,7 +87,7 @@ export default function SetNewPasswordScreen({
                             />
                         </TouchableOpacity>
                     }
-                />
+                /> */}
 
                 <Text style={styles.info}>
                     Yeni Şifre

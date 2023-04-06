@@ -28,7 +28,6 @@ export default async function postCreatePassword(userMail, newPassword, navigati
     })
 
     if (response) {
-        debugger
         store.dispatch(postCreatePasswordSuccess(response))
         if (response.resultStatus) {
             postLogin(userMail, newPassword)

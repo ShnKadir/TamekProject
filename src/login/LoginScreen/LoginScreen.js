@@ -51,7 +51,7 @@ export default function LoginScreen(
     const loginApiStatus = useSelector(state => state.auth.loginApiStatus)
 
     const [email, setEmail] = useState('ibrahim.atilgan@tamekgrup.com.tr')
-    const [password, setPassword] = useState('1234')
+    const [password, setPassword] = useState('123123')
 
     const [emailIsFocused, setEmailIsFocused] = useState(false)
     const [passwordIsFocused, setPasswordIsFocused] = useState(false)
@@ -59,6 +59,7 @@ export default function LoginScreen(
     const [emailValidate, setEmailValidate] = useState(true)
     const [ready, setReady] = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
+    const [isButtonDisabled, setIsButtonDisabled] = useState(true)
 
     const emailHandleFocus = () => {
         setEmailIsFocused(true)
@@ -100,11 +101,6 @@ export default function LoginScreen(
     useEffect(() => {
         if (!ready) {
             let cancel = false
-            AsyncStorage.getItem("email").then((AsyncEmail) => {
-                if (cancel) {
-                    return
-                }
-            })
             AsyncStorage.getItem("userData").then((data) => {
                 if (cancel) {
                     return
@@ -119,6 +115,15 @@ export default function LoginScreen(
             }
         }
     }, [])
+
+    useEffect(() => {
+        if (email?.length > 0 && password?.length > 0) {
+            setIsButtonDisabled(false)
+        } else {
+            setIsButtonDisabled(true)
+        }
+    }, [email, password])
+
 
     useEffect(() => {
         if (loginApiStatus === API_STATUS.FAILURE) {
@@ -280,6 +285,7 @@ export default function LoginScreen(
                             <TouchableOpacity
                                 style={styles.btnContainerStyle}
                                 onPress={handleOnLogin}
+                                disabled={isButtonDisabled}
                             >
                                 <Text style={styles.buttonTextStyle}>
                                     LOGIN
