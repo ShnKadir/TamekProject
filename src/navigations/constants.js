@@ -7,6 +7,8 @@ export const MENU_NAV = {
   PURCHASE_REQUEST_DETAIL: "PurchaseRequestDetail",
   PURCHASE_INVOICES: "PurchaseInvoices",
   PURCHASE_INVOICES_DETAIL: "PurchaseInvoicesDetail",
+  PURCHASE_AGGREMENT_REQUEST: "PurchaseAgreementRequest",
+  PURCHASE_AGGREMENT_REQUEST_DETAIL: "PurchaseAgreementRequestDetail",
   MENU: "Menu"
 }
 
@@ -18,5 +20,5 @@ export const LOGIN_NAV = {
   LOGIN: "Login",
   MENU: "Menu",
   FORGOT_PASSWORD: "ForgotPassword",
-  SET_NEW_PASSWORD:"NewPassword"
+  SET_NEW_PASSWORD: "NewPassword"
 }

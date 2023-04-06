@@ -23,7 +23,24 @@ export const API = {
                 path: "/api/Purchase/GetPurshaseRequest",
                 method: "GET"
             }
+        },
+        PURCHASE_AGGREMENT_REQUEST: {
+            GET: {
+                path: "/api/Purchase/GetPurchAggrementRequest",
+                method: "GET"
+            }
+        }
+    },
+    EXPENCE: {
+        GET: {
+            path: "/api/Expence/GetExpenceRequest",
+            method: "GET"
+        }
+    },
+    PAYMENT_REQUEST: {
+        GET: {
+            path: "/api/Payment/GetPaymentRequest",
+            method: "GET"
         }
     }
-
 }

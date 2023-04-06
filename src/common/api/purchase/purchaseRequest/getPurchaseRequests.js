@@ -21,7 +21,7 @@ export default async function getPurchaseRequests() {
         config: API.PURCHASE.PURCHASE_REQUEST.GET
     })
 
-    if (response?.resultStatus) {
+    if (response) {
         store.dispatch(getPurchaseSuccess(response))
     }
     else {

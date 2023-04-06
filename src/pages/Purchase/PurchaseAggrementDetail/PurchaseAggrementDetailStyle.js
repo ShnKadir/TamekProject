@@ -6,25 +6,27 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         height: 76,
-        alignContent: "center",
-        backgroundColor: "#FFFFFF",
+        alignContent: "center"
     },
     denialButton: {
-        height: 42,
-        width: 160,
-        alignItems: "center",
-        justifyContent: "center",
-        borderRadius: 8,        
-        fontSize: 14,
-        backgroundColor: '#F3E1E0'
-    },
-    approveButton: {
-        height: 42,
-        width: 160,
+        height: 44,
+        width: 180,
         alignItems: "center",
         justifyContent: "center",
         borderRadius: 8,
-        backgroundColor: 'rgba(3, 179, 84, 0.11)',
+        padding: 8,
+
+        backgroundColor: '#F3E1E0',
+        fontSize: 14,
+    },
+    approveButton: {
+        height: 44,
+        minWidth: 180,
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: 8,
+        padding: 8,
+        backgroundColor: '#CCE2D9',
         fontSize: 14,
     },
     list: {

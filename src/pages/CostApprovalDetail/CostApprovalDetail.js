@@ -221,8 +221,6 @@ export default function CostApprovalDetail({
                                 marginTop: 14
                             }}
                         >
-
-
                             <View style={{ paddingRight: 5 }}>
 
                                 <TouchableOpacity
@@ -246,6 +244,7 @@ export default function CostApprovalDetail({
                             </View>
 
                         </View>
+                        
                     </View>
                 </View>
 

@@ -18,32 +18,30 @@ import { Icon } from 'react-native-elements'
 
 // Navigation
 import { useNavigation } from '@react-navigation/native'
-import { MENU_NAV } from './../../../navigations/constants'
+import { MENU_NAV } from '../../../navigations/constants'
 
 // Styles
-import { styles } from './PurchaseRequestStyle'
+import { styles } from './PurchaseAggrementScreenStyle'
 
 // Redux
 import { useSelector } from 'react-redux'
-
-//Enum
 import { RETURN_TEXT } from '../../../common/Enums'
 
-export default function PurchaseRequest() {
+export default function PurchaseAggrementScreen() {
 
     const navigation = useNavigation()
 
-    const purchReqRequestData = useSelector(state => state.purchaseRequest?.purchaseRequestData?.resultObject?.purchReqRequest)
-    const returnText = useSelector(state => state.purchaseRequest?.purchaseRequestData?.returnText)
+    const purchaseAggrementData = useSelector(state => state.purchaseAggrement?.purchaseAggrementData)
+    const returnText = useSelector(state => state.purchaseAggrement?.purchaseAggrementData?.returnText)
 
     const goToDetailScreen = (item) => {
-        navigation.navigate(MENU_NAV.PURCHASE_REQUEST_DETAIL, { data: item })
+        navigation.navigate(MENU_NAV.PURCHASE_AGGREMENT_REQUEST_DETAIL, { data: item })
     }
 
     const [data, setData] = useState()
 
     useEffect(() => {
-        setData(purchReqRequestData)
+        setData(purchaseAggrementData)
     }, [])
 
     useLayoutEffect(() => {
@@ -68,9 +66,9 @@ export default function PurchaseRequest() {
             {
                 returnText === RETURN_TEXT.RECORD_NOT_FOUND ?
 
-                    <View style={{ flex: 1, backgroundColor: "#FFFFFF", justifyContent: "center", alignItems: "center" }}>
-                        <Text style={{ fontSize: 14, textAlign: "center" }}>
-                            Onayınızda bekleyen satın alma talebi bulunmamaktadır.
+                    <View style={{ flex: 1, backgroundColor: "#FFFFFF", justifyContent: "center", alignItems: "center", paddingHorizontal: 16 }}>
+                        <Text style={{ fontSize: 14 ,textAlign:"center"}}>
+                            Onayınızda bekleyen satın alma sözleşmesi bulunmamaktadır.
                         </Text>
                     </View>
                     :

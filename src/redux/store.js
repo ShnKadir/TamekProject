@@ -1,13 +1,17 @@
 import { configureStore } from "@reduxjs/toolkit"
 import authSlice from "./slice/authSlice"
-import companiesListSlice from "./slice/companiesListSlice"
 import purchaseRequestSlice from "./slice/purchaseRequestSlice"
+import expenceSlice from "./slice/expenceSlice"
+import paymentRequestSlice from "./slice/paymentRequestSlice"
+import purchaseAggrementRequestSlice from "./slice/purchaseAggrementRequestSlice"
 
 const store = configureStore({
 	reducer: {
 		auth: authSlice,
 		purchaseRequest: purchaseRequestSlice,
-		companies: companiesListSlice
+		expence: expenceSlice,
+		payment: paymentRequestSlice,
+		purchaseAggrement: purchaseAggrementRequestSlice
 	},
 })
 

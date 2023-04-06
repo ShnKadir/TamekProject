@@ -16,6 +16,9 @@ import { MENU_NAV } from '../../navigations/constants'
 
 // Api
 import getPurchaseRequests from '../../common/api/purchase/purchaseRequest/getPurchaseRequests'
+import getExpenceRequests from '../../common/api/expence/getExpenceRequests'
+import PaymentRequests from '../../common/api/paymentRequest/PaymentRequests'
+import purchaseAggrementRequest from '../../common/api/purchase/purchaseAggrementRequest/purchaseAggrementRequests'
 
 export default function Menu() {
 
@@ -116,6 +119,9 @@ export default function Menu() {
         else if (id === "3") {
             navigation.navigate(MENU_NAV.PURCHASE_REQUEST)
         }
+        else if (id === "4") {
+            navigation.navigate(MENU_NAV.PURCHASE_AGGREMENT_REQUEST)
+        }
         else if (id === "5") {
             navigation.navigate(MENU_NAV.PURCHASE_INVOICES)
         }
@@ -123,6 +129,9 @@ export default function Menu() {
 
     useEffect(() => {
         getPurchaseRequests()
+        getExpenceRequests()
+        PaymentRequests()
+        purchaseAggrementRequest()
     }, [])
 
 
