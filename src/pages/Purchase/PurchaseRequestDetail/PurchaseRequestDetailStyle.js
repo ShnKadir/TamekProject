@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
     },
     denialButton: {
         height: 42,
-        width: 160,
+        width:"100%",
         alignItems: "center",
         justifyContent: "center",
         borderRadius: 8,        
@@ -20,11 +20,11 @@ export const styles = StyleSheet.create({
     },
     approveButton: {
         height: 42,
-        width: 160,
+        width:"100%",
         alignItems: "center",
         justifyContent: "center",
         borderRadius: 8,
-        backgroundColor: 'rgba(3, 179, 84, 0.11)',
+        backgroundColor: '#CCE2D9',
         fontSize: 14,
     },
     list: {

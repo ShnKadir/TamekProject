@@ -4,8 +4,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import { API_STATUS } from "../../common/Enums"
 
 const initialState = {
-    expenceData: null,
-    
+    expenceData: null,    
     expenceDataApiStatus: API_STATUS.NONE,
 }
 

@@ -16,9 +16,9 @@ export default function Account() {
   const dispatch = useDispatch()
 
   const onLogoutPress = () => {
+
     AsyncStorage.removeItem("userData")
     dispatch(logout())
-    
     clearRedux()
   }
 

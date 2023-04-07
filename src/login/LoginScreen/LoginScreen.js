@@ -50,7 +50,7 @@ export default function LoginScreen(
 
     const loginApiStatus = useSelector(state => state.auth.loginApiStatus)
 
-    const [email, setEmail] = useState('ibrahim.atilgan@tamekgrup.com.tr')
+    const [email, setEmail] = useState('sinem.tasci@tamekgrup.com.tr')
     const [password, setPassword] = useState('123123')
 
     const [emailIsFocused, setEmailIsFocused] = useState(false)
@@ -125,12 +125,11 @@ export default function LoginScreen(
     }, [email, password])
 
 
-    useEffect(() => {
-        if (loginApiStatus === API_STATUS.FAILURE) {
-            setErrorMessage('The email address or password is incorrect.')
-        }
-    }, [loginApiStatus])
-
+    // useEffect(() => {
+    //     if (loginApiStatus === API_STATUS.FAILURE) {
+    //         setErrorMessage('The email address or password is incorrect.')
+    //     }
+    // }, [loginApiStatus])
 
     return (
 
@@ -284,7 +283,7 @@ export default function LoginScreen(
                         <View style={{ paddingHorizontal: 16 }}>
                             <TouchableOpacity
                                 style={styles.btnContainerStyle}
-                                onPress={handleOnLogin}
+                                onPress={() => handleOnLogin()}
                                 disabled={isButtonDisabled}
                             >
                                 <Text style={styles.buttonTextStyle}>

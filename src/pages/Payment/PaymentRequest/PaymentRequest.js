@@ -29,7 +29,7 @@ export default function PaymentRequest() {
 
     const navigation = useNavigation()
 
-    const paymentRequestData = useSelector(state => state.payment.paymentRequestData)
+    const paymentRequestData = useSelector(state => state.payment?.paymentRequestData?.resultObject?.paymentRequest)
     const returnText = useSelector(state => state.payment?.paymentRequestData?.returnText)
 
     const [data, setData] = useState()
@@ -100,8 +100,8 @@ export default function PaymentRequest() {
         },
     ]
 
-    const goToDetailScreen = (title) => {
-        navigation.navigate(MENU_NAV.PAYMENT_REQUEST_DETAIL, { title: title })
+    const goToDetailScreen = (item) => {
+        navigation.navigate(MENU_NAV.PAYMENT_REQUEST_DETAIL, { data: item })
     }
 
     useEffect(() => {
@@ -125,6 +125,7 @@ export default function PaymentRequest() {
     }
 
 
+    console.log(paymentRequestData)
     return (
 
         <SafeAreaView style={{ flex: 1 }}>
@@ -135,6 +136,7 @@ export default function PaymentRequest() {
                             Onayınızda bekleyen ödeme emri bulunmamaktadır.
                         </Text>
                     </View>
+
                     :
                     <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
 
@@ -143,14 +145,14 @@ export default function PaymentRequest() {
                             <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 60 }}>
 
                                 {
-                                    data?.map((item, index) => {
+                                    paymentRequestData?.map((item, index) => {
                                         return (
                                             <TouchableOpacity
-                                                onPress={() => goToDetailScreen(item.name)}
+                                                onPress={() => goToDetailScreen(item)}
                                                 key={index}
                                             >
 
-                                                <HStack style={styles.list} >
+                                                <HStack style={styles.list} key={index} >
                                                     <HStack style={{ alignItems: "center", maxWidth: 324 }}>
                                                         <View
                                                             style={{
@@ -170,21 +172,25 @@ export default function PaymentRequest() {
                                                                     color: '#007041'
                                                                 }}
                                                             >
-                                                                {item.number}
+                                                                {index + 1}
                                                             </Text>
                                                         </View>
                                                         <VStack style={{ paddingLeft: 8, maxWidth: 284 }} space={"5px"}>
-                                                            <Text style={{ fontWeight: "bold", flexWrap: "wrap" }}>
-                                                                {item.name}
+                                                            <Text style={{ fontWeight: "bold", flexWrap: "wrap", fontSize: 14 }}>
+                                                                {item?.formOwner}
                                                             </Text>
 
-                                                            <Text style={{ fontSize: 15, color: "#6C6C6C" }}>
-                                                                {item.date}
+                                                            <Text style={{ fontSize: 13, color: "#6C6C6C" }}>
+                                                                {item?.paymentCompany}
+                                                            </Text>
+
+                                                            <Text style={{ fontSize: 13, color: "#6C6C6C" }}>
+                                                                {item?.paymentDate}
                                                             </Text>
 
                                                             <HStack style={{ maxWidth: 260, width: 260 }}>
-                                                                <Text style={{ flexWrap: "wrap", fontSize: 14, fontWeight: "bold" }}>
-                                                                    {item.costTotal}
+                                                                <Text style={{ flexWrap: "wrap", fontSize: 13, fontWeight: "bold" }}>
+                                                                    {item?.amount} {item?.currencyCode}
                                                                 </Text>
                                                             </HStack>
                                                         </VStack>
@@ -197,7 +203,7 @@ export default function PaymentRequest() {
                                                                 left: 20,
                                                                 right: 20,
                                                             }}
-                                                            onPress={() => goToDetailScreen(item.name)}
+                                                            onPress={() => goToDetailScreen(item)}
                                                         >
                                                             <Icon
                                                                 name="angle-right"

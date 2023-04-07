@@ -14,6 +14,7 @@ import store from "./src/redux/store"
 //Component
 import Route from "./src/Route/Route"
 import Theme from "./src/theme/Theme"
+import InfoModal from './src/components/InfoModal/InfoModal'
 
 // import * as Device from 'expo-device'
 // import * as Notifications from 'expo-notifications'
@@ -63,6 +64,7 @@ export default function App() {
           />
         )}
         <Route />
+        <InfoModal />
       </NativeBaseProvider>
     </Provider>
   )

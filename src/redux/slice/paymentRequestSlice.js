@@ -31,7 +31,7 @@ const paymentRequestSlice = createSlice({
 // Action creators are generated for each case reducer function
 export const {
 
-    clearExpenceSlice,
+    clearPaymentRequestSlice,
     getPaymentRequest,
     getPaymentSuccess,
     getPaymentFailure

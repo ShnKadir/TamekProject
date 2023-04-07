@@ -18,6 +18,10 @@ import apiCall from "../apiCall"
 // Navigations
 import { LOGIN_NAV } from "../../../navigations/constants"
 
+import getInfoModalJson from "../../../helpers/modal/getInfoModalJson"
+import { INFO_MODAL_STATUS } from "../../Enums"
+import { openInfoModal } from "../../../redux/slice/infoModalSlice"
+
 export default async function postLogin(userMail, password, navigation) {
 
 	store.dispatch(postLoginRequest())
@@ -32,7 +36,9 @@ export default async function postLogin(userMail, password, navigation) {
 		requestBody: requestBody,
 	})
 
-	if (response?.resultStatus) {
+	let infoModal = getInfoModalJson()
+
+	if (response) {
 
 		store.dispatch(postLoginSuccess(response))
 
@@ -40,9 +46,23 @@ export default async function postLogin(userMail, password, navigation) {
 			navigation.navigate(LOGIN_NAV.SET_NEW_PASSWORD, { userMail: userMail })
 		}
 
+		else if (response.returnText === "NOT_AUTHORIZED_LOGIN") {
+			infoModal.statusType = INFO_MODAL_STATUS.WARNING
+			infoModal.title = "Hata"
+			infoModal.description = "Girdiğiniz bilgiler hatalıdır. Kontrol edip tekrar deneyiniz."
+			store.dispatch(openInfoModal(infoModal))
+		}
+		else if (response.returnText === "USER_NOT_REGISTER_ON_AXAPTA") {
+			infoModal.statusType = INFO_MODAL_STATUS.WARNING
+			infoModal.title = "Hata"
+			infoModal.description = "Girdiğiniz bilgilere ait Axapta kullanıcısı bulunmamaktadır. Kontrol edip tekrar deneyiniz."
+			store.dispatch(openInfoModal(infoModal))
+		}
+
 		await AsyncStorage.setItem("userData", JSON.stringify(response))
 
 	} else {
 		store.dispatch(postLoginFailure(""))
+
 	}
 }

@@ -12,6 +12,7 @@ import {
 // Helper
 import apiCall from "../apiCall"
 import postLogin from "./postLogin"
+import { LOGIN_NAV } from "../../../navigations/constants"
 
 export default async function postCreatePassword(userMail, newPassword, navigation) {
 
@@ -29,8 +30,9 @@ export default async function postCreatePassword(userMail, newPassword, navigati
 
     if (response) {
         store.dispatch(postCreatePasswordSuccess(response))
-        if (response.resultStatus) {
-            postLogin(userMail, newPassword)
+
+        if (response.returnText === "PASSWORD_CREATED") {
+            navigation.navigate(LOGIN_NAV.LOGIN)
         }
     }
     else {

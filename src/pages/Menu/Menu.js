@@ -19,10 +19,13 @@ import getPurchaseRequests from '../../common/api/purchase/purchaseRequest/getPu
 import getExpenceRequests from '../../common/api/expence/getExpenceRequests'
 import PaymentRequests from '../../common/api/paymentRequest/PaymentRequests'
 import purchaseAggrementRequest from '../../common/api/purchase/purchaseAggrementRequest/purchaseAggrementRequests'
+import { useSelector } from 'react-redux'
 
 export default function Menu() {
 
     const navigation = useNavigation()
+
+    const isLogin = useSelector(state => state.auth?.loginData?.resultStatus)
 
     const dummyDdata = [
         {
@@ -63,51 +66,12 @@ export default function Menu() {
         },
     ]
 
-    const [data, setData] = useState()
-
-    useEffect(() => {
-        setData(dummyDdata)
-    }, [])
-
     useLayoutEffect(() => {
         navigation.setOptions({
             headerLargeTitle: true,
             title: 'Menü'
         })
     }, [navigation])
-
-
-    function searchFilterFunction(searchTerm) {
-
-        const dummyDdata = [
-            {
-                id: "1",
-                name: "Cost Approval"
-            },
-            {
-                id: "2",
-                name: "Payment Order"
-            },
-            {
-                id: "3",
-                name: "Purchase Request"
-            },
-            {
-                id: "4",
-                name: "Purchase Order"
-            },
-            {
-                id: "4",
-                name: "Purchase Contract"
-            },
-            {
-                id: "5",
-                name: "Purchase Invoices"
-            },
-        ]
-        let filteredData = dummyDdata?.filter(item => item.name.toLowerCase().includes(searchTerm.toLowerCase()))
-        setData(filteredData)
-    }
 
     const goToWaitingApprovalScreen = (id) => {
         if (id === "1") {
@@ -132,7 +96,7 @@ export default function Menu() {
         getExpenceRequests()
         PaymentRequests()
         purchaseAggrementRequest()
-    }, [])
+    }, [isLogin])
 
 
     return (

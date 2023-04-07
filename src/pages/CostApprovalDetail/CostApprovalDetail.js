@@ -19,90 +19,35 @@ export default function CostApprovalDetail({
 
     const navigation = useNavigation()
 
-    const dummyDdata = [
-        {
-            id: "1",
-            number: "1",
-            name: "PARKER-Otopark",
-            date: " 19.12.2022",
-            cost: "570 TL",
-            category: "Araç",
-            type: "Otopark/Otoyol/Köprü",
-            isCreditCard: "Hayır"
-        },
-        {
-            id: "2",
-            number: "2",
-            name: "Starbucks-Pazar günü Starbucks-Pazar günü Starbucks-Pazar günü Starbucks-Pazar günü Starbucks-Pazar günü Starbucks-Pazar günü Starbucks-Pazar günü Starbucks-Pazar günü",
-            date: " 21.12.2022",
-            cost: "200 TL",
-            category: "Araç",
-            type: "Otopark/Otoyol/Köprü",
-            isCreditCard: "Evet"
-        },
-        {
-            id: "3",
-            number: "3",
-            name: "Otopark masrafı",
-            date: " 20.12.2022",
-            cost: "570 TL",
-            category: "Araç",
-            type: "Otopark/Otoyol/Köprü",
-            isCreditCard: "Evet"
-        },
-        {
-            id: "4",
-            number: "4",
-            name: "PARKER-Otopark 222",
-            date: " 19.12.2022",
-            cost: "400 TL",
-            category: "Araç",
-            type: "Otopark/Otoyol/Köprü",
-            isCreditCard: "Hayır"
-        },
-        {
-            id: "5",
-            number: "5",
-            name: "PARKER-Otopark",
-            date: " 30.12.2022",
-            cost: "620 TL",
-            category: "Araç",
-            type: "Otopark/Otoyol/Köprü",
-            isCreditCard: "Evet"
-        },
-        {
-            id: "6",
-            number: "6",
-            name: "PARKER-Otopark",
-            date: " 19.12.2022",
-            cost: "570 TL",
-            category: "Araç",
-            type: "Otopark/Otoyol/Köprü",
-            isCreditCard: "Hayır"
-        },
-
-    ]
-
-    const [data, setData] = useState(dummyDdata)
+    const [data, setData] = useState(route?.params?.data)
+    const [dataLines, setDataLines] = useState(route?.params?.data?.lines)
     const [search, setSearch] = useState("")
+    const [filteredData, setFilteredData] = useState()
 
     useEffect(() => {
-        setData(dummyDdata)
-    }, [])
+        setData(route?.params?.data)
+        setDataLines(route?.params?.data?.lines)
+    }, [route])
 
     useLayoutEffect(() => {
         navigation.setOptions({
             headerLargeTitle: false,
-            title: route?.params?.title,
+            title:"Onay Bekleyenler"
+            //title: route?.params?.data?.expenseRequestFormHeader,
         })
     }, [navigation])
 
 
     const updateSearch = (search) => {
 
-        setSearch(search)
-        let filteredData = dummyDdata?.filter(item => item.name.toLowerCase().includes(search.toLowerCase()))
-        setData(filteredData)
+        if (search?.length > 0) {
+            setSearch(search)
+            let filteredData = dataLines?.filter(item => item?.expenseName?.toLowerCase().includes(search.toLowerCase()))
+            setDataLines(filteredData)
+        }
+        else {
+            setDataLines(data?.lines)
+        }
     }
 
     return (
@@ -112,7 +57,6 @@ export default function CostApprovalDetail({
             <View style={{ backgroundColor: "#FFFFFF" }}>
 
                 <View style={{ paddingHorizontal: 16 }}>
-
                     <View style={{
                         paddingVertical: 32,
                         backgroundColor: "#FFFFFF",
@@ -148,7 +92,8 @@ export default function CostApprovalDetail({
                                 lineHeight: 22,
                                 textAlign: 'right'
                             }}>
-                                Engin DADALI</Text>
+                                {data?.spenderUserIdName}
+                            </Text>
                         </View>
 
                         <View
@@ -168,7 +113,9 @@ export default function CostApprovalDetail({
                                 flex: 1,
                                 lineHeight: 22,
                                 textAlign: "right"
-                            }}>19.12.2022</Text>
+                            }}>
+                                {data?.dateOfEntry}
+                            </Text>
                         </View>
 
                         <View
@@ -188,7 +135,9 @@ export default function CostApprovalDetail({
                                 flex: 1,
                                 lineHeight: 22,
                                 textAlign: "right"
-                            }}>921.93 TL</Text>
+                            }}>
+
+                            </Text>
                         </View>
 
                         <View
@@ -208,7 +157,7 @@ export default function CostApprovalDetail({
                                 flex: 1,
                                 lineHeight: 22,
                                 textAlign: "right"
-                            }}>0.00</Text>
+                            }}></Text>
                         </View>
 
                         <View
@@ -244,15 +193,12 @@ export default function CostApprovalDetail({
                             </View>
 
                         </View>
-                        
+
                     </View>
                 </View>
 
                 <View style={{ backgroundColor: "#FFFFFF" }}>
-
                     <VStack style={{ borderBottomColor: "#F2F2F2", borderBottomWidth: 1 }}>
-
-
                         <SearchBar
                             placeholder="Search"
                             theme="light"
@@ -261,7 +207,6 @@ export default function CostApprovalDetail({
                             searchIcon={{ color: "#3C3C43" }}
                             onChangeText={updateSearch}
                             value={search}
-
                         />
                     </VStack>
                 </View>
@@ -278,7 +223,7 @@ export default function CostApprovalDetail({
                     <ScrollView contentContainerStyle={{ flex: 1 }} style={{ backgroundColor: "#F5F5F5" }}>
 
                         {
-                            data?.map((item, index) => {
+                            dataLines?.map((item, index) => {
                                 return (
                                     <HStack style={styles.list} key={index}>
                                         <HStack style={{ alignItems: "center" }}>
@@ -302,24 +247,24 @@ export default function CostApprovalDetail({
 
                                                     }}
                                                 >
-                                                    {item?.number}
+                                                    {item?.lineNum}
                                                 </Text>
                                             </View>
                                             <VStack style={{ marginLeft: 16, maxWidth: 270 }} space={"4px"}>
                                                 <Text style={{ fontWeight: "bold" }}>
-                                                    Kategori: {item?.category}
+                                                    Kategori: {item?.expenseCategory}
                                                 </Text>
                                                 <Text style={{ fontSize: 13, lineHeight: 18 }}>
-                                                    Tip: {item?.type}
+                                                    Masraf: {item?.expenseName}
                                                 </Text>
                                                 <Text style={{ fontSize: 13, lineHeight: 18, paddingLeft: 0, marginLeft: 0, fontWeight: "bold" }}>
-                                                    {item?.date} - {item.cost}
+                                                    {item?.expenseDate} - {item?.amount}
                                                 </Text>
                                                 <Text style={{ fontSize: 13, lineHeight: 18 }}>
-                                                    Kredi Kart: {item.isCreditCard}
+                                                    Kredi Kart: {item?.creditCard}
                                                 </Text>
                                                 <Text style={{ flexWrap: "wrap" }}>
-                                                    Açıklama: {item?.name}
+                                                    Açıklama: {item?.description}
                                                 </Text>
                                             </VStack>
 

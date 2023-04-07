@@ -12,4 +12,10 @@ export const RETURN_TEXT = {
     PASSWORD_ALREADY_CREATED: "PASSWORD_ALREADY_CREATED",
 }
 
+export const INFO_MODAL_STATUS = {
+    SUCCESS: 1,
+    WARNING: 2,
+    FAILURE: 3,
+}
+
 

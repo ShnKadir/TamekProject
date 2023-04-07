@@ -30,100 +30,17 @@ export default function WaitingApprovalScreen() {
 
   const navigation = useNavigation()
 
-  const expenceData = useSelector(state => state.expence.expenceData)
+  const returnText = useSelector(state => state.expence?.expenceData?.returnText)
+  const expenseRequest = useSelector(state => state.expence?.expenceData?.resultObject?.expenseRequest)
 
-  const dummyDdata = [
-    {
-      id: "1",
-      number: "1",
-      name: "BORUSAN LOJISTIK DAGITIM A.Ş. 222",
-      costName: "ABD Masraflar",
-      costDetail: "Borusan lojistik Zone 3",
-      costTotal: "87,736.00 USD",
-      coster: "Onur SALMAN"
-    },
-    {
-      id: "2",
-      number: "2",
-      name: "BORUSAN LOJISTIK DAGITIM A.Ş. 3344556",
-      costName: "ABD Masraflar",
-      costDetail: "Borusan lojistik Zone 3",
-      costTotal: "87,736.00 USD",
-      coster: "Engin DADALI"
-    },
-    {
-      id: "3",
-      number: "3",
-      name: "BORUSAN LOJISTIK DAGITIM A.Ş.",
-      costName: "ABD Masraflar",
-      costDetail: "Borusan lojistik Zone 3",
-      costTotal: "87,736.00 USD",
-      coster: "Onur SALMAN"
-    },
-    {
-      id: "4",
-      number: "4",
-      name: "BORUSAN LOJISTIK DAGITIM A.Ş.",
-      costName: "ABD Masraflar",
-      costDetail: "Borusan lojistik Zone 3",
-      costTotal: "87,736.00 USD",
-      coster: "Onur SALMAN"
-    },
-    {
-      id: "5",
-      number: "5",
-      name: "BORUSAN LOJISTIK DAGITIM A.Ş.",
-      costName: "ABD Masraflar",
-      costDetail: "Borusan lojistik Zone 3",
-      costTotal: "87,736.00 USD",
-      coster: "Onur SALMAN"
-    },
-    {
-      id: "6",
-      number: "6",
-      name: "BORUSAN LOJISTIK DAGITIM A.Ş.",
-      costName: "ABD Masraflar",
-      costDetail: "Borusan lojistik Zone 3",
-      costTotal: "87,736.00 USD",
-      coster: "Onur SALMAN"
-    },
-    {
-      id: "7",
-      number: "7",
-      name: "BORUSAN LOJISTIK DAGITIM A.Ş.",
-      costName: "ABD Masraflar",
-      costDetail: "Borusan lojistik Zone 3",
-      costTotal: "87,736.00 USD",
-      coster: "Onur SALMAN"
-    },
-    {
-      id: "8",
-      number: "8",
-      name: "BORUSAN LOJISTIK DAGITIM A.Ş.",
-      costName: "ABD Masraflar",
-      costDetail: "Borusan lojistik Zone 3",
-      costTotal: "87,736.00 USD",
-      coster: "Onur SALMAN"
-    },
-    {
-      id: "9",
-      number: "9",
-      name: "BORUSAN LOJISTIK DAGITIM A.Ş.",
-      costName: "ABD Masraflar",
-      costDetail: "Borusan lojistik Zone 3",
-      costTotal: "87,736.00 USD",
-      coster: "Onur SALMAN"
-    },
-  ]
-
-  const goToWaitingApprovalScreen = (title) => {
-    navigation.navigate(MENU_NAV.COST_APPROVAL_DETAIL, { title: title })
+  const goToWaitingApprovalScreen = (item) => {
+    navigation.navigate(MENU_NAV.COST_APPROVAL_DETAIL, { data: item })
   }
 
   const [data, setData] = useState()
 
   useEffect(() => {
-    setData(dummyDdata)
+    setData(expenseRequest)
   }, [])
 
   useLayoutEffect(() => {
@@ -137,90 +54,7 @@ export default function WaitingApprovalScreen() {
 
   function searchFilterFunction(searchTerm) {
 
-    const dummyDdata = [
-      {
-        id: "1",
-        number: "1",
-        name: "BORUSAN LOJISTIK DAGITIM A.Ş. 222",
-        costName: "ABD Masraflar",
-        costDetail: "Borusan lojistik Zone 3",
-        costTotal: "87,736.00 USD",
-        coster: "Onur SALMAN"
-      },
-      {
-        id: "2",
-        number: "2",
-        name: "BORUSAN LOJISTIK DAGITIM A.Ş. 3344556",
-        costName: "ABD Masraflar",
-        costDetail: "Borusan lojistik Zone 3",
-        costTotal: "87,736.00 USD",
-        coster: "Engin DADALI"
-      },
-      {
-        id: "3",
-        number: "3",
-        name: "BORUSAN LOJISTIK DAGITIM A.Ş.",
-        costName: "ABD Masraflar",
-        costDetail: "Borusan lojistik Zone 3",
-        costTotal: "87,736.00 USD",
-        coster: "Onur SALMAN"
-      },
-      {
-        id: "4",
-        number: "4",
-        name: "BORUSAN LOJISTIK DAGITIM A.Ş.",
-        costName: "ABD Masraflar",
-        costDetail: "Borusan lojistik Zone 3",
-        costTotal: "87,736.00 USD",
-        coster: "Onur SALMAN"
-      },
-      {
-        id: "5",
-        number: "5",
-        name: "BORUSAN LOJISTIK DAGITIM A.Ş.",
-        costName: "ABD Masraflar",
-        costDetail: "Borusan lojistik Zone 3",
-        costTotal: "87,736.00 USD",
-        coster: "Onur SALMAN"
-      },
-      {
-        id: "6",
-        number: "6",
-        name: "BORUSAN LOJISTIK DAGITIM A.Ş.",
-        costName: "ABD Masraflar",
-        costDetail: "Borusan lojistik Zone 3",
-        costTotal: "87,736.00 USD",
-        coster: "Onur SALMAN"
-      },
-      {
-        id: "7",
-        number: "7",
-        name: "BORUSAN LOJISTIK DAGITIM A.Ş.",
-        costName: "ABD Masraflar",
-        costDetail: "Borusan lojistik Zone 3",
-        costTotal: "87,736.00 USD",
-        coster: "Onur SALMAN"
-      },
-      {
-        id: "8",
-        number: "8",
-        name: "BORUSAN LOJISTIK DAGITIM A.Ş.",
-        costName: "ABD Masraflar",
-        costDetail: "Borusan lojistik Zone 3",
-        costTotal: "87,736.00 USD",
-        coster: "Onur SALMAN"
-      },
-      {
-        id: "9",
-        number: "9",
-        name: "BORUSAN LOJISTIK DAGITIM A.Ş.",
-        costName: "ABD Masraflar",
-        costDetail: "Borusan lojistik Zone 3",
-        costTotal: "87,736.00 USD",
-        coster: "Onur SALMAN"
-      },
-    ]
-    let filteredData = dummyDdata?.filter(item => item.name.toUpperCase().includes(searchTerm.toUpperCase()) || item.coster.toUpperCase().includes(searchTerm.toUpperCase()))
+    let filteredData = data?.filter(item => item?.expenseRequestFormHeader?.toUpperCase().includes(searchTerm.toUpperCase()) || item?.spenderUserIdName?.toUpperCase().includes(searchTerm.toUpperCase()))
     setData(filteredData)
   }
 
@@ -228,7 +62,7 @@ export default function WaitingApprovalScreen() {
 
     <SafeAreaView style={{ flex: 1 }}>
       {
-        expenceData?.returnText === RETURN_TEXT.RECORD_NOT_FOUND ?
+        returnText === RETURN_TEXT.RECORD_NOT_FOUND ?
           <View style={{ flex: 1, backgroundColor: "#FFFFFF", justifyContent: "center", alignItems: "center" }}>
             <Text style={{ fontSize: 14, textAlign: "center" }}>
               Onayınızda bekleyen masraf bulunmamaktadır.
@@ -243,10 +77,10 @@ export default function WaitingApprovalScreen() {
               <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 60 }} >
                 <View style={{ marginTop: 8 }}>
                   {
-                    data?.map((item, index) => {
+                    expenseRequest?.map((item, index) => {
                       return (
                         <TouchableOpacity
-                          onPress={() => goToWaitingApprovalScreen(item.name)}
+                          onPress={() => goToWaitingApprovalScreen(item)}
                           key={index}
                         >
 
@@ -270,30 +104,30 @@ export default function WaitingApprovalScreen() {
                                     color: '#007041'
                                   }}
                                 >
-                                  {item.number}
+                                  {index + 1}
                                 </Text>
                               </View>
                               <VStack style={{ paddingLeft: 8, maxWidth: 284 }} space={"5px"}>
                                 <Text style={{ fontWeight: "bold", flexWrap: "wrap" }}>
-                                  {item.name}
+                                  {item?.expenseRequestFormHeader}
                                 </Text>
 
                                 <Text style={{ fontSize: 15, color: "#6C6C6C" }}>
-                                  {item.costName}
+                                  {item?.dateOfEntry}
                                 </Text>
-                                <Text style={{ fontSize: 15, color: "#6C6C6C" }}>
+                                {/* <Text style={{ fontSize: 15, color: "#6C6C6C" }}>
                                   {item.costDetail}
-                                </Text>
+                                </Text> */}
 
                                 <HStack style={{ width: 260, justifyContent: "space-between", maxWidth: 260 }}>
                                   <HStack style={{ maxWidth: 156, paddingRight: 68 }}>
                                     <Text style={{ flexWrap: "wrap", fontSize: 11, fontWeight: "600" }}>
-                                      {item.costTotal}
+                                      2000 {item?.currencyCode}
                                     </Text>
                                   </HStack>
                                   <HStack style={{ maxWidth: 136 }}>
                                     <Text style={{ flexWrap: "wrap", fontSize: 11, fontWeight: "600" }}>
-                                      {item.coster}
+                                      {item?.spenderUserIdName}
                                     </Text>
                                   </HStack>
                                 </HStack>
@@ -307,7 +141,7 @@ export default function WaitingApprovalScreen() {
                                   left: 20,
                                   right: 20,
                                 }}
-                                onPress={() => goToWaitingApprovalScreen(item.name)}
+                                onPress={() => goToWaitingApprovalScreen(item)}
                               >
                                 <Icon
                                   name="angle-right"
@@ -321,7 +155,6 @@ export default function WaitingApprovalScreen() {
                           </HStack>
                         </TouchableOpacity>
                       )
-
                     })}
                 </View>
               </ScrollView>

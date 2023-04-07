@@ -11,19 +11,31 @@ import { styles } from './PaymentRequestDetailStyle'
 
 // Navigation
 import { useNavigation } from '@react-navigation/native'
+import { useState } from 'react'
+import { useEffect } from 'react'
 
-export default function PaymentRequestDetail() {
+export default function PaymentRequestDetail({
+    route
+}) {
 
     const navigation = useNavigation()
 
+    const [data, setData] = useState(route.params.data)
+
+    useEffect(() => {
+        setData(route.params.data)
+    }, [route])
+
+
     useLayoutEffect(() => {
         navigation.setOptions({
-            headerLargeTitle: true,
+            headerLargeTitle: false,
             title: 'Ödeme Talep Kaydı',
         })
     }, [navigation])
 
     return (
+
         <SafeAreaView style={{ flex: 1 }}>
 
             <ScrollView style={{ flex: 1, backgroundColor: "#F5F5F5" }}>
@@ -40,7 +52,7 @@ export default function PaymentRequestDetail() {
                         shadowColor: "black",
                         shadowOffset: { width: 0, height: 2 },
                         shadowOpacity: 0.1,
-                        elevation: 10
+                        elevation: 10,
                     }}>
 
                         <View
@@ -49,18 +61,35 @@ export default function PaymentRequestDetail() {
                                 alignItems: "center",
                                 justifyContent: "space-between",
                                 paddingHorizontal: 16,
-                                marginBottom: 8
+                                marginBottom: 8,
+                                width: "100%"
                             }}
                         >
-                            <Text style={{ color: "#000000", fontSize: 16, lineHeight: 18 }}>Şirket</Text>
+                            <View style={{ width: "30%" }}>
 
-                            <Text style={{
-                                color: "#000000",
-                                fontSize: 16,
-                                lineHeight: 22,
-                                textAlign: 'right'
-                            }}>
-                                BORUSAN LOJİSTİK DAĞITIM</Text>
+                                <Text style={{
+                                    color: "#000000",
+                                    fontSize: 15,
+                                    lineHeight: 22,
+                                    fontWeight: "bold"
+
+                                }}>Şirket</Text>
+                            </View>
+
+                            <View style={{ width: "60%" }}>
+
+                                <Text style={{
+                                    color: "#000000",
+                                    fontSize: 16,
+                                    lineHeight: 22,
+                                    flex: 1,
+                                    textAlign: 'right',
+                                }}>
+                                    {data?.paymentCompany}
+
+                                </Text>
+
+                            </View>
                         </View>
 
                         <View
@@ -69,18 +98,32 @@ export default function PaymentRequestDetail() {
                                 alignItems: "center",
                                 justifyContent: "space-between",
                                 paddingHorizontal: 16,
-                                marginBottom: 8
+                                marginBottom: 8,
+                                width: "100%"
                             }}
                         >
-                            <Text style={{ color: "#000000", fontSize: 16, lineHeight: 22 }}>Kategori</Text>
+                            <View style={{ width: "30%" }}>
 
-                            <Text style={{
-                                color: "#000000",
-                                fontSize: 16,
-                                lineHeight: 22,
-                                textAlign: 'right'
-                            }}>
-                                ABD Masraflar</Text>
+                                <Text style={{
+                                    color: "#000000",
+                                    fontSize: 15,
+                                    lineHeight: 22,
+                                    fontWeight: "bold"
+                                }}>Kategori</Text>
+                            </View>
+
+                            <View style={{ width: "60%" }}>
+
+                                <Text style={{
+                                    color: "#000000",
+                                    fontSize: 16,
+                                    lineHeight: 22,
+                                    textAlign: 'right'
+                                }}>
+                                    {data?.paymentCategory}
+                                </Text>
+                            </View>
+
                         </View>
 
                         <View
@@ -89,18 +132,34 @@ export default function PaymentRequestDetail() {
                                 alignItems: "center",
                                 justifyContent: "space-between",
                                 paddingHorizontal: 16,
-                                marginBottom: 8
+                                marginBottom: 8,
+                                width: "100%"
                             }}
                         >
-                            <Text style={{ color: "#000000", fontSize: 16, lineHeight: 22 }}>Tip</Text>
+                            <View style={{ width: "30%" }}>
 
-                            <Text style={{
-                                color: "#000000",
-                                fontSize: 16,
-                                lineHeight: 22,
-                                textAlign: 'right'
-                            }}>
-                                ABD Masrafları</Text>
+                                <Text style={{
+                                    color: "#000000",
+                                    fontSize: 15,
+                                    lineHeight: 22,
+                                    fontWeight: "bold"
+                                }}>
+                                    Tip
+                                </Text>
+                            </View>
+
+                            <View style={{ width: "60%" }}>
+
+                                <Text style={{
+                                    color: "#000000",
+                                    fontSize: 15,
+                                    lineHeight: 22,
+                                    textAlign: 'right'
+                                }}>
+
+                                    {data?.paymentType}
+                                </Text>
+                            </View>
                         </View>
 
                         <View
@@ -109,40 +168,33 @@ export default function PaymentRequestDetail() {
                                 alignItems: "center",
                                 justifyContent: "space-between",
                                 paddingHorizontal: 16,
-                                marginBottom: 8
+                                marginBottom: 8,
+                                width: "100%"
                             }}
                         >
-                            <Text style={{ color: "#000000", fontSize: 16, lineHeight: 22 }}>Tutar</Text>
 
-                            <Text style={{
-                                color: "#000000",
-                                fontSize: 16,
-                                lineHeight: 22,
-                                textAlign: 'right'
-                            }}>
-                                87,736.00 USD</Text>
-                        </View>
+                            <View style={{ width: "30%" }}>
+                                <Text style={{
+                                    color: "#000000",
+                                    fontSize: 15,
+                                    lineHeight: 22,
+                                    fontWeight: "bold"
+                                }}>Tutar</Text>
+                            </View>
+
+                            <View style={{ width: "60%" }}>
+
+                                <Text style={{
+                                    color: "#000000",
+                                    fontSize: 16,
+                                    lineHeight: 22,
+                                    textAlign: 'right'
+                                }}>
+                                    {data?.amount} {data?.currencyCode}
+                                </Text>
+                            </View>
 
 
-
-                        <View
-                            style={{
-                                flexDirection: "row",
-                                alignItems: "center",
-                                justifyContent: "space-between",
-                                paddingHorizontal: 16,
-                                marginBottom: 8
-                            }}
-                        >
-                            <Text style={{ color: "#000000", fontSize: 16, lineHeight: 22 }}>Talep Eden</Text>
-
-                            <Text style={{
-                                color: "#000000",
-                                fontSize: 16,
-                                lineHeight: 22,
-                                textAlign: 'right'
-                            }}>
-                                Onur SALMAN</Text>
                         </View>
 
                         <View
@@ -151,18 +203,32 @@ export default function PaymentRequestDetail() {
                                 alignItems: "center",
                                 justifyContent: "space-between",
                                 paddingHorizontal: 16,
-                                marginBottom: 8
+                                marginBottom: 8,
+                                width: "100%"
                             }}
                         >
-                            <Text style={{ color: "#000000", fontSize: 16, lineHeight: 22 }}>Belge Tarihi</Text>
+                            <View style={{ width: "30%" }}>
 
-                            <Text style={{
-                                color: "#000000",
-                                fontSize: 17,
-                                lineHeight: 22,
-                                textAlign: 'right'
-                            }}>
-                                17.12.2022</Text>
+                                <Text style={{
+                                    color: "#000000",
+                                    fontSize: 15,
+                                    lineHeight: 22,
+                                    fontWeight: "bold"
+                                }}>Talep Eden</Text>
+                            </View>
+
+                            <View style={{ width: "60%" }}>
+
+                                <Text style={{
+                                    color: "#000000",
+                                    fontSize: 16,
+                                    lineHeight: 22,
+                                    textAlign: 'right'
+                                }}>
+                                    {data?.formOwner}
+                                </Text>
+                            </View>
+
                         </View>
 
                         <View
@@ -171,18 +237,31 @@ export default function PaymentRequestDetail() {
                                 alignItems: "center",
                                 justifyContent: "space-between",
                                 paddingHorizontal: 16,
-                                marginBottom: 8
+                                marginBottom: 8,
+                                width: "100%"
                             }}
                         >
-                            <Text style={{ color: "#000000", fontSize: 16, lineHeight: 22 }}>Ödeme Tarihi</Text>
+                            <View style={{ width: "30%" }}>
 
-                            <Text style={{
-                                color: "#000000",
-                                fontSize: 17,
-                                lineHeight: 22,
-                                textAlign: 'right'
-                            }}>
-                                21.12.2022</Text>
+                                <Text style={{
+                                    color: "#000000",
+                                    fontSize: 15,
+                                    lineHeight: 22,
+                                    fontWeight: "bold"
+                                }}>Belge Tarihi</Text>
+                            </View>
+
+                            <View style={{ width: "60%" }}>
+
+                                <Text style={{
+                                    color: "#000000",
+                                    fontSize: 17,
+                                    lineHeight: 22,
+                                    textAlign: 'right'
+                                }}>
+                                    {data?.documentDate}
+                                </Text>
+                            </View>
                         </View>
 
                         <View
@@ -191,19 +270,30 @@ export default function PaymentRequestDetail() {
                                 alignItems: "center",
                                 justifyContent: "space-between",
                                 paddingHorizontal: 16,
-                                marginBottom: 8
+                                marginBottom: 8,
+                                width: "100%"
                             }}
                         >
-                            <Text style={{ color: "#000000", fontSize: 16, lineHeight: 22 }}>Açıklama</Text>
+                            <View style={{ width: "30%" }}>
+                                <Text style={{
+                                    color: "#000000",
+                                    fontSize: 15,
+                                    lineHeight: 22,
+                                    fontWeight: "bold"
+                                }}>Ödeme Tarihi</Text>
+                            </View>
 
-                            <Text style={{
-                                color: "#000000",
-                                fontSize: 17,
-                                lineHeight: 22,
-                                textAlign: 'right',
-                                maxWidth: 220
-                            }}>
-                                Borusan Lojistikten Zone 3 ABDSevkiyati icin alinan Navlun hizmet</Text>
+                            <View style={{ width: "60%" }}>
+                                <Text style={{
+                                    color: "#000000",
+                                    fontSize: 17,
+                                    lineHeight: 22,
+                                    textAlign: 'right'
+                                }}>
+                                    {data?.paymentDate}
+                                </Text>
+                            </View>
+
                         </View>
 
                         <View
@@ -211,11 +301,57 @@ export default function PaymentRequestDetail() {
                                 flexDirection: "row",
                                 alignItems: "center",
                                 justifyContent: "space-between",
-                                paddingHorizontal: 16,                               
-                                marginTop:20
+                                paddingHorizontal: 16,
+                                marginBottom: 8,
+                                width: "100%"
                             }}
                         >
-                            <Text style={{ color: "#000000", fontSize: 16, lineHeight: 22, fontWeight: 'bold' }}>Dosya</Text>
+
+                            <View style={{ width: "30%" }}>
+
+                                <Text style={{
+                                    color: "#000000",
+                                    fontSize: 15,
+                                    lineHeight: 22,
+                                    fontWeight: "bold"
+                                }}>
+                                    Açıklama
+                                </Text>
+                            </View>
+
+                            <View style={{ width: "60%" }}>
+
+                                <Text style={{
+                                    color: "#000000",
+                                    fontSize: 17,
+                                    lineHeight: 22,
+                                    textAlign: 'right',
+                                    maxWidth: 220
+                                }}>
+                                    {data?.description}
+                                </Text>
+                            </View>
+                        </View>
+
+                        <View
+                            style={{
+                                flexDirection: "row",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                                paddingHorizontal: 16,
+                                marginTop: 20,
+                                fontWeight: "bold"
+                            }}
+                        >
+
+                            <Text style={{
+                                color: "#000000",
+                                fontSize: 15,
+                                lineHeight: 22,
+                                fontWeight: 'bold'
+                            }}>
+                                Dosya
+                            </Text>
 
                             <TouchableOpacity>
                                 <Icon
@@ -223,9 +359,10 @@ export default function PaymentRequestDetail() {
                                     type="ionicon"
                                     size={26}
                                     color="black"
-                                    style={{ marginRight: 12 }}
+                                    style={{ marginRight: 8 }}
                                 />
                             </TouchableOpacity>
+
                         </View>
                     </View>
                 </View>
