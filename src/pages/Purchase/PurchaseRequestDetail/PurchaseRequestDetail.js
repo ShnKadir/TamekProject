@@ -17,6 +17,7 @@ import { styles } from './PurchaseRequestDetailStyle'
 
 // Navigation
 import { useNavigation } from '@react-navigation/native'
+import { useEffect } from 'react'
 
 export default function PurchaseRequestDetail({
     route
@@ -25,6 +26,7 @@ export default function PurchaseRequestDetail({
     const navigation = useNavigation()
 
     const [data, setData] = useState(route.params.data)
+    const [totalAmount, setTotalAmount] = useState(0)
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -32,6 +34,16 @@ export default function PurchaseRequestDetail({
             title: route.params.data?.header,
         })
     }, [navigation])
+
+    useEffect(() => {
+        
+        let totalCost = 0
+        
+        for (let i = 0; i < data?.lines?.length; i++) {
+            totalCost += parseFloat((data?.lines?.[i]?.lineAmountMst).toLocaleString('en-US', { style: 'decimal', currency: 'TL' }).replace(',', ''))
+            setTotalAmount(totalCost)
+        }
+    }, [])
 
     return (
 
@@ -41,7 +53,7 @@ export default function PurchaseRequestDetail({
                     <View style={{
                         paddingVertical: 32,
                         backgroundColor: "#FFFFFF",
-                        minHeight: 220,
+                        maxHeight: 300,
                         marginTop: 8,
                         marginBottom: 24,
                         borderWidth: 1,
@@ -135,7 +147,7 @@ export default function PurchaseRequestDetail({
                                 lineHeight: 22,
                                 textAlign: "right"
                             }}>
-                                SATIR TOPLAMI GETİRİLECEK
+                                {totalAmount} {data?.lines?.[0]?.currencyCode}
                             </Text>
                         </View>
 

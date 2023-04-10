@@ -116,13 +116,13 @@ export default function PaymentRequest() {
                                                                 {item?.paymentCategory}
                                                             </Text>
 
-                                                            <HStack style={{ width: 260, justifyContent: "space-between", maxWidth: 260 }}>
-                                                                <HStack style={{ maxWidth: 156, paddingRight: 68 }}>
-                                                                    <Text style={{ flexWrap: "wrap", fontSize: 13, fontWeight: "600" }}>
+                                                            <HStack style={{ width: 260, justifyContent: "space-between", maxWidth: 260, flexWrap: "wrap" }}>
+                                                                <HStack>
+                                                                    <Text style={{ fontSize: 13, fontWeight: "600" }}>
                                                                         {item?.amount} {item?.currencyCode}
                                                                     </Text>
                                                                 </HStack>
-                                                                <HStack style={{ maxWidth: 136 }}>
+                                                                <HStack style={{}}>
                                                                     <Text style={{ flexWrap: "wrap", fontSize: 13, fontWeight: "600" }}>
                                                                         {item?.formOwner}
                                                                     </Text>

@@ -39,7 +39,7 @@ export default function PaymentRequestDetail({
         <SafeAreaView style={{ flex: 1 }}>
 
             <ScrollView style={{ flex: 1, backgroundColor: "#F5F5F5" }} contentContainerStyle={{ flexGrow: 1 }} >
-                <View style={{ paddingHorizontal: 16, paddingBottom: 200}}>
+                <View style={{ paddingHorizontal: 16, paddingBottom: 200 }}>
 
                     <View style={{
                         paddingVertical: 32,

@@ -22,11 +22,12 @@ export default function CostApprovalDetail({
     const [data, setData] = useState(route?.params?.data)
     const [dataLines, setDataLines] = useState(route?.params?.data?.lines)
     const [search, setSearch] = useState("")
-    const [filteredData, setFilteredData] = useState()
+    const [totalAmount, setTotalAmount] = useState("")
 
     useEffect(() => {
         setData(route?.params?.data)
         setDataLines(route?.params?.data?.lines)
+
     }, [route])
 
     useLayoutEffect(() => {
@@ -36,6 +37,15 @@ export default function CostApprovalDetail({
             //title: route?.params?.data?.expenseRequestFormHeader,
         })
     }, [navigation])
+
+    useEffect(() => {
+        let total = 0
+        for (let i = 0; i < data?.lines?.length; i++) {
+            total += parseFloat(data?.lines?.[i]?.amount)
+            setTotalAmount(total)
+        }
+    }, [])
+
 
     const updateSearch = (search) => {
 
@@ -59,8 +69,8 @@ export default function CostApprovalDetail({
                 <View style={{ paddingHorizontal: 16 }}>
                     <View style={{
                         paddingVertical: 32,
-                        backgroundColor: "#FFFFFF",
-                        height: 220,
+                        backgroundColor: "#FFFFFF",                      
+                        maxHeight: 300,
                         marginTop: 8,
                         marginBottom: 24,
                         borderWidth: 1,
@@ -70,7 +80,7 @@ export default function CostApprovalDetail({
                         shadowColor: "black",
                         shadowOffset: { width: 0, height: 2 },
                         shadowOpacity: 0.1,
-                        elevation: 10
+                        elevation: 10,
                     }}>
 
                         <View
@@ -136,11 +146,11 @@ export default function CostApprovalDetail({
                                 lineHeight: 22,
                                 textAlign: "right"
                             }}>
-                                SATIRLAR TOPLANACAK
+                                {totalAmount.toString()} {data?.currencyCode}
                             </Text>
                         </View>
 
-                        <View
+                        {/* <View
                             style={{
                                 flexDirection: "row",
                                 alignItems: "center",
@@ -160,7 +170,7 @@ export default function CostApprovalDetail({
                             }}>
                                 0
                             </Text>
-                        </View>
+                        </View> */}
 
                         <View
                             style={{
@@ -168,8 +178,7 @@ export default function CostApprovalDetail({
                                 alignItems: "center",
                                 justifyContent: "space-between",
                                 paddingHorizontal: 16,
-                                marginBottom: 10,
-                                marginTop: 14
+                                marginTop: 16
                             }}
                         >
                             <View style={{ paddingRight: 5 }}>
