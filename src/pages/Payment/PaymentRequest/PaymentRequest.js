@@ -40,21 +40,21 @@ export default function PaymentRequest() {
 
     useEffect(() => {
         setData(paymentRequestData)
-      }, [paymentRequestData])
+    }, [paymentRequestData])
 
     useLayoutEffect(() => {
         navigation.setOptions({
             title: "Onay Bekleyenler",
             headerSearchBarOptions: {
                 placeholder: "Search",
-                onChangeText: (event) => searchFilterFunction(event.nativeEvent.text.toLowerCase())
+                onChangeText: (event) => searchFilterFunction(event.nativeEvent.text)
             }
         })
     }, [navigation])
 
     function searchFilterFunction(searchTerm) {
 
-        let filteredData = paymentRequestData?.filter(item => item.paymentCompany.toLowerCase().includes(searchTerm))
+        let filteredData = paymentRequestData?.filter(item => item.paymentCompany.toLocaleUpperCase('tr-TR').includes(searchTerm.toLocaleUpperCase('tr-TR')))
         setData(filteredData)
     }
 
@@ -117,12 +117,12 @@ export default function PaymentRequest() {
                                                             </Text>
 
                                                             <HStack style={{ width: 260, justifyContent: "space-between", maxWidth: 260 }}>
-                                                                <HStack style={{ maxWidth: 156, paddingRight: 68}}>
+                                                                <HStack style={{ maxWidth: 156, paddingRight: 68 }}>
                                                                     <Text style={{ flexWrap: "wrap", fontSize: 13, fontWeight: "600" }}>
                                                                         {item?.amount} {item?.currencyCode}
                                                                     </Text>
                                                                 </HStack>
-                                                                <HStack style={{ maxWidth: 136}}>
+                                                                <HStack style={{ maxWidth: 136 }}>
                                                                     <Text style={{ flexWrap: "wrap", fontSize: 13, fontWeight: "600" }}>
                                                                         {item?.formOwner}
                                                                     </Text>

@@ -58,7 +58,7 @@ export default function PurchaseRequest() {
 
     function searchFilterFunction(searchTerm) {
 
-        let filteredData = data?.filter(item => item.header.toUpperCase().includes(searchTerm.toUpperCase()))
+        let filteredData = purchReqRequestData?.filter(item => item.header.toLocaleUpperCase('tr-TR').includes(searchTerm.toLocaleUpperCase('tr-TR')))
         setData(filteredData)
     }
 

@@ -56,7 +56,7 @@ export default function PurchaseAggrementScreen() {
 
     function searchFilterFunction(searchTerm) {
 
-        let filteredData = data?.filter(item => item.header.toUpperCase().includes(searchTerm.toUpperCase()))
+        let filteredData = purchaseAggrementData?.filter(item => item.header.toLocaleUpperCase('tr-TR').includes(searchTerm.toLocaleUpperCase('tr-TR')))
         setData(filteredData)
     }
 
@@ -67,7 +67,7 @@ export default function PurchaseAggrementScreen() {
                 returnText === RETURN_TEXT.RECORD_NOT_FOUND ?
 
                     <View style={{ flex: 1, backgroundColor: "#FFFFFF", justifyContent: "center", alignItems: "center", paddingHorizontal: 16 }}>
-                        <Text style={{ fontSize: 14 ,textAlign:"center"}}>
+                        <Text style={{ fontSize: 14, textAlign: "center" }}>
                             Onayınızda bekleyen satın alma sözleşmesi bulunmamaktadır.
                         </Text>
                     </View>

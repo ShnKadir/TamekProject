@@ -9,7 +9,8 @@ export const MENU_NAV = {
   PURCHASE_INVOICES_DETAIL: "PurchaseInvoicesDetail",
   PURCHASE_AGGREMENT_REQUEST: "PurchaseAgreementRequest",
   PURCHASE_AGGREMENT_REQUEST_DETAIL: "PurchaseAgreementRequestDetail",
-  MENU: "Menu"
+  MENU: "Menu",
+  ACCOUNT: "Account"
 }
 
 export const PAYMENT_NAV = {

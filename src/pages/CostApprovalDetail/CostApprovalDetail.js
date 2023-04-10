@@ -41,7 +41,7 @@ export default function CostApprovalDetail({
 
         if (search?.length > 0) {
             setSearch(search)
-            let filteredData = route?.params?.data?.lines?.filter(item => item?.expenseName?.toUpperCase().includes(search.toUpperCase()))
+            let filteredData = route?.params?.data?.lines?.filter(item => item?.expenseName?.toUpperCase().includes(search.toUpperCase()) || item?.expenseCategory?.toUpperCase().includes(search.toUpperCase()))
             setDataLines(filteredData)
         }
         else {
@@ -158,7 +158,7 @@ export default function CostApprovalDetail({
                                 lineHeight: 22,
                                 textAlign: "right"
                             }}>
-                                0 
+                                0
                             </Text>
                         </View>
 

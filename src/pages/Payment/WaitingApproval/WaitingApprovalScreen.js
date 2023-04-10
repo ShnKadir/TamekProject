@@ -47,14 +47,14 @@ export default function WaitingApprovalScreen() {
     navigation.setOptions({
       headerSearchBarOptions: {
         placeholder: "Search",
-        onChangeText: (event) => searchFilterFunction(event.nativeEvent.text.toUpperCase())
+        onChangeText: (event) => searchFilterFunction(event.nativeEvent.text)
       }
     })
   }, [navigation])
 
   function searchFilterFunction(searchTerm) {
 
-    let filteredData = expenseRequest?.filter(item => item?.expenseRequestFormHeader?.toUpperCase().includes(searchTerm.toUpperCase()) || item?.spenderUserIdName?.toUpperCase().includes(searchTerm.toUpperCase()))
+    let filteredData = expenseRequest?.filter(item => item?.expenseRequestFormHeader?.toLocaleUpperCase('tr-TR').includes(searchTerm.toLocaleUpperCase('tr-TR')) || item?.spenderUserIdName?.toUpperCase().includes(searchTerm.toLocaleUpperCase('tr-TR')))
     setData(filteredData)
   }
 
