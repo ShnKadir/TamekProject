@@ -44,7 +44,7 @@ export default function PurchaseRequest() {
 
     useEffect(() => {
         setData(purchReqRequestData)
-    }, [])
+    }, [purchReqRequestData])
 
     useLayoutEffect(() => {
         navigation.setOptions({

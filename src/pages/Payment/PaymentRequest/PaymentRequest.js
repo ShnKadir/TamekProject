@@ -34,98 +34,30 @@ export default function PaymentRequest() {
 
     const [data, setData] = useState()
 
-    const dummyDdata = [
-        {
-            id: "1",
-            number: "1",
-            name: "BORUSAN LOJISTIK DAGITIM A.Ş. 222",
-            date: "16/12/2023",
-            costTotal: "87,736.00 USD",
-        },
-        {
-            id: "2",
-            number: "2",
-            name: "BORUSAN LOJISTIK DAGITIM A.Ş. 3344556",
-            date: "16/12/2023",
-            costTotal: "87,736.00 USD",
-        },
-        {
-            id: "3",
-            number: "3",
-            name: " 44 BORUSAN LOJISTIK DAGITIM A.Ş.",
-            date: "16/12/2023",
-            costTotal: "87,736.00 USD",
-        },
-        {
-            id: "4",
-            number: "4",
-            name: "asd BORUSAN LOJISTIK DAGITIM A.Ş.",
-            date: "16/12/2023",
-            costTotal: "87,736.00 USD",
-        },
-        {
-            id: "5",
-            number: "5",
-            name: "555 BORUSAN LOJISTIK DAGITIM A.Ş.",
-            date: "16/12/2023",
-            costTotal: "87,736.00 USD",
-        },
-        {
-            id: "6",
-            number: "6",
-            name: "BORUSAN LOJISTIK DAGITIM A.Ş.",
-            date: "16/12/2023",
-            costTotal: "87,736.00 USD",
-        },
-        {
-            id: "7",
-            number: "7",
-            name: "BORUSAN LOJISTIK DAGITIM A.Ş.",
-            date: "16/12/2023",
-            costTotal: "87,736.00 USD",
-        },
-        {
-            id: "8",
-            number: "8",
-            name: "BORUSAN LOJISTIK DAGITIM A.Ş.",
-            date: "16/12/2023",
-            costTotal: "87,736.00 USD",
-        },
-        {
-            id: "9",
-            number: "9",
-            name: "BORUSAN LOJISTIK DAGITIM A.Ş.",
-            date: "16/12/2023",
-            costTotal: "87,736.00 USD",
-        },
-    ]
-
     const goToDetailScreen = (item) => {
         navigation.navigate(MENU_NAV.PAYMENT_REQUEST_DETAIL, { data: item })
     }
 
     useEffect(() => {
-        setData(dummyDdata)
-    }, [])
+        setData(paymentRequestData)
+      }, [paymentRequestData])
 
     useLayoutEffect(() => {
         navigation.setOptions({
             title: "Onay Bekleyenler",
             headerSearchBarOptions: {
                 placeholder: "Search",
-                onChangeText: (event) => searchFilterFunction(event.nativeEvent.text)
+                onChangeText: (event) => searchFilterFunction(event.nativeEvent.text.toLowerCase())
             }
         })
     }, [navigation])
 
     function searchFilterFunction(searchTerm) {
 
-        let filteredData = dummyDdata?.filter(item => item.name.toUpperCase().includes(searchTerm.toUpperCase()))
+        let filteredData = paymentRequestData?.filter(item => item.paymentCompany.toLowerCase().includes(searchTerm))
         setData(filteredData)
     }
 
-
-    console.log(paymentRequestData)
     return (
 
         <SafeAreaView style={{ flex: 1 }}>
@@ -142,10 +74,10 @@ export default function PaymentRequest() {
 
                         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
 
-                            <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 60 }}>
+                            <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 100 }}>
 
                                 {
-                                    paymentRequestData?.map((item, index) => {
+                                    data?.map((item, index) => {
                                         return (
                                             <TouchableOpacity
                                                 onPress={() => goToDetailScreen(item)}
@@ -177,21 +109,24 @@ export default function PaymentRequest() {
                                                         </View>
                                                         <VStack style={{ paddingLeft: 8, maxWidth: 284 }} space={"5px"}>
                                                             <Text style={{ fontWeight: "bold", flexWrap: "wrap", fontSize: 14 }}>
-                                                                {item?.formOwner}
-                                                            </Text>
-
-                                                            <Text style={{ fontSize: 13, color: "#6C6C6C" }}>
                                                                 {item?.paymentCompany}
                                                             </Text>
 
                                                             <Text style={{ fontSize: 13, color: "#6C6C6C" }}>
-                                                                {item?.paymentDate}
+                                                                {item?.paymentCategory}
                                                             </Text>
 
-                                                            <HStack style={{ maxWidth: 260, width: 260 }}>
-                                                                <Text style={{ flexWrap: "wrap", fontSize: 13, fontWeight: "bold" }}>
-                                                                    {item?.amount} {item?.currencyCode}
-                                                                </Text>
+                                                            <HStack style={{ width: 260, justifyContent: "space-between", maxWidth: 260 }}>
+                                                                <HStack style={{ maxWidth: 156, paddingRight: 68}}>
+                                                                    <Text style={{ flexWrap: "wrap", fontSize: 13, fontWeight: "600" }}>
+                                                                        {item?.amount} {item?.currencyCode}
+                                                                    </Text>
+                                                                </HStack>
+                                                                <HStack style={{ maxWidth: 136}}>
+                                                                    <Text style={{ flexWrap: "wrap", fontSize: 13, fontWeight: "600" }}>
+                                                                        {item?.formOwner}
+                                                                    </Text>
+                                                                </HStack>
                                                             </HStack>
                                                         </VStack>
                                                     </HStack>

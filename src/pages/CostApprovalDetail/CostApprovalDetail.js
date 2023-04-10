@@ -32,21 +32,21 @@ export default function CostApprovalDetail({
     useLayoutEffect(() => {
         navigation.setOptions({
             headerLargeTitle: false,
-            title:"Onay Bekleyenler"
+            title: "Onay Bekleyenler"
             //title: route?.params?.data?.expenseRequestFormHeader,
         })
     }, [navigation])
-
 
     const updateSearch = (search) => {
 
         if (search?.length > 0) {
             setSearch(search)
-            let filteredData = dataLines?.filter(item => item?.expenseName?.toLowerCase().includes(search.toLowerCase()))
+            let filteredData = route?.params?.data?.lines?.filter(item => item?.expenseName?.toUpperCase().includes(search.toUpperCase()))
             setDataLines(filteredData)
         }
         else {
             setDataLines(data?.lines)
+            setSearch(null)
         }
     }
 
@@ -136,7 +136,7 @@ export default function CostApprovalDetail({
                                 lineHeight: 22,
                                 textAlign: "right"
                             }}>
-
+                                SATIRLAR TOPLANACAK
                             </Text>
                         </View>
 
@@ -157,7 +157,9 @@ export default function CostApprovalDetail({
                                 flex: 1,
                                 lineHeight: 22,
                                 textAlign: "right"
-                            }}></Text>
+                            }}>
+                                0 
+                            </Text>
                         </View>
 
                         <View

@@ -134,7 +134,9 @@ export default function PurchaseRequestDetail({
                                 flex: 1,
                                 lineHeight: 22,
                                 textAlign: "right"
-                            }}>2,549.94 USD</Text>
+                            }}>
+                                SATIR TOPLAMI GETİRİLECEK
+                            </Text>
                         </View>
 
                         <View
@@ -142,10 +144,10 @@ export default function PurchaseRequestDetail({
                                 flexDirection: "row",
                                 alignItems: "center",
                                 justifyContent: "space-between",
-                                paddingHorizontal: 16,                                
+                                paddingHorizontal: 16,
                                 backgroundColor: "#FFFFFF",
                                 width: "100%",
-                                marginTop:16
+                                marginTop: 16
                             }}
                         >
                             <View style={{

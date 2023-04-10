@@ -41,20 +41,20 @@ export default function WaitingApprovalScreen() {
 
   useEffect(() => {
     setData(expenseRequest)
-  }, [])
+  }, [expenseRequest])
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerSearchBarOptions: {
         placeholder: "Search",
-        onChangeText: (event) => searchFilterFunction(event.nativeEvent.text)
+        onChangeText: (event) => searchFilterFunction(event.nativeEvent.text.toUpperCase())
       }
     })
   }, [navigation])
 
   function searchFilterFunction(searchTerm) {
 
-    let filteredData = data?.filter(item => item?.expenseRequestFormHeader?.toUpperCase().includes(searchTerm.toUpperCase()) || item?.spenderUserIdName?.toUpperCase().includes(searchTerm.toUpperCase()))
+    let filteredData = expenseRequest?.filter(item => item?.expenseRequestFormHeader?.toUpperCase().includes(searchTerm.toUpperCase()) || item?.spenderUserIdName?.toUpperCase().includes(searchTerm.toUpperCase()))
     setData(filteredData)
   }
 
@@ -77,7 +77,7 @@ export default function WaitingApprovalScreen() {
               <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 60 }} >
                 <View style={{ marginTop: 8 }}>
                   {
-                    expenseRequest?.map((item, index) => {
+                    data?.map((item, index) => {
                       return (
                         <TouchableOpacity
                           onPress={() => goToWaitingApprovalScreen(item)}
@@ -108,11 +108,11 @@ export default function WaitingApprovalScreen() {
                                 </Text>
                               </View>
                               <VStack style={{ paddingLeft: 8, maxWidth: 284 }} space={"5px"}>
-                                <Text style={{ fontWeight: "bold", flexWrap: "wrap" }}>
-                                  {item?.expenseRequestFormHeader}
+                                <Text style={{ fontWeight: "bold", flexWrap: "wrap", fontSize: 13 }}>
+                                  {item?.spenderUserIdName}
                                 </Text>
 
-                                <Text style={{ fontSize: 15, color: "#6C6C6C" }}>
+                                <Text style={{ fontSize: 15, fontSize: 13 }}>
                                   {item?.dateOfEntry}
                                 </Text>
                                 {/* <Text style={{ fontSize: 15, color: "#6C6C6C" }}>
@@ -121,15 +121,15 @@ export default function WaitingApprovalScreen() {
 
                                 <HStack style={{ width: 260, justifyContent: "space-between", maxWidth: 260 }}>
                                   <HStack style={{ maxWidth: 156, paddingRight: 68 }}>
-                                    <Text style={{ flexWrap: "wrap", fontSize: 11, fontWeight: "600" }}>
+                                    <Text style={{ flexWrap: "wrap", fontSize: 13, fontWeight: "500", color: "#6C6C6C" }}>
                                       2000 {item?.currencyCode}
                                     </Text>
                                   </HStack>
-                                  <HStack style={{ maxWidth: 136 }}>
+                                  {/* <HStack style={{ maxWidth: 136 }}>
                                     <Text style={{ flexWrap: "wrap", fontSize: 11, fontWeight: "600" }}>
                                       {item?.spenderUserIdName}
                                     </Text>
-                                  </HStack>
+                                  </HStack> */}
                                 </HStack>
                               </VStack>
                             </HStack>

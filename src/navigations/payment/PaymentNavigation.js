@@ -9,7 +9,9 @@ const Stack = createNativeStackNavigator()
 
 export default function PaymentNavigation() {
     return (
-        <Stack.Navigator>
+        <Stack.Navigator
+            initialRouteName={MENU_NAV.MENU}
+        >
             {
                 paymentRequestRoutes.map((item, index) => {
                     return (

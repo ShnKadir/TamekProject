@@ -25,9 +25,9 @@ export default function Menu() {
 
     const navigation = useNavigation()
 
-    const isLogin = useSelector(state => state.auth?.loginData?.resultStatus)
+    const isLogin = useSelector(state => state.auth?.isLogin)
 
-    const dummyDdata = [
+    const menuData = [
         {
             id: "1",
             name: "Masraf Beyan",
@@ -106,7 +106,7 @@ export default function Menu() {
             <ScrollView style={{ backgroundColor: "#F5F5F5" }}>
                 <View style={{ marginTop: 8 }}>
                     {
-                        dummyDdata?.map((item, index) => {
+                        menuData?.map((item, index) => {
                             return (
 
                                 <TouchableOpacity onPress={() => goToWaitingApprovalScreen(item?.id)} key={index}>

@@ -187,7 +187,12 @@ export default function PurchaseInvoices() {
 
         <SafeAreaView style={{ flex: 1 }}>
 
-            <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
+            <View style={{ flex: 1, backgroundColor: "#FFFFFF", justifyContent: "center", alignItems: "center" }}>
+                <Text style={{ fontSize: 14, textAlign: "center" }}>
+                    Satın Alma Faturası bulunmamaktadır.
+                </Text>
+            </View>
+            {/* <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
 
                 <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
 
@@ -267,7 +272,7 @@ export default function PurchaseInvoices() {
                             })}
                     </ScrollView>
                 </TouchableWithoutFeedback>
-            </KeyboardAvoidingView>
+            </KeyboardAvoidingView> */}
         </SafeAreaView>
 
     )

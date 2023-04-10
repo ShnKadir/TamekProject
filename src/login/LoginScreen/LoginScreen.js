@@ -50,8 +50,8 @@ export default function LoginScreen(
 
     const loginApiStatus = useSelector(state => state.auth.loginApiStatus)
 
-    const [email, setEmail] = useState('sinem.tasci@tamekgrup.com.tr')
-    const [password, setPassword] = useState('123123')
+    const [email, setEmail] = useState()
+    const [password, setPassword] = useState()
 
     const [emailIsFocused, setEmailIsFocused] = useState(false)
     const [passwordIsFocused, setPasswordIsFocused] = useState(false)
@@ -81,13 +81,17 @@ export default function LoginScreen(
         setEmail('')
     }
 
-    const validateText = (text) => {
-        setEmail(text)
-        setErrorMessage('')
-        let reg = (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
-        if (reg.test(text) === false) {
-            setEmailValidate(false)
-        }
+    // const validateText = (text) => {
+    //     setEmail(text)
+    //     setErrorMessage('')
+    //     let reg = (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
+    //     if (reg.test(text) === false) {
+    //         setEmailValidate(false)
+    //     }
+    // }
+
+    const handleOnChangeEmail = (email) => {
+        setEmail(email)
     }
 
     const handleOnChangePassword = (pass) => {
@@ -173,7 +177,7 @@ export default function LoginScreen(
                                                 styles.emailFocusTextInputStyle :
                                                 styles.emailTextInputStyle]}
                                             value={email}
-                                            onChangeText={(text) => validateText(text)}
+                                            onChangeText={(email) => handleOnChangeEmail(email)}
                                             onFocus={emailHandleFocus}
                                             onBlur={() => {
                                                 if (email === '' || isEmail(email)) {

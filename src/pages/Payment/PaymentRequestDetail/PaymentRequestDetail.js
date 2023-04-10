@@ -2,9 +2,9 @@
 import React, { useLayoutEffect } from 'react'
 
 // React Native
-import { View, Text, ScrollView, TouchableOpacity, SafeAreaView } from 'react-native'
+import { View, Text, TouchableOpacity, SafeAreaView } from 'react-native'
 import { Icon } from 'react-native-elements'
-import { HStack } from 'native-base'
+import { HStack, ScrollView } from 'native-base'
 
 // Styles
 import { styles } from './PaymentRequestDetailStyle'
@@ -38,8 +38,9 @@ export default function PaymentRequestDetail({
 
         <SafeAreaView style={{ flex: 1 }}>
 
-            <ScrollView style={{ flex: 1, backgroundColor: "#F5F5F5" }}>
-                <View style={{ paddingHorizontal: 16 }}>
+            <ScrollView style={{ flex: 1, backgroundColor: "#F5F5F5" }} contentContainerStyle={{ flexGrow: 1 }} >
+                <View style={{ paddingHorizontal: 16, paddingBottom: 200}}>
+
                     <View style={{
                         paddingVertical: 32,
                         backgroundColor: "#FFFFFF",
@@ -364,6 +365,7 @@ export default function PaymentRequestDetail({
                             </TouchableOpacity>
 
                         </View>
+
                     </View>
                 </View>
 
