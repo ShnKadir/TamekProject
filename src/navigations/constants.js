@@ -21,5 +21,6 @@ export const LOGIN_NAV = {
   LOGIN: "Login",
   MENU: "Menu",
   FORGOT_PASSWORD: "ForgotPassword",
-  SET_NEW_PASSWORD: "NewPassword"
+  SET_NEW_PASSWORD: "NewPassword",
+  RESET_PASSWORD: "ResetPassword"
 }

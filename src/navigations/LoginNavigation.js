@@ -1,12 +1,8 @@
 import React from 'react'
 
-// Navigation
-import { LOGIN_NAV } from './constants'
-
 // Stack navigator
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import loginRoutes from '../routes/loginRoutes'
-import LoginScreen from '../login/LoginScreen/LoginScreen'
 const Stack = createNativeStackNavigator()
 
 export default function LoginNavigation() {
@@ -15,6 +11,7 @@ export default function LoginNavigation() {
         <Stack.Navigator
             screenOptions={{
                 headerShown: false,
+                headerBackVisible: true
             }}
         >
             {

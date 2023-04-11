@@ -26,7 +26,8 @@ export default function InputArea({
     cursorColor = '#bfbfbf',
     placeholderTextColor = '#bfbfbf',
     onBlur,
-    onFocus
+    onFocus,
+    error
 }) {
 
     const [isFocused, setIsFocused] = useState(false)
@@ -54,7 +55,7 @@ export default function InputArea({
                 selectTextOnFocus={false}
                 multiline={multiline}
                 numberOfLines={numberOfLines}
-            //disabledInputStyle={{ backgroundColor: "red" }}
+                error={error}
             />
 
             {/* Input Right Element */}

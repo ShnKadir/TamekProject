@@ -13,16 +13,17 @@ export const styles = StyleSheet.create({
         height: 56,
         borderBottomWidth: 1,
         borderBottomColor: "#000000",
-        backgroundColor: "#FFFFFF"
+        backgroundColor: "#FFFFFF",
+        borderRadius:50
     },
     emailFocusStyle: {
         height: 56,
         paddingTop: 8,
         paddingLeft: 16,
         paddingBottom: 8,
-        borderBottomWidth: 1,
-        borderBottomColor: "#1B3797",
-        backgroundColor: "#FFFFFF"
+        backgroundColor: "#FFFFFF",
+        borderRadius:50,
+ 
     },
     emailTextStyle: {
         left: 0,
@@ -53,18 +54,16 @@ export const styles = StyleSheet.create({
     },
     passwordStyle: {
         height: 56,
-        borderBottomWidth: 1,
-        borderBottomColor: "#000000",
-        backgroundColor: "white"
+        backgroundColor: "white",
+        borderRadius:50
     },
     passwordFocusStyle: {
         height: 56,
         paddingTop: 8,
         paddingLeft: 16,
         paddingBottom: 8,
-        borderBottomWidth: 1,
-        borderBottomColor: "#1B3797",
-        backgroundColor: "white"
+        backgroundColor: "white",
+        borderRadius:50
     },
     passwordFocusTextStyle: {
         left: 0,
@@ -113,5 +112,24 @@ export const styles = StyleSheet.create({
         textAlign: "center",
         color: "#FFFFFF",
         fontSize: 14
-    }
+    },
+
+    vContainer: {
+		alignItems: "center",
+		justifyContent: "center",
+        paddingHorizontal:5,
+        marginTop:20
+	},
+	loginButton: {
+        backgroundColor: "#007041",
+        height: 48,
+        borderRadius:36
+	},
+	forgotPassword: {
+		alignSelf: "flex-end",
+	},
+	forgotPasswordText: {
+		color: "#FFFFFF",
+	},
+	
 })
