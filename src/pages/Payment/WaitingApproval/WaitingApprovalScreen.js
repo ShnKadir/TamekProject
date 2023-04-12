@@ -58,6 +58,16 @@ export default function WaitingApprovalScreen() {
     setData(filteredData)
   }
 
+  const calculateCost = (item) => {
+    let total = 0
+    let converterCost = 0
+    for (let i = 0; i < item?.lines?.length; i++) {
+      total += parseFloat((item?.lines?.[i]?.amount).toLocaleString('en-US', { style: 'decimal', currency: 'TL' }).replace(',', ''))
+      converterCost = (total).toLocaleString('en-US', { style: 'decimal', currency: 'USD' })
+    }
+    return converterCost
+  }
+
   return (
 
     <SafeAreaView style={{ flex: 1 }}>
@@ -113,23 +123,18 @@ export default function WaitingApprovalScreen() {
                                 </Text>
 
                                 <Text style={{ fontSize: 15, fontSize: 13 }}>
-                                  {item?.dateOfEntry}
+                                  {new Date(item?.dateOfEntry).toLocaleDateString("tr-TR").replaceAll('.', '/')}
                                 </Text>
-                                {/* <Text style={{ fontSize: 15, color: "#6C6C6C" }}>
-                                  {item.costDetail}
-                                </Text> */}
+
 
                                 <HStack style={{ width: 260, justifyContent: "space-between", maxWidth: 260 }}>
                                   <HStack style={{ maxWidth: 156, paddingRight: 68 }}>
                                     <Text style={{ flexWrap: "wrap", fontSize: 13, fontWeight: "500", color: "#6C6C6C" }}>
-                                      2000 {item?.currencyCode}
+
+                                      {calculateCost(item)} {item?.currencyCode}
                                     </Text>
                                   </HStack>
-                                  {/* <HStack style={{ maxWidth: 136 }}>
-                                    <Text style={{ flexWrap: "wrap", fontSize: 11, fontWeight: "600" }}>
-                                      {item?.spenderUserIdName}
-                                    </Text>
-                                  </HStack> */}
+
                                 </HStack>
                               </VStack>
                             </HStack>

@@ -260,7 +260,7 @@ export default function PaymentRequestDetail({
                                     lineHeight: 22,
                                     textAlign: 'right'
                                 }}>
-                                    {data?.documentDate}
+                                    {new Date(data?.documentDate).toLocaleDateString("tr-TR").replaceAll('.', '/')}
                                 </Text>
                             </View>
                         </View>
@@ -291,7 +291,7 @@ export default function PaymentRequestDetail({
                                     lineHeight: 22,
                                     textAlign: 'right'
                                 }}>
-                                    {data?.paymentDate}
+                                    {new Date(data?.paymentDate).toLocaleDateString("tr-TR").replaceAll('.', '/')}
                                 </Text>
                             </View>
 
@@ -299,39 +299,28 @@ export default function PaymentRequestDetail({
 
                         <View
                             style={{
-                                flexDirection: "row",
-                                alignItems: "center",
-                                justifyContent: "space-between",
                                 paddingHorizontal: 16,
-                                marginBottom: 8,
-                                width: "100%"
+                                marginBottom: 8
                             }}
                         >
+                            <Text style={{
+                                color: "#000000",
+                                fontSize: 15,
+                                lineHeight: 22,
+                                fontWeight: "bold"
+                            }}>
+                                Açıklama
+                            </Text>
 
-                            <View style={{ width: "30%" }}>
+                            <Text style={{
+                                color: "#000000",
+                                fontSize: 17,
+                                lineHeight: 22,
+                                paddingTop:5
+                            }}>
+                                {data?.description}
+                            </Text>
 
-                                <Text style={{
-                                    color: "#000000",
-                                    fontSize: 15,
-                                    lineHeight: 22,
-                                    fontWeight: "bold"
-                                }}>
-                                    Açıklama
-                                </Text>
-                            </View>
-
-                            <View style={{ width: "60%" }}>
-
-                                <Text style={{
-                                    color: "#000000",
-                                    fontSize: 17,
-                                    lineHeight: 22,
-                                    textAlign: 'right',
-                                    maxWidth: 220
-                                }}>
-                                    {data?.description}
-                                </Text>
-                            </View>
                         </View>
 
                         <View
@@ -340,7 +329,7 @@ export default function PaymentRequestDetail({
                                 alignItems: "center",
                                 justifyContent: "space-between",
                                 paddingHorizontal: 16,
-                                marginTop: 20,
+                                marginTop: 10,
                                 fontWeight: "bold"
                             }}
                         >
@@ -351,7 +340,7 @@ export default function PaymentRequestDetail({
                                 lineHeight: 22,
                                 fontWeight: 'bold'
                             }}>
-                                Dosya
+
                             </Text>
 
                             <TouchableOpacity>
@@ -381,7 +370,7 @@ export default function PaymentRequestDetail({
                 <TouchableOpacity
                     style={styles.approveButton}
                 >
-                    <Text style={{ color: "#03B354", fontWeight: "600" }} >
+                    <Text style={{ color: "#007041", fontWeight: "600" }} >
                         Onayla
                     </Text>
                 </TouchableOpacity>

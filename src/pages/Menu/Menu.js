@@ -26,6 +26,11 @@ export default function Menu() {
     const navigation = useNavigation()
 
     const isLogin = useSelector(state => state.auth?.isLogin)
+    const expenceData = useSelector(state => state.expence?.expenceData)
+    const paymentRequestData = useSelector(state => state.payment?.paymentRequestData)
+    const purchaseRequestData = useSelector(state => state.purchaseRequest?.purchaseRequestData)
+    const purchaseAggrementData = useSelector(state => state.purchaseAggrement?.purchaseAggrementData)
+    const purchaseInovices = useSelector(state => state.purchase?.purchaseInvoice?.resultObject?.purchaseInvoices)
 
     const menuData = [
         {
@@ -98,6 +103,43 @@ export default function Menu() {
         purchaseAggrementRequest()
     }, [isLogin])
 
+    const calculateHeader = (id) => {
+        if (id === "1") {
+            return expenceData?.resultObject?.expenseRequest?.length === 0
+                || expenceData?.returnText === "RECORD_NOT_FOUND" ?
+                0
+                :
+                expenceData?.resultObject?.expenseRequest?.length
+        }
+        else if (id === "2") {
+            return paymentRequestData?.resultObject?.paymentRequest?.length === 0
+                || paymentRequestData?.returnText === "RECORD_NOT_FOUND" ?
+                0
+                :
+                paymentRequestData?.resultObject?.paymentRequest?.length
+        }
+        else if (id === "3") {
+            return purchaseRequestData?.resultObject?.purchReqRequest?.length === 0
+                || purchaseRequestData?.returnText === "RECORD_NOT_FOUND" ?
+                0
+                :
+                purchaseRequestData?.resultObject?.purchReqRequest?.length
+        }
+        else if (id === "4") {
+            return purchaseAggrementData?.length === 0
+                || purchaseAggrementData?.returnText === "RECORD_NOT_FOUND" ?
+                0
+                :
+                purchaseAggrementData?.length
+        }
+        else if (id === "5") {
+            return purchaseInovices?.length === 0
+                || purchaseInovices?.returnText === "RECORD_NOT_FOUND" ?
+                5
+                :
+                0
+        }
+    }
 
     return (
 
@@ -125,25 +167,32 @@ export default function Menu() {
                                                     style={styles.labelStyle}>
                                                     {item?.name}
                                                 </Text>
-                                            </HStack>
-                                            <TouchableOpacity
-                                                hitSlop={{
-                                                    top: 20,
-                                                    bottom: 20,
-                                                    left: 20,
-                                                    right: 20,
-                                                }}
-                                                onPress={() => goToWaitingApprovalScreen(item?.id)}
 
-                                            >
-                                                <Icon
-                                                    name="angle-right"
-                                                    type="font-awesome"
-                                                    size={16}
-                                                    color="#A9A9A9"
-                                                    style={{ marginRight: 16 }}
-                                                />
-                                            </TouchableOpacity>
+                                            </HStack>
+                                            <HStack style={{ justifyContent: "space-between", alignItems: "center" }}>
+                                                <Text style={{ paddingRight: 16, fontSize: 15, lineHeight: 20, textAlign: "center", color: "#A9A9A9" }}>
+                                                    {calculateHeader(item?.id)}
+                                                </Text>
+                                                <TouchableOpacity
+                                                    hitSlop={{
+                                                        top: 20,
+                                                        bottom: 20,
+                                                        left: 20,
+                                                        right: 20,
+                                                    }}
+                                                    onPress={() => goToWaitingApprovalScreen(item?.id)}
+
+                                                >
+
+                                                    <Icon
+                                                        name="chevron-right"
+                                                        type="font-awesome-5"
+                                                        size={13}
+                                                        color="#A9A9A9"
+                                                        style={{ marginRight: 16 }}
+                                                    />
+                                                </TouchableOpacity>
+                                            </HStack>
                                         </HStack>
                                     </VStack>
                                 </TouchableOpacity>

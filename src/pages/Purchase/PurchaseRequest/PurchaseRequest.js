@@ -62,6 +62,16 @@ export default function PurchaseRequest() {
         setData(filteredData)
     }
 
+    const calculateCost = (item) => {
+        let total = 0
+        let converterCost = 0
+        for (let i = 0; i < item?.lines?.length; i++) {
+            total += parseFloat((item?.lines?.[i]?.lineAmountMst).toLocaleString('en-US', { style: 'decimal', currency: 'TL' }).replace(',', ''))
+            converterCost = (total).toLocaleString('en-US', { style: 'decimal', currency: 'USD' })
+        }
+        return converterCost
+    }
+
     return (
 
         <SafeAreaView style={{ flex: 1 }}>
@@ -113,19 +123,28 @@ export default function PurchaseRequest() {
                                                             </Text>
                                                         </View>
                                                         <VStack style={{ paddingLeft: 16, maxWidth: 284 }} space={"5px"}>
-                                                            <Text style={{ fontWeight: "bold", flexWrap: "wrap" }}>
-                                                                {item.header}
+                                                            <Text style={{ fontWeight: "bold", flexWrap: "wrap", fontSize: 15 }}>
+                                                                {item?.originator}
                                                             </Text>
 
-                                                            <Text style={{ fontSize: 15, color: "#6C6C6C" }}>
-                                                                {item.originator}
+                                                            <Text style={{ fontSize: 15, color: "#6C6C6C", fontWeight: "bold" }}>
+                                                                {item?.reqNo}
                                                             </Text>
 
-                                                            <HStack style={{ maxWidth: 260, width: 260 }}>
-                                                                <Text style={{ flexWrap: "wrap", fontSize: 14, fontWeight: "bold" }}>
-                                                                    {new Date(item.createdDate).toLocaleDateString("tr-TR")}
-                                                                </Text>
+                                                            <HStack style={{ maxWidth: 260, width: 260, justifyContent: "space-between" }}>
+                                                                <HStack style={{ maxWidth: 130 }}>
+                                                                    <Text style={{ flexWrap: "wrap", fontSize: 13, color: "#6C6C6C" }}>
+                                                                        {calculateCost(item)} {item?.lines[0]?.currencyCode}
+                                                                    </Text>
+                                                                </HStack>
+
+                                                                <HStack style={{ maxWidth: 130 }}>
+                                                                    <Text style={{ fontSize: 13, color: "#6C6C6C", flexWrap: "wrap" }}>
+                                                                        {new Date(item?.createdDate).toLocaleDateString("tr-TR").replaceAll('.', '/')}
+                                                                    </Text>
+                                                                </HStack>
                                                             </HStack>
+
                                                         </VStack>
                                                     </HStack>
                                                     <VStack>

@@ -34,24 +34,25 @@ export default function CostApprovalDetail({
         navigation.setOptions({
             headerLargeTitle: false,
             title: "Onay Bekleyenler"
-            //title: route?.params?.data?.expenseRequestFormHeader,
         })
     }, [navigation])
 
     useEffect(() => {
         let total = 0
         for (let i = 0; i < data?.lines?.length; i++) {
-            total += parseFloat(data?.lines?.[i]?.amount)
-            setTotalAmount(total)
+            total += parseFloat((data?.lines?.[i]?.amount).toLocaleString('en-US', { style: 'decimal', currency: 'TL' }).replace(',', ''))
+            let converterCost = (total).toLocaleString('en-US', { style: 'decimal', currency: 'USD' })
+            setTotalAmount(converterCost)
         }
-    }, [])
 
+    }, [data])
 
     const updateSearch = (search) => {
 
         if (search?.length > 0) {
             setSearch(search)
-            let filteredData = route?.params?.data?.lines?.filter(item => item?.expenseName?.toUpperCase().includes(search.toUpperCase()) || item?.expenseCategory?.toUpperCase().includes(search.toUpperCase()))
+            let filteredData = route?.params?.data?.lines?.filter(item => item?.expenseName?.toLocaleUpperCase('tr-TR').includes(search.toLocaleUpperCase('tr-TR'))
+                || item?.expenseCategory?.toLocaleUpperCase('tr-TR').includes(search.toLocaleUpperCase('tr-TR')))
             setDataLines(filteredData)
         }
         else {
@@ -69,7 +70,7 @@ export default function CostApprovalDetail({
                 <View style={{ paddingHorizontal: 16 }}>
                     <View style={{
                         paddingVertical: 32,
-                        backgroundColor: "#FFFFFF",                      
+                        backgroundColor: "#FFFFFF",
                         maxHeight: 300,
                         marginTop: 8,
                         marginBottom: 24,
@@ -124,7 +125,7 @@ export default function CostApprovalDetail({
                                 lineHeight: 22,
                                 textAlign: "right"
                             }}>
-                                {data?.dateOfEntry}
+                                {new Date(data?.dateOfEntry).toLocaleDateString("tr-TR").replaceAll('.', '/')}
                             </Text>
                         </View>
 
@@ -149,28 +150,6 @@ export default function CostApprovalDetail({
                                 {totalAmount.toString()} {data?.currencyCode}
                             </Text>
                         </View>
-
-                        {/* <View
-                            style={{
-                                flexDirection: "row",
-                                alignItems: "center",
-                                justifyContent: "space-between",
-                                paddingHorizontal: 16,
-                                marginBottom: 8
-                            }}
-                        >
-                            <Text style={{ color: "#000000", fontSize: 13 }}>Avans</Text>
-
-                            <Text style={{
-                                color: "#000000",
-                                fontSize: 17,
-                                flex: 1,
-                                lineHeight: 22,
-                                textAlign: "right"
-                            }}>
-                                0
-                            </Text>
-                        </View> */}
 
                         <View
                             style={{
@@ -197,7 +176,7 @@ export default function CostApprovalDetail({
                                 <TouchableOpacity
                                     style={styles.approveButton}
                                 >
-                                    <Text style={{ color: "#03B354", fontWeight: "600" }} >
+                                    <Text style={{ color: "#007041", fontWeight: "600" }} >
                                         Onayla
                                     </Text>
                                 </TouchableOpacity>
@@ -269,7 +248,7 @@ export default function CostApprovalDetail({
                                                     Masraf: {item?.expenseName}
                                                 </Text>
                                                 <Text style={{ fontSize: 13, lineHeight: 18, paddingLeft: 0, marginLeft: 0, fontWeight: "bold" }}>
-                                                    {item?.expenseDate} - {item?.amount}
+                                                    {new Date(item?.expenseDate).toLocaleDateString("tr-TR").replaceAll('.', '/')} - {item?.amount} {data?.currencyCode}
                                                 </Text>
                                                 <Text style={{ fontSize: 13, lineHeight: 18 }}>
                                                     Kredi Kart: {item?.creditCard}

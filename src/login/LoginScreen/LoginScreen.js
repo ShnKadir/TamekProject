@@ -262,13 +262,13 @@ export default function LoginScreen(
                                 />
                             </View>
 
-                            <View style={{ paddingHorizontal: 16, paddingTop: 10, maxWidth: "100%" }}>
+                            {/* <View style={{ paddingHorizontal: 16, paddingTop: 10, maxWidth: "100%" }}>
                                 <TouchableOpacity onPress={handleOnResetPassword}>
                                     <Text style={{ color: "#FFFFFF", fontSize: 15, fontWeight: "600", textAlign: "left" }}>
                                         Şİfrenizi mi unuttunuz?
                                     </Text>
                                 </TouchableOpacity>
-                            </View>
+                            </View> */}
                         </VStack>
                     </ImageBackground >
                 </ScrollView>

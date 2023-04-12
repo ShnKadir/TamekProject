@@ -70,7 +70,7 @@ export const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         borderRadius: 8,
-        backgroundColor: 'rgba(3, 179, 84, 0.11)',
+        backgroundColor: '#CCE2D9',
         fontSize: 14,
     },
 })

@@ -11,13 +11,13 @@ import {
 }
     from 'react-native'
 import { HStack, VStack } from 'native-base'
+import { Icon, SearchBar } from 'react-native-elements'
 
 // Styles
 import { styles } from './PurchaseRequestDetailStyle'
 
 // Navigation
 import { useNavigation } from '@react-navigation/native'
-import { useEffect } from 'react'
 
 export default function PurchaseRequestDetail({
     route
@@ -26,7 +26,8 @@ export default function PurchaseRequestDetail({
     const navigation = useNavigation()
 
     const [data, setData] = useState(route.params.data)
-    const [totalAmount, setTotalAmount] = useState(0)
+    const [search, setSearch] = useState("")
+    const [dataLines, setDataLines] = useState(route?.params?.data?.lines)
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -35,15 +36,28 @@ export default function PurchaseRequestDetail({
         })
     }, [navigation])
 
-    useEffect(() => {
-        
-        let totalCost = 0
-        
+    const calculateCost = (data) => {
+        let total = 0
+        let converterCost = 0
         for (let i = 0; i < data?.lines?.length; i++) {
-            totalCost += parseFloat((data?.lines?.[i]?.lineAmountMst).toLocaleString('en-US', { style: 'decimal', currency: 'TL' }).replace(',', ''))
-            setTotalAmount(totalCost)
+            total += parseFloat((data?.lines?.[i]?.lineAmountMst).toLocaleString('en-US', { style: 'decimal', currency: 'TL' }).replace(',', ''))
+            converterCost = (total).toLocaleString('en-US', { style: 'decimal', currency: 'USD' })
         }
-    }, [])
+        return converterCost
+    }
+
+    const updateSearch = (search) => {
+
+        if (search?.length > 0) {
+            setSearch(search)
+            let filteredData = route?.params?.data?.lines?.filter(item => item?.itemName?.toLocaleUpperCase('tr-TR').includes(search.toLocaleUpperCase('tr-TR')))
+            setDataLines(filteredData)
+        }
+        else {
+            setDataLines(data?.lines)
+            setSearch(null)
+        }
+    }
 
     return (
 
@@ -126,7 +140,9 @@ export default function PurchaseRequestDetail({
                                 flex: 1,
                                 lineHeight: 22,
                                 textAlign: "right"
-                            }}>{new Date(data?.createdDate).toLocaleDateString("tr-TR")}</Text>
+                            }}>
+                                {new Date(data?.createdDate).toLocaleDateString("tr-TR").replaceAll('.', '/')}
+                            </Text>
                         </View>
 
                         <View
@@ -147,7 +163,7 @@ export default function PurchaseRequestDetail({
                                 lineHeight: 22,
                                 textAlign: "right"
                             }}>
-                                {totalAmount} {data?.lines?.[0]?.currencyCode}
+                                {calculateCost(data)} {data?.lines?.[0]?.currencyCode}
                             </Text>
                         </View>
 
@@ -191,10 +207,23 @@ export default function PurchaseRequestDetail({
                 </View>
             </View>
 
+            <View style={{ backgroundColor: "#FFFFFF" }}>
+                <VStack style={{ borderBottomColor: "#F2F2F2", borderBottomWidth: 1 }}>
+                    <SearchBar
+                        placeholder="Search"
+                        theme="light"
+                        platform="ios"
+                        inputContainerStyle={{ backgroundColor: "rgba(118, 118, 128, 0.12)", height: 36 }}
+                        searchIcon={{ color: "#3C3C43" }}
+                        onChangeText={updateSearch}
+                        value={search}
+                    />
+                </VStack>
+            </View>
             <ScrollView style={{ flex: 1, backgroundColor: "#FFFFFF" }} contentContainerStyle={{ paddingBottom: 100 }}>
 
                 {
-                    data?.lines?.map((item, index) => {
+                    dataLines?.map((item, index) => {
 
                         return (
                             <VStack style={{ borderTopColor: "#F5F5F5", borderTopWidth: 2, paddingHorizontal: 16 }} key={index}>
@@ -238,12 +267,21 @@ export default function PurchaseRequestDetail({
                                                 Miktar:{item?.qty} - Tutar: {item?.lineAmountMst} {item?.currencyCode}
                                             </Text>
                                             <Text style={{ fontSize: 12 }}>
-                                                Açıklama: {item?.specialityDescription}
+                                                Açıklama: {item?.specialityDescription} 
                                             </Text>
                                         </VStack>
-
                                     </HStack>
+                                    <TouchableOpacity>
+                                        <Icon
+                                            name="ios-attach-sharp"
+                                            type="ionicon"
+                                            size={24}
+                                            color="black"
+                                            style={{ marginRight: 12 }}
+                                        />
+                                    </TouchableOpacity>
                                 </HStack>
+                              
                             </VStack>
 
                         )

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 // React Native
 import { Icon } from 'react-native-elements'
@@ -10,10 +10,22 @@ import Account from '../pages/Account/Account'
 
 // Navigation
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { useNavigation } from '@react-navigation/native'
 
 const Tab = createBottomTabNavigator()
 
 export default function BottomNavigation() {
+
+    const navigation = useNavigation()
+
+    useEffect(() => {
+        navigation.reset({
+            index: 0,
+            routeNames: ['Menü'],
+            routes: [{ name: 'Menü' }],
+        })
+    }, [navigation])
+
     return (
         <Tab.Navigator
             initialRouteName='Menü'
@@ -63,12 +75,12 @@ const screenOptions = {
     },
     headerStyle: {
         backgroundColor: "#FFFFFF",
-       
+
     },
     headerTintColor: '#fff',
     headerTitleStyle: {
         marginLeft: 28,
-        color:"#000000"
+        color: "#000000"
         // display: "none"
     },
     tabBarLabelStyle: {
