@@ -34,6 +34,16 @@ export default function PaymentRequestDetail({
         })
     }, [navigation])
 
+    const fixDateCalc = (date) => {
+
+        let day = date.substring(3, 5)
+        let month = date.substring(0, 2)
+        let year = date.substring(6, 10)
+
+        let fixedDate = day + "/" + month + "/" + year
+        return fixedDate
+    }
+
     return (
 
         <SafeAreaView style={{ flex: 1 }}>
@@ -260,7 +270,7 @@ export default function PaymentRequestDetail({
                                     lineHeight: 22,
                                     textAlign: 'right'
                                 }}>
-                                    {new Date(data?.documentDate).toLocaleDateString("tr-TR").replaceAll('.', '/')}
+                                    {fixDateCalc(data?.documentDate)}
                                 </Text>
                             </View>
                         </View>
@@ -291,7 +301,8 @@ export default function PaymentRequestDetail({
                                     lineHeight: 22,
                                     textAlign: 'right'
                                 }}>
-                                    {new Date(data?.paymentDate).toLocaleDateString("tr-TR").replaceAll('.', '/')}
+                                    {/* {new Date(data?.paymentDate).toLocaleDateString("tr-TR").replaceAll('.', '/')} */}
+                                    {fixDateCalc(data?.paymentDate)}
                                 </Text>
                             </View>
 
@@ -316,7 +327,7 @@ export default function PaymentRequestDetail({
                                 color: "#000000",
                                 fontSize: 17,
                                 lineHeight: 22,
-                                paddingTop:5
+                                paddingTop: 5
                             }}>
                                 {data?.description}
                             </Text>

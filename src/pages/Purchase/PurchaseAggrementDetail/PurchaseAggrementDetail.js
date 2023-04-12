@@ -36,7 +36,7 @@ export default function PurchaseAggrementDetail({
     return (
         <SafeAreaView style={{ flex: 1 }}>
 
-            <View style={{  height: 160, maxHeight: 170 }}>
+            <View style={{ height: 160, maxHeight: 170 }}>
 
                 <View style={{
                     flex: 1,
@@ -59,7 +59,9 @@ export default function PurchaseAggrementDetail({
                     <VStack style={{ flex: 1, backgroundColor: "#FFFFFF" }} space={"8px"} >
                         <Text>{data?.reqNo}</Text>
                         <Text>{data?.originator}</Text>
-                        <Text> {new Date(data?.createdDate).toLocaleDateString("tr-TR")}</Text>
+                        <Text>
+                            {new Date(data?.createdDate).getDate() + "/" + (new Date(data?.createdDate).getUTCMonth() + 1) + "/" + new Date(data?.createdDate).getFullYear()}
+                        </Text>
                         <Text>2,549.94 USD</Text>
                     </VStack>
                 </View>

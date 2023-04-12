@@ -127,7 +127,7 @@ export default function PurchaseRequest() {
                                                                 {item?.originator}
                                                             </Text>
 
-                                                            <Text style={{ fontSize: 15, color: "#6C6C6C", fontWeight: "bold" }}>
+                                                            <Text style={{ fontSize: 15, color: "#6C6C6C", fontWeight: "500" }}>
                                                                 {item?.reqNo}
                                                             </Text>
 
@@ -140,7 +140,7 @@ export default function PurchaseRequest() {
 
                                                                 <HStack style={{ maxWidth: 130 }}>
                                                                     <Text style={{ fontSize: 13, color: "#6C6C6C", flexWrap: "wrap" }}>
-                                                                        {new Date(item?.createdDate).toLocaleDateString("tr-TR").replaceAll('.', '/')}
+                                                                        {new Date(item?.createdDate).getDate() + "/" + (new Date(item?.createdDate).getUTCMonth() + 1) + "/" + new Date(item?.createdDate).getFullYear()}
                                                                     </Text>
                                                                 </HStack>
                                                             </HStack>

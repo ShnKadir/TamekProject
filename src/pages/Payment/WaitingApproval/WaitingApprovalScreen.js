@@ -22,9 +22,12 @@ import { styles } from './WaitingApprovalStyle'
 
 // Navigation
 import { MENU_NAV } from './../../../navigations/constants'
-import { useNavigation } from '@react-navigation/native'
+import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { useSelector } from 'react-redux'
 import { RETURN_TEXT } from '../../../common/Enums'
+
+import Moment from 'moment';
+import { format, parseISO } from 'date-fns';
 
 export default function WaitingApprovalScreen() {
 
@@ -66,6 +69,16 @@ export default function WaitingApprovalScreen() {
       converterCost = (total).toLocaleString('en-US', { style: 'decimal', currency: 'USD' })
     }
     return converterCost
+  }
+
+  const fixDateCalc = (date) => {
+
+    let day = date.substring(3, 5)
+    let month = date.substring(0, 2)
+    let year = date.substring(6, 10)
+
+    let fixedDate = day + "/" + month + "/" + year
+    return fixedDate
   }
 
   return (
@@ -123,9 +136,10 @@ export default function WaitingApprovalScreen() {
                                 </Text>
 
                                 <Text style={{ fontSize: 15, fontSize: 13 }}>
-                                  {new Date(item?.dateOfEntry).toLocaleDateString("tr-TR").replaceAll('.', '/')}
-                                </Text>
 
+                                  {fixDateCalc(item?.dateOfEntry)}
+
+                                </Text>
 
                                 <HStack style={{ width: 260, justifyContent: "space-between", maxWidth: 260 }}>
                                   <HStack style={{ maxWidth: 156, paddingRight: 68 }}>

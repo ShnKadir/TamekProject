@@ -61,6 +61,16 @@ export default function CostApprovalDetail({
         }
     }
 
+    const fixDateCalc = (date) => {
+
+        let day = date.substring(3, 5)
+        let month = date.substring(0, 2)
+        let year = date.substring(6, 10)
+
+        let fixedDate = day + "/" + month + "/" + year
+        return fixedDate
+    }
+
     return (
 
         <SafeAreaView>
@@ -125,7 +135,8 @@ export default function CostApprovalDetail({
                                 lineHeight: 22,
                                 textAlign: "right"
                             }}>
-                                {new Date(data?.dateOfEntry).toLocaleDateString("tr-TR").replaceAll('.', '/')}
+                                {/* {new Date(data?.dateOfEntry).toLocaleDateString("tr-TR").replaceAll('.', '/')} */}
+                                {fixDateCalc(data?.dateOfEntry)}
                             </Text>
                         </View>
 
@@ -248,7 +259,8 @@ export default function CostApprovalDetail({
                                                     Masraf: {item?.expenseName}
                                                 </Text>
                                                 <Text style={{ fontSize: 13, lineHeight: 18, paddingLeft: 0, marginLeft: 0, fontWeight: "bold" }}>
-                                                    {new Date(item?.expenseDate).toLocaleDateString("tr-TR").replaceAll('.', '/')} - {item?.amount} {data?.currencyCode}
+                                                    {/* {new Date(item?.expenseDate).toLocaleDateString("tr-TR").replaceAll('.', '/')} - {item?.amount} {data?.currencyCode} */}
+                                                    {fixDateCalc(item?.expenseDate)} - {item?.amount} {data?.currencyCode}
                                                 </Text>
                                                 <Text style={{ fontSize: 13, lineHeight: 18 }}>
                                                     Kredi Kart: {item?.creditCard}

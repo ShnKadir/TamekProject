@@ -121,7 +121,7 @@ export default function PurchaseAggrementScreen() {
 
                                                             <HStack style={{ maxWidth: 260, width: 260 }}>
                                                                 <Text style={{ flexWrap: "wrap", fontSize: 14, fontWeight: "bold" }}>
-                                                                    {new Date(item.createdDate).toLocaleDateString("tr-TR")}
+                                                                    {new Date(item?.createdDate).getDate() + "/" + (new Date(item?.createdDate).getUTCMonth() + 1) + "/" + new Date(item?.createdDate).getFullYear()}
                                                                 </Text>
                                                             </HStack>
                                                         </VStack>

@@ -141,7 +141,7 @@ export default function PurchaseRequestDetail({
                                 lineHeight: 22,
                                 textAlign: "right"
                             }}>
-                                {new Date(data?.createdDate).toLocaleDateString("tr-TR").replaceAll('.', '/')}
+                                {new Date(data?.createdDate).getDate() + "/" + (new Date(data?.createdDate).getUTCMonth() + 1) + "/" + new Date(data?.createdDate).getFullYear()}
                             </Text>
                         </View>
 
@@ -267,7 +267,7 @@ export default function PurchaseRequestDetail({
                                                 Miktar:{item?.qty} - Tutar: {item?.lineAmountMst} {item?.currencyCode}
                                             </Text>
                                             <Text style={{ fontSize: 12 }}>
-                                                Açıklama: {item?.specialityDescription} 
+                                                Açıklama: {item?.specialityDescription}
                                             </Text>
                                         </VStack>
                                     </HStack>
@@ -281,7 +281,7 @@ export default function PurchaseRequestDetail({
                                         />
                                     </TouchableOpacity>
                                 </HStack>
-                              
+
                             </VStack>
 
                         )
