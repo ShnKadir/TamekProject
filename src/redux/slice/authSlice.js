@@ -6,10 +6,13 @@ import { API_STATUS } from "../../common/Enums"
 const initialState = {
     isLogin: false,
     loginData: null,
+    email: null,
+    password: null,
+    changePassword: null,
 
     loginApiStatus: API_STATUS.NONE,
-    createPasswordApiStatus: API_STATUS.NONE
-
+    createPasswordApiStatus: API_STATUS.NONE,
+    changePasswordApiStatus: API_STATUS.NONE
 }
 
 const authSlice = createSlice({
@@ -21,6 +24,14 @@ const authSlice = createSlice({
 
         setIsLogin: (state, action) => {
             state.isLogin = action.payload
+        },
+
+        setEmail: (state, action) => {
+            state.email = action.payload
+        },
+
+        setPassword: (state, action) => {
+            state.password = action.payload
         },
 
         postLoginRequest: state => {
@@ -47,6 +58,20 @@ const authSlice = createSlice({
             state.createPasswordApiStatus = API_STATUS.FAILURE
         },
 
+        postChangePasswordRequest: state => {
+            state.changePasswordApiStatus = API_STATUS.REQUEST
+        },
+        postChangePasswordSuccess: (state, action) => {
+            state.isLogin = true
+            state.changePassword = action.payload
+            state.changePasswordApiStatus = API_STATUS.SUCCESS
+        },
+        postChangePasswordFailure: (state, action) => {
+            state.changePasswordApiStatus = API_STATUS.FAILURE
+            state.loginFailure = action.payload
+        },
+
+
         logout: () => initialState
     }
 })
@@ -55,6 +80,9 @@ const authSlice = createSlice({
 export const {
     clearAuthSlice,
 
+    setPassword,
+    setEmail,
+
     postLoginRequest,
     postLoginSuccess,
     postLoginFailure,
@@ -62,6 +90,10 @@ export const {
     postCreatePasswordRequest,
     postCreatePasswordSuccess,
     postCreatePasswordFailure,
+
+    postChangePasswordRequest,
+    postChangePasswordSuccess,
+    postChangePasswordFailure,
 
     logout
 } = authSlice.actions

@@ -21,6 +21,7 @@ import { LOGIN_NAV } from "../../../navigations/constants"
 import getInfoModalJson from "../../../helpers/modal/getInfoModalJson"
 import { INFO_MODAL_STATUS } from "../../Enums"
 import { openInfoModal } from "../../../redux/slice/infoModalSlice"
+import { setEmail } from "../../../redux/slice/authSlice"
 
 export default async function postLogin(userMail, password, navigation) {
 
@@ -41,6 +42,8 @@ export default async function postLogin(userMail, password, navigation) {
 	if (response) {
 
 		store.dispatch(postLoginSuccess(response))
+
+		store.dispatch(setEmail(userMail))
 
 		if (response.returnText === "REDIRECT_CREATE_PASSWORD") {
 			navigation.navigate(LOGIN_NAV.SET_NEW_PASSWORD, { userMail: userMail })

@@ -1,49 +1,57 @@
 // React
-import React, { useState, useLayoutEffect, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 
 // React Native
-import { Text, TouchableOpacity } from 'react-native'
+import {
+    TouchableOpacity,
+    Keyboard,
+    TouchableWithoutFeedback
+} from 'react-native'
 import { ScrollView, VStack } from 'native-base'
 import { Icon } from 'react-native-elements'
 import { HelperText } from 'react-native-paper'
 
 //Style
-import { styles } from "./SetNewPasswordScreenStyle"
+import { styles } from './ChangePasswordScreenStyle'
 
 //Components
-import InputArea from '../../../../components/InputArea/InputArea'
-import CommonButton from '../../../CommonButton/CommonButton'
-import postCreatePassword from '../../../../common/api/auth/postCreatePassword'
+import InputArea from '../../components/InputArea/InputArea'
+import CommonButton from '../../components/CommonButton/CommonButton'
+import postChangePassword from '../../common/api/auth/postChangePassword'
 
-// Navigations
+// Redux
+import { useSelector } from 'react-redux'
+
+//Navigation
 import { useNavigation } from '@react-navigation/native'
-import { TouchableWithoutFeedback } from 'react-native'
-import { Keyboard } from 'react-native'
 
-export default function SetNewPasswordScreen({
-    route
-}) {
+export default function ChangePasswordScreen() {
+
 
     const navigation = useNavigation()
 
+    const changePasssword = useSelector(state => state.auth?.changePassword)
+
+    const email = useSelector(state => state.auth?.email)
+    const [oldPassword, setOldPassword] = useState(null)
     const [newPassword, setNewPassword] = useState(null)
     const [newPasswordAgain, setNewPasswordAgain] = useState(null)
+    const [isOldPasswordVisible, setIsOldPasswordVisible] = useState(false)
     const [isNewPasswordVisible, setIsNewPasswordVisible] = useState(false)
     const [isNewPasswordVisibleAgain, setIsNewPasswordVisibleAgain] = useState(false)
+    const [oldPassWordIsFocused, setOldPasswordIsFocused] = useState(false)
     const [passWordIsFocused, setPasswordIsFocused] = useState(false)
     const [passWordAgainIsFocused, setPasswordAgainIsFocused] = useState(false)
     const [isLoginButtonDisable, setIsLoginButtonDisable] = useState(true)
     const [passwordSecurityMessage, setPasswordSecurityMessage] = useState()
     const [unMatchMessage, setUnMatchMessage] = useState()
     const [isUnMatchPassword, setIsUnMatchPassword] = useState(false)
+    const [oldPasswordCorrectControl, setOldPasswordCorrectControl] = useState(false)
+    const [isOldPasswordWrong, setIsOldPasswordWrong] = useState(false)
 
-    useLayoutEffect(() => {
-        navigation.setOptions({
-            headerShown: true,
-            headerLargeTitle: false,
-            title: "Yeni Şifre Belirle"
-        })
-    }, [navigation])
+    const changeOldPasswordAgainVisibility = () => {
+        setIsOldPasswordVisible(!isOldPasswordVisible)
+    }
 
     const changeNewPasswordVisibility = () => {
         setIsNewPasswordVisible(!isNewPasswordVisible)
@@ -53,15 +61,25 @@ export default function SetNewPasswordScreen({
         setIsNewPasswordVisibleAgain(!isNewPasswordVisibleAgain)
     }
 
+    const oldPasswordFocus = () => {
+        setOldPasswordIsFocused(true)
+        setIsOldPasswordWrong(false)
+    }
+
+    const oldPasswordBlur = () => {
+
+        setOldPasswordIsFocused(false)
+        setOldPasswordCorrectControl("Eski şifreniz doğru değil")
+        setIsOldPasswordWrong(false)
+    }
+
     const newPasswordFocus = () => {
         setPasswordIsFocused(true)
         setPasswordSecurityMessage("Yeni şifre,büyük veya küçük harfler ve 10 tabanlı basamak (0'dan 9'a kadar) dahil olmak üzere en az 8 karakter içermelidir.")
     }
 
     const newPasswordBlur = () => {
-
         setPasswordIsFocused(false)
-        setPasswordSecurityMessage("")
     }
 
     const newPasswordAgainFocus = () => {
@@ -94,15 +112,15 @@ export default function SetNewPasswordScreen({
 
     const handleOnLogin = () => {
 
-        if (newPassword?.length > 0 && newPasswordAgain?.length > 0 && (newPassword === newPasswordAgain)) {
+        if (oldPassword.length > 0 && newPassword?.length >= 8 && newPasswordAgain?.length >= 8 && (newPassword === newPasswordAgain)) {
 
             setIsLoginButtonDisable(true)
-            postCreatePassword(route.params.userMail, newPassword, navigation)
+            postChangePassword(email, oldPassword, newPassword, navigation)
         }
     }
 
     useEffect(() => {
-        if (newPassword?.length > 0 && newPasswordAgain?.length > 0 && (newPassword === newPasswordAgain)) {
+        if (newPassword?.length >= 8 && newPasswordAgain?.length >= 8 && (newPassword === newPasswordAgain)) {
             setIsLoginButtonDisable(false)
             setIsUnMatchPassword(false)
         }
@@ -111,23 +129,103 @@ export default function SetNewPasswordScreen({
         }
     }, [newPassword, newPasswordAgain])
 
+    useEffect(() => {
+        if (changePasssword?.returnText === "USER_OR_PASSWORD_WRONG") {
+            setIsOldPasswordWrong(true)
+        }
+        else {
+            setIsOldPasswordWrong(false)
+        }
+    }, [changePasssword])
+
     return (
         <TouchableWithoutFeedback
             touchSoundDisabled={true}
             onPress={() => Keyboard.dismiss()}
         >
             <VStack style={styles.container}>
+
                 <ScrollView>
+
                     < HelperText style={{
                         fontWeight: "500",
                         marginTop: 0,
                         paddingTop: 0,
                         fontSize: 15,
-                        color: "#575757"
+                        color: "#575757",
+                        marginBottom: 40
                     }}>
 
                         Yeni şifreniz daha önce kullandığınız şifreden farklı olmalıdır.
                     </HelperText>
+
+                    <InputArea
+                        value={oldPassword}
+                        setValue={setOldPassword}
+                        placeholderTextColor={"#808080"}
+                        inputStyle={[
+                            isOldPasswordWrong ?
+                                { borderColor: "#DA291C" } :
+                                oldPassWordIsFocused ?
+                                    { borderColor: "#007041" } :
+                                    { borderColor: "#808080" },
+                            {
+                                height: 56,
+                                borderRadius: 36,
+                                borderWidth: 1,
+                                marginBottom: 16,
+                                marginTop: 4
+                            }]}
+                        placeholder={"Eski Şifre"}
+                        secureTextEntry={!isOldPasswordVisible}
+
+                        textInputStyle={[{ textSize: 15, lineHeight: 20 },
+                        isOldPasswordWrong ?
+                            { color: "#DA291C" } :
+                            oldPassWordIsFocused ?
+                                { color: "#007041" } :
+                                { color: "#000000" }]}
+                        inputRightElement={
+                            <TouchableOpacity
+                                style={{ height: "100%", justifyContent: "center" }}
+                                hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
+                                onPress={changeOldPasswordAgainVisibility}>
+                                <Icon
+                                    name={isOldPasswordVisible == false ?
+                                        "ios-eye-off-sharp" :
+                                        "ios-eye-sharp"}
+                                    type="ionicon"
+                                    size={18}
+                                    color={
+                                        isOldPasswordWrong ?
+                                            "#DA291C" :
+                                            oldPassWordIsFocused ?
+                                                "#007041"
+                                                :
+                                                "#808080"
+                                    }
+                                    style={{ marginRight: 12 }}
+                                />
+                            </TouchableOpacity>
+                        }
+                        onFocus={oldPasswordFocus}
+                        onBlur={oldPasswordBlur}
+                    />
+
+                    {
+                        isOldPasswordWrong &&
+                        <HelperText
+                            style={{
+                                fontWeight: "500",
+                                marginTop: 0,
+                                paddingTop: 0,
+                                color: "#DA291C",
+                                marginBottom: 12,
+                                fontSize: 12
+                            }}>
+                            Eski şifreniz yalnış
+                        </HelperText>
+                    }
 
                     <InputArea
                         value={newPassword}
@@ -146,7 +244,8 @@ export default function SetNewPasswordScreen({
                         placeholder={"Yeni Şifre"}
                         placeholderTextColor='#808080'
                         secureTextEntry={!isNewPasswordVisible}
-                        textInputStyle={[passWordIsFocused ?
+                        textInputStyle={[{ textSize: 15, lineHeight: 20 },
+                        passWordIsFocused ?
                             { color: "#007041" } :
                             { color: "#000000" }]}
                         inputRightElement={
@@ -159,7 +258,7 @@ export default function SetNewPasswordScreen({
                                         "ios-eye-off-sharp" :
                                         "ios-eye-sharp"}
                                     type="ionicon"
-                                    size={13}
+                                    size={18}
                                     color={passWordIsFocused ?
                                         "#007041"
                                         :
@@ -174,7 +273,7 @@ export default function SetNewPasswordScreen({
                     />
 
                     {
-                        passwordSecurityMessage &&
+                        passWordIsFocused &&
                         <HelperText style={{
                             fontWeight: "500",
                             marginTop: 0,
@@ -185,7 +284,6 @@ export default function SetNewPasswordScreen({
                         }}>
                             {passwordSecurityMessage}
                         </HelperText>
-
                     }
                     <InputArea
                         value={newPasswordAgain}
@@ -208,13 +306,13 @@ export default function SetNewPasswordScreen({
                         placeholder={"Yeni Şifre Tekrar"}
                         placeholderTextColor='#808080'
                         secureTextEntry={!isNewPasswordVisibleAgain}
-                        textInputStyle={[
-                            isUnMatchPassword ?
-                                { color: "#DA291C" }
-                                : passWordAgainIsFocused ?
-                                    { color: "#007041" }
-                                    :
-                                    { color: "#000000" }
+                        textInputStyle={[{ textSize: 15, lineHeight: 20 },
+                        isUnMatchPassword ?
+                            { color: "#DA291C" }
+                            : passWordAgainIsFocused ?
+                                { color: "#007041" }
+                                :
+                                { color: "#000000" }
                         ]}
 
                         inputRightElement={
@@ -229,10 +327,10 @@ export default function SetNewPasswordScreen({
                                 onPress={changeNewPasswordAgainVisibility}>
                                 <Icon
                                     name={isNewPasswordVisibleAgain == false ?
-                                        "eye-slash" :
-                                        "eye"}
-                                    type="font-awesome-5"
-                                    size={13}
+                                        "ios-eye-off-sharp" :
+                                        "ios-eye-sharp"}
+                                    type="ionicon"
+                                    size={18}
                                     color={
                                         isUnMatchPassword ?
                                             "#DA291C"
@@ -264,18 +362,8 @@ export default function SetNewPasswordScreen({
                         </HelperText>
                     }
 
-                    <HelperText style={{
-                        fontWeight: "500",
-                        marginTop: 0,
-                        paddingTop: 0,
-                        fontSize: 13,
-                        color: "#575757"
-                    }}>
-                        İki şifre de eşleşmelidir.
-                    </HelperText>
-
                     <CommonButton
-                        content="Şifre Yenile"
+                        content="Şifre Değiştir"
                         color={'#007041'}
                         isDisabled={isLoginButtonDisable}
                         disableColor={"#DADADB"}

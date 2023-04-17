@@ -11,7 +11,8 @@ export const styles = StyleSheet.create({
     },
 
     text: {
-        fontSize: 16,
+        fontSize: 15,
+        lineHeight: 20,
         textAlign: "center",
         fontWeight: "600"
     },

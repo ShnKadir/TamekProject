@@ -6,19 +6,19 @@ import { styles } from './CommonButtonStyle'
 //Components
 import { Text, TouchableOpacity } from 'react-native'
 import { HStack } from 'native-base'
-import { Icon } from 'react-native-elements';
+import { Icon } from 'react-native-elements'
 
 export default function CommonButton({
     buttonStyle,
     content,
-    inverted = false,
     color = '#4173ff',
-    disableColor = '#91b6ff',
+    disableColor = '#808080',
     onPress,
     isDisabled,
     iconName,
     iconFontType = 'font-awesome-5',
-    iconSize = 16
+    iconSize = 16,
+    disableTextColor = "#808080"
 }) {
 
     return (
@@ -27,13 +27,7 @@ export default function CommonButton({
             disabled={isDisabled}
             style={[
                 styles.button,
-                inverted
-                    ? {
-                        backgroundColor: "#fff",
-                        borderWidth: 1,
-                        borderColor: isDisabled ? disableColor : color
-                    }
-                    : { backgroundColor: isDisabled ? disableColor : color },
+                { backgroundColor: isDisabled ? disableColor : color, color: disableTextColor },
                 buttonStyle,
             ]}
         >
@@ -44,20 +38,15 @@ export default function CommonButton({
                         name={iconName}
                         type={iconFontType}
                         size={iconSize}
-                        color={
-                            inverted ?
-                                color
-                                :
-                                "#fff"
-                        }
+                        color={"#fff"}
                         style={{ marginRight: 8 }}
                     />
                 }
                 <Text
                     style={[
                         styles.text,
-                        inverted
-                            ? { color: color }
+                        isDisabled
+                            ? { color: disableTextColor }
                             : { color: "#fff" }
                     ]}
                 >

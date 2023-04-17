@@ -1,17 +1,18 @@
-import React from 'react'
-import { MENU_NAV } from './../constants'
+// Navigation
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import paymentRequestRoutes from '../../routes/payment/paymentRequestRoutes'
+import { ACCOUNT_NAV } from './constants'
+import accountRoutes from "../routes/accountRoutes"
 
 const Stack = createNativeStackNavigator()
 
-export default function PaymentNavigation() {
+export default function AccountNavigation() {
+
     return (
         <Stack.Navigator
-            initialRouteName={MENU_NAV.MENU}
+            initialRouteName={ACCOUNT_NAV.ACCOUNT}
         >
             {
-                paymentRequestRoutes.map((item, index) => {
+                accountRoutes.map((item, index) => {
                     return (
                         <Stack.Screen
                             key={index}

@@ -9,6 +9,10 @@ export const API = {
                 path: "/api/Auth/CreatePassword",
                 method: "POST"
             }
+        },
+        CHANGE_PASSWORD: {
+            path: "/api/Auth/ChangePassword",
+            method: "POST"
         }
     },
     GET_COMPANIES_LIST: {

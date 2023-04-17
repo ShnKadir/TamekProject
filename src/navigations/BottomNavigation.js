@@ -6,11 +6,11 @@ import { Icon } from 'react-native-elements'
 // Components
 
 import PaymentNavigation from '../navigations/payment/PaymentNavigation'
-import Account from '../pages/Account/Account'
 
 // Navigation
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { useNavigation } from '@react-navigation/native'
+import AccountNavigation from './AccountNavigation'
 
 const Tab = createBottomTabNavigator()
 
@@ -46,7 +46,7 @@ export default function BottomNavigation() {
             />
             <Tab.Screen
                 name='Profil'
-                component={Account}
+                component={AccountNavigation}
                 options={{
                     headerShown: false,
                     tabBarIcon: () =>

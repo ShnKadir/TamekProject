@@ -10,7 +10,6 @@ export const MENU_NAV = {
   PURCHASE_AGGREMENT_REQUEST: "PurchaseAgreementRequest",
   PURCHASE_AGGREMENT_REQUEST_DETAIL: "PurchaseAgreementRequestDetail",
   MENU: "Menu",
-  ACCOUNT: "Account"
 }
 
 export const PAYMENT_NAV = {
@@ -22,5 +21,11 @@ export const LOGIN_NAV = {
   MENU: "Menu",
   FORGOT_PASSWORD: "ForgotPassword",
   SET_NEW_PASSWORD: "NewPassword",
-  RESET_PASSWORD: "ResetPassword"
+  RESET_PASSWORD: "ResetPassword",
+}
+
+export const ACCOUNT_NAV = {
+  ACCOUNT: "Account",
+  CHANGE_PASSWORD: "ChangePassword",
+  LOGIN:"Login"
 }
