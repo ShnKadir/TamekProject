@@ -32,7 +32,7 @@ export default function PurchaseRequestDetail({
     useLayoutEffect(() => {
         navigation.setOptions({
             headerLargeTitle: false,
-            title: route.params.data?.header,
+            title: "Onay Beklyenler",
         })
     }, [navigation])
 
