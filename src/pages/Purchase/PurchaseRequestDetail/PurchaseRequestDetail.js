@@ -271,19 +271,8 @@ export default function PurchaseRequestDetail({
                                             </Text>
                                         </VStack>
                                     </HStack>
-                                    <TouchableOpacity>
-                                        <Icon
-                                            name="ios-attach-sharp"
-                                            type="ionicon"
-                                            size={24}
-                                            color="black"
-                                            style={{ marginRight: 12 }}
-                                        />
-                                    </TouchableOpacity>
                                 </HStack>
-
                             </VStack>
-
                         )
                     })
                 }
