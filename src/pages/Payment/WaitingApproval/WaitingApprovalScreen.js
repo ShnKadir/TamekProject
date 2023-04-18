@@ -22,12 +22,9 @@ import { styles } from './WaitingApprovalStyle'
 
 // Navigation
 import { MENU_NAV } from './../../../navigations/constants'
-import { useFocusEffect, useNavigation } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
 import { useSelector } from 'react-redux'
 import { RETURN_TEXT } from '../../../common/Enums'
-
-import Moment from 'moment';
-import { format, parseISO } from 'date-fns';
 
 export default function WaitingApprovalScreen() {
 

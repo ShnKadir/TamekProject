@@ -22,7 +22,7 @@ export default paymentRequestRoutes = [
         name: MENU_NAV.MENU,
         component: Menu,
         screenOption: {
-            headerShown: true,
+            headerShown: false,
         }
     },
     {

@@ -12,20 +12,23 @@ export const styles = StyleSheet.create({
 	},
 	subContainer: {
 		height: 70,
-		paddingTop: 16,
-		paddingBottom: 16,
-		backgroundColor: "#FFFFFF",
-		marginBottom: 2
+		justifyContent: "center",
+		maxWidth: 320,
+		borderRadius: 24,
+		marginBottom: 4,
+		width: "100%",
+		width: 320,
+		backgroundColor: "#549F80"
 	},
 	list: {
 		justifyContent: "space-between",
-		alignItems: "center",
-		backgroundColor: "#FFFFFF",
-		paddingHorizontal: 8
+		alignItems: "center"
 	},
 	labelStyle: {
 		marginLeft: 16,
-		fontSize: 16,
-		backgroundColor: "#FFFFFF"
+		fontSize: 17,
+		lineHeight: 22,
+		color: "#FFFFFF",
+		fontWeight: "600"
 	}
 })

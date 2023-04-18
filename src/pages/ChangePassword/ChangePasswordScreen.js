@@ -85,6 +85,7 @@ export default function ChangePasswordScreen() {
     const newPasswordAgainFocus = () => {
 
         setPasswordAgainIsFocused(true)
+        debugger
 
         if (newPasswordAgain?.length > 0 && (newPassword !== newPasswordAgain)) {
             setUnMatchMessage("Şifreler eşleşmiyor. Yeni şifrenizi yazarken herhangi bir hata yapmadığınızdan emin olunuz.")
