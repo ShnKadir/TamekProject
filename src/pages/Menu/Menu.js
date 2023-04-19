@@ -1,11 +1,11 @@
 // React
-import React, { useLayoutEffect } from 'react'
+import React from 'react'
 import { useEffect } from 'react'
 
 // React Native
-import { Text, ScrollView, View, SafeAreaView, TouchableOpacity } from 'react-native'
+import { Text, View, SafeAreaView, TouchableOpacity } from 'react-native'
 import { Icon } from 'react-native-elements'
-import { VStack, HStack, Image } from 'native-base'
+import { VStack, HStack, Image, ScrollView } from 'native-base'
 
 // Styles
 import { styles } from './MenuStyle'
@@ -30,7 +30,6 @@ import purchaseContract from '../../../assets/image/purchaseContract.png'
 import purchaseInvoice from '../../../assets/image/purchaseInvoice.png'
 import purchaseOrder from '../../../assets/image/purchaseOrder.png'
 import purchaseRequest from '../../../assets/image/purchaseRequest.png'
-import { Dimensions } from 'react-native'
 
 export default function Menu() {
 
@@ -143,58 +142,71 @@ export default function Menu() {
         purchaseAggrementRequest()
     }, [isLogin])
 
+
     const calculateHeader = (id) => {
         if (id === "1") {
-            return expenceData?.resultObject?.expenseRequest?.length === 0
+            return expenceData === null
+                || expenceData?.resultObject?.expenseRequest?.length === 0
                 || expenceData?.returnText === "RECORD_NOT_FOUND" ?
                 0
                 :
                 expenceData?.resultObject?.expenseRequest?.length
         }
         else if (id === "2") {
-            return paymentRequestData?.resultObject?.paymentRequest?.length === 0
+            return paymentRequestData === null
+                || paymentRequestData?.resultObject?.paymentRequest?.length === 0
                 || paymentRequestData?.returnText === "RECORD_NOT_FOUND" ?
                 0
                 :
                 paymentRequestData?.resultObject?.paymentRequest?.length
         }
         else if (id === "3") {
-            return purchaseRequestData?.resultObject?.purchReqRequest?.length === 0
+            return purchaseRequestData === null
+                || purchaseRequestData?.resultObject?.purchReqRequest?.length === 0
                 || purchaseRequestData?.returnText === "RECORD_NOT_FOUND" ?
                 0
                 :
                 purchaseRequestData?.resultObject?.purchReqRequest?.length
         }
         else if (id === "4") {
-            return purchaseAggrementData?.length === 0
-                || purchaseAggrementData?.returnText === "RECORD_NOT_FOUND" ?
+            return 0
+        }
+        else if (id === "5") {
+            return purchaseInovices === null
+                || purchaseInovices?.length === 0
+                || purchaseInovices?.returnText === "RECORD_NOT_FOUND" ?
                 0
                 :
                 purchaseAggrementData?.length
+
         }
-        else if (id === "5") {
-            return purchaseInovices?.length === 0
+        else if (id === "6") {
+            return purchaseInovices === null
+                || purchaseInovices?.length === 0
                 || purchaseInovices?.returnText === "RECORD_NOT_FOUND" ?
-                5
+                0
                 :
                 0
         }
     }
 
-    // useLayoutEffect(() => {
-    //     navigation.setOptions({
-    //         headerLargeTitle: false,
-    //         title: 'Menü'
-    //     })
-    // }, [navigation])
-
     return (
 
         <SafeAreaView style={{ flex: 1, backgroundColor: "#007041" }}>
 
-            <ScrollView style={{ flex: 1, backgroundColor: "#007041" }}>
+            <ScrollView style={{ flex: 1, backgroundColor: "#007041", paddingHorizontal: 16 }}>
 
-                <View style={{ paddingHorizontal: 16, alignItems: "center", justifyContent: "center", marginTop: Dimensions.get("window").height / 6 }}>
+                <View style={{
+                    paddingHorizontal: 16,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginTop: 70
+                }}>
+
+                    <VStack style={{ marginBottom: 60 }}>
+
+                        <Text style={{ fontSize: 40, color: "#FFFFFF", textAlign: "center" }}>Tamek uygulamasına Hoşgeldiniz</Text>
+                    </VStack>
                     {
                         menuData?.map((item, index) => {
                             return (
@@ -210,10 +222,31 @@ export default function Menu() {
                                                     {item?.name}
                                                 </Text>
                                             </HStack>
+
                                             <HStack style={{ justifyContent: "space-between", alignItems: "center" }}>
-                                                <Text style={{ paddingRight: 10, fontSize: 13, lineHeight: 16, textAlign: "center", color: "#FFFFFF" }}>
-                                                    {calculateHeader(item?.id)}
-                                                </Text>
+                                                {
+                                                    calculateHeader(item?.id) !== 0 &&
+                                                    <View style={{
+                                                        backgroundColor: "#338D67",
+                                                        marginRight: 10,
+                                                        borderRadius: 50,
+                                                        width: 24,
+                                                        height: 24,
+                                                        justifyContent: "center"
+                                                    }}>
+
+                                                        <Text
+                                                            style={{
+                                                                fontSize: 13,
+                                                                lineHeight: 14,
+                                                                textAlign: "center",
+                                                                color: "#FFFFFF"
+                                                            }}>
+                                                            {calculateHeader(item?.id)}
+                                                        </Text>
+                                                    </View>
+                                                }
+
                                                 <TouchableOpacity
                                                     hitSlop={{
                                                         top: 20,
