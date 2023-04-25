@@ -33,7 +33,7 @@ export default function PurchaseRequest() {
 
     const navigation = useNavigation()
 
-    const purchReqRequestData = useSelector(state => state.purchaseRequest?.purchaseRequestData?.resultObject?.purchReqRequest)
+    const purchReqRequest = useSelector(state => state.purchaseRequest?.purchaseRequestData?.resultObject?.purchReqRequest)
     const returnText = useSelector(state => state.purchaseRequest?.purchaseRequestData?.returnText)
 
     const goToDetailScreen = (item) => {
@@ -43,8 +43,8 @@ export default function PurchaseRequest() {
     const [data, setData] = useState()
 
     useEffect(() => {
-        setData(purchReqRequestData)
-    }, [purchReqRequestData])
+        setData(purchReqRequest)
+    }, [purchReqRequest])
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -58,20 +58,10 @@ export default function PurchaseRequest() {
 
     function searchFilterFunction(searchTerm) {
 
-        let filteredData = purchReqRequestData?.filter(item => item.header.toLocaleUpperCase('tr-TR').includes(searchTerm.toLocaleUpperCase('tr-TR')))
+        let filteredData = purchReqRequest?.filter(item => item.originator.toLocaleUpperCase('tr-TR').includes(searchTerm.toLocaleUpperCase('tr-TR')))
         setData(filteredData)
     }
-
-    const calculateCost = (item) => {
-        let total = 0
-        let converterCost = 0
-        for (let i = 0; i < item?.lines?.length; i++) {
-            total += parseFloat((item?.lines?.[i]?.lineAmountMst).toLocaleString('en-US', { style: 'decimal', currency: 'TL' }).replace(',', ''))
-            converterCost = (total).toLocaleString('en-US', { style: 'decimal', currency: 'USD' })
-        }
-        return converterCost
-    }
-
+    
     return (
 
         <SafeAreaView style={{ flex: 1 }}>
@@ -91,6 +81,76 @@ export default function PurchaseRequest() {
                             <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 60 }}>
 
                                 {
+                                    data?.map((item, index) => {
+                                        return (
+                                            <TouchableOpacity
+                                                onPress={() => goToDetailScreen(item)}
+                                                key={index}
+                                            >
+
+                                                <HStack style={styles.list} key={index} >
+                                                    <HStack style={{ alignItems: "center", maxWidth: 324 }}>
+                                                        <View
+                                                            style={{
+                                                                alignItems: 'center',
+                                                                justifyContent: 'center',
+                                                                backgroundColor: '#CCE2D9',
+                                                                width: 24,
+                                                                height: 24,
+                                                                borderRadius: 12
+                                                            }}
+                                                        >
+                                                            <Text
+                                                                style={{
+                                                                    textAlign: 'center',
+                                                                    fontSize: 12,
+                                                                    lineHeight: 12,
+                                                                    color: '#007041'
+                                                                }}
+                                                            >
+                                                                {index + 1}
+                                                            </Text>
+                                                        </View>
+                                                        <VStack style={{ paddingLeft: 8, maxWidth: 284 }} space={"5px"}>
+                                                            <Text style={{ fontWeight: "bold", flexWrap: "wrap", fontSize: 14 }}>
+                                                                {item?.originator}
+                                                            </Text>
+
+                                                            <Text style={{ fontSize: 13, color: "#6C6C6C" }}>
+                                                                {item?.reqNo}
+                                                            </Text>
+
+                                                            <Text style={{ fontSize: 13, color: "#6C6C6C" }}>
+                                                                {new Date(item?.createdDate).getDate() + "/" + (new Date(item?.createdDate).getUTCMonth() + 1) + "/" + new Date(item?.createdDate).getFullYear()}
+                                                            </Text>
+                                                        </VStack>
+                                                    </HStack>
+                                                    <VStack>
+                                                        <TouchableOpacity
+                                                            hitSlop={{
+                                                                top: 20,
+                                                                bottom: 20,
+                                                                left: 20,
+                                                                right: 20,
+                                                            }}
+                                                            onPress={() => goToDetailScreen(item)}
+                                                        >
+                                                            <Icon
+                                                                name="angle-right"
+                                                                type="font-awesome"
+                                                                size={20}
+                                                                color="#A9A9A9"
+                                                                style={{ marginRight: 16 }}
+                                                            />
+                                                        </TouchableOpacity>
+                                                    </VStack>
+                                                </HStack>
+                                            </TouchableOpacity>
+                                        )
+
+                                    })
+                                }
+                                {/* {
                                     data?.map((item, index) => {
 
                                         return (
@@ -170,7 +230,8 @@ export default function PurchaseRequest() {
                                             </TouchableOpacity>
                                         )
 
-                                    })}
+                                    })
+                                } */}
                             </ScrollView>
 
                         </TouchableWithoutFeedback>

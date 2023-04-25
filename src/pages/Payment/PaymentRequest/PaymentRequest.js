@@ -153,7 +153,8 @@ export default function PaymentRequest() {
                                             </TouchableOpacity>
                                         )
 
-                                    })}
+                                    })
+                                }
                             </ScrollView>
                         </TouchableWithoutFeedback>
                     </KeyboardAvoidingView>

@@ -38,7 +38,7 @@ export default async function postLogin(userMail, password, navigation) {
 	})
 
 	let infoModal = getInfoModalJson()
-
+	
 	if (response) {
 
 		store.dispatch(postLoginSuccess(response))

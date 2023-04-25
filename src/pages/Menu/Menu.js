@@ -3,9 +3,9 @@ import React from 'react'
 import { useEffect } from 'react'
 
 // React Native
-import { Text, View, SafeAreaView, TouchableOpacity } from 'react-native'
+import { Text, View, SafeAreaView, TouchableOpacity, ScrollView } from 'react-native'
 import { Icon } from 'react-native-elements'
-import { VStack, HStack, Image, ScrollView } from 'native-base'
+import { VStack, HStack, Image } from 'native-base'
 
 // Styles
 import { styles } from './MenuStyle'
@@ -92,7 +92,7 @@ export default function Menu() {
             />
         },
         {
-            id: "4",
+            id: "5",
             name: "Satın Alma Sözleşmeleri",
             iconName: "file-signature",
             iconType: "font-awesome-5",
@@ -104,7 +104,7 @@ export default function Menu() {
             />
         },
         {
-            id: "5",
+            id: "6",
             name: "Satın Alma Faturaları",
             iconName: "file-invoice-dollar",
             iconType: "font-awesome-5",
@@ -172,9 +172,9 @@ export default function Menu() {
             return 0
         }
         else if (id === "5") {
-            return purchaseInovices === null
-                || purchaseInovices?.length === 0
-                || purchaseInovices?.returnText === "RECORD_NOT_FOUND" ?
+            return purchaseAggrementData === null
+                || purchaseAggrementData?.length === 0
+                || purchaseAggrementData?.returnText === "RECORD_NOT_FOUND" ?
                 0
                 :
                 purchaseAggrementData?.length
@@ -194,7 +194,13 @@ export default function Menu() {
 
         <SafeAreaView style={{ flex: 1, backgroundColor: "#007041" }}>
 
-            <ScrollView style={{ flex: 1, backgroundColor: "#007041", paddingHorizontal: 16 }}>
+            <ScrollView
+                style={{
+                    flex: 1,
+                    backgroundColor: "#007041",
+                    paddingHorizontal: 16
+                }}
+            >
 
                 <View style={{
                     paddingHorizontal: 16,
