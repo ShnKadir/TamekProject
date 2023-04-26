@@ -35,7 +35,7 @@ export default function PurchaseRequestDetail({
     useLayoutEffect(() => {
         navigation.setOptions({
             headerLargeTitle: false,
-            title: "Onay Beklyenler"
+            title: "Onay Bekleyenler"
         })
     }, [navigation])
 
