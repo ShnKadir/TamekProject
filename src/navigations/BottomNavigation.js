@@ -51,8 +51,8 @@ export default function BottomNavigation() {
                     headerShown: false,
                     tabBarIcon: () =>
                         <Icon
-                            name="settings"
-                            type="feather"
+                            name="user"
+                            type="font-awesome"
                             size={18}
                             color="#ffffff"
                         />
