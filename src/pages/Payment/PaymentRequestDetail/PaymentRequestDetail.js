@@ -5,6 +5,7 @@ import React, { useLayoutEffect } from 'react'
 import { View, Text, TouchableOpacity, SafeAreaView } from 'react-native'
 import { Icon } from 'react-native-elements'
 import { HStack, ScrollView } from 'native-base'
+import * as OpenAnything from "react-native-openanything"
 
 // Styles
 import { styles } from './PaymentRequestDetailStyle'
@@ -14,12 +15,19 @@ import { useNavigation } from '@react-navigation/native'
 import { useState } from 'react'
 import { useEffect } from 'react'
 
+// Api
+import getPaymentFilesRequest from '../../../common/api/paymentRequest/getPaymentFilesRequest'
+
+// Redux
+import { useSelector } from 'react-redux'
+
 export default function PaymentRequestDetail({
     route
 }) {
 
     const navigation = useNavigation()
 
+    const paymentFile = useSelector(state => state.payment?.getPaymentFile?.resultObject)
     const [data, setData] = useState(route.params.data)
 
     useEffect(() => {
@@ -33,6 +41,11 @@ export default function PaymentRequestDetail({
             title: 'Ödeme Talep Kaydı',
         })
     }, [navigation])
+
+    useEffect(() => {
+        getPaymentFilesRequest(data?.fileName)
+    }, [data])
+
 
     const fixDateCalc = (date) => {
 
@@ -334,38 +347,39 @@ export default function PaymentRequestDetail({
 
                         </View>
 
-                        <View
-                            style={{
-                                flexDirection: "row",
-                                alignItems: "center",
-                                justifyContent: "space-between",
-                                paddingHorizontal: 16,
-                                marginTop: 10,
-                                fontWeight: "bold"
-                            }}
-                        >
+                        {
+                            paymentFile &&
+                            <View
+                                style={{
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                    justifyContent: "space-between",
+                                    paddingHorizontal: 16,
+                                    marginTop: 10,
+                                    fontWeight: "bold"
+                                }}
+                            >
 
-                            <Text style={{
-                                color: "#000000",
-                                fontSize: 15,
-                                lineHeight: 22,
-                                fontWeight: 'bold'
-                            }}>
+                                <Text style={{
+                                    color: "#000000",
+                                    fontSize: 15,
+                                    lineHeight: 22,
+                                    fontWeight: 'bold'
+                                }}>
 
-                            </Text>
+                                </Text>
 
-                            <TouchableOpacity>
-                                <Icon
-                                    name="ios-attach-sharp"
-                                    type="ionicon"
-                                    size={26}
-                                    color="black"
-                                    style={{ marginRight: 8 }}
-                                />
-                            </TouchableOpacity>
-
-                        </View>
-
+                                <TouchableOpacity onPress={() => OpenAnything.Pdf(paymentFile)}>
+                                    <Icon
+                                        name="ios-attach-sharp"
+                                        type="ionicon"
+                                        size={26}
+                                        color="black"
+                                        style={{ marginRight: 8 }}
+                                    />
+                                </TouchableOpacity>
+                            </View>
+                        }
                     </View>
                 </View>
 

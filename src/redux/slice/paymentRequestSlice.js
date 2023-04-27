@@ -5,8 +5,10 @@ import { API_STATUS } from "../../common/Enums"
 
 const initialState = {
     
-    paymentRequestData: null,    
+    paymentRequestData: null,  
+    getPaymentFile:null,  
     paymentRequestApiStatus: API_STATUS.NONE,
+    getPaymentFileApiStatus:API_STATUS.NONE
 }
 
 const paymentRequestSlice = createSlice({
@@ -25,6 +27,16 @@ const paymentRequestSlice = createSlice({
         getPaymentFailure: (state, action) => {
             state.paymentRequestApiStatus = API_STATUS.FAILURE
         },
+        getPaymentFileRequest: state => {
+            state.getPaymentFileApiStatus = API_STATUS.REQUEST
+        },
+        getPaymentFileSuccess: (state, action) => {
+            state.getPaymentFile = action.payload
+            state.getPaymentFileApiStatus = API_STATUS.SUCCESS
+        },
+        getPaymentFileFailure: (state, action) => {
+            state.getPaymentFileApiStatus = API_STATUS.FAILURE
+        },
     }
 })
 
@@ -34,7 +46,11 @@ export const {
     clearPaymentRequestSlice,
     getPaymentRequest,
     getPaymentSuccess,
-    getPaymentFailure
+    getPaymentFailure,
+    getPaymentFileRequest,
+    getPaymentFileSuccess,
+    getPaymentFileFailure
+
 
 } = paymentRequestSlice.actions
 

@@ -45,6 +45,10 @@ export const API = {
         GET: {
             path: "/api/Payment/GetPaymentRequest",
             method: "GET"
+        },
+        GET_FILE:{
+            path: "/api/Payment/GetPaymentFileRequest/",
+            method: "GET"
         }
     }
 }
