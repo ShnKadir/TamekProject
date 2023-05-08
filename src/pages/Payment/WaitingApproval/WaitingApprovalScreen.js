@@ -26,6 +26,9 @@ import { useNavigation } from '@react-navigation/native'
 import { useSelector } from 'react-redux'
 import { RETURN_TEXT } from '../../../common/Enums'
 
+// Moment
+import moment from "moment"
+
 export default function WaitingApprovalScreen() {
 
   const navigation = useNavigation()
@@ -70,13 +73,12 @@ export default function WaitingApprovalScreen() {
 
   const fixDateCalc = (date) => {
 
-    let day = date.substring(3, 5)
-    let month = date.substring(0, 2)
-    let year = date.substring(6, 10)
+    let datee = date?.substring(0, 10)
 
-    let fixedDate = day + "/" + month + "/" + year
-    return fixedDate
-  }
+    var longDateStr = moment(datee, 'M/D/Y').format("DD/MM/YYYY")
+
+    return longDateStr
+}
 
   return (
 

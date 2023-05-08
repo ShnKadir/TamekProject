@@ -71,6 +71,15 @@ export default function PurchaseInvoices() {
         return converterCost
     }
 
+    const fixDateCalc = (date) => {
+
+        let datee = date?.substring(0, 10)
+
+        var longDateStr = moment(datee, 'M/D/Y').format("DD/MM/YYYY")
+
+        return longDateStr
+    }
+
     return (
 
         <SafeAreaView style={{ flex: 1 }}>

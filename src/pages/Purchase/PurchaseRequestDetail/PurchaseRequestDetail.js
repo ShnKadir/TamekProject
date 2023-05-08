@@ -18,6 +18,9 @@ import { styles } from './PurchaseRequestDetailStyle'
 // Navigation
 import { useNavigation } from '@react-navigation/native'
 
+// Moment
+import moment from "moment"
+
 export default function PurchaseRequestDetail({
     route
 }) {
@@ -38,6 +41,16 @@ export default function PurchaseRequestDetail({
             title: "Onay Bekleyenler"
         })
     }, [navigation])
+
+    const fixDateCalc = (date) => {
+
+        let datee = date?.substring(0, 10)
+
+        let longDateStr = moment(datee, 'M/D/Y').format("DD/MM/YYYY")
+
+        return longDateStr
+    }
+
 
     return (
 
@@ -199,7 +212,7 @@ export default function PurchaseRequestDetail({
                                     textAlign: 'right'
                                 }}>
 
-                                    {new Date(data?.createdDate).getDate() + "/" + (new Date(data?.createdDate).getUTCMonth() + 1) + "/" + new Date(data?.createdDate).getFullYear()}
+                                    {fixDateCalc(data?.createdDate)}
                                 </Text>
                             </View>
                         </View>

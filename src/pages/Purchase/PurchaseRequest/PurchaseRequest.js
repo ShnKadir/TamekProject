@@ -29,6 +29,9 @@ import { useSelector } from 'react-redux'
 //Enum
 import { RETURN_TEXT } from '../../../common/Enums'
 
+// Moment
+import moment from "moment"
+
 export default function PurchaseRequest() {
 
     const navigation = useNavigation()
@@ -60,6 +63,15 @@ export default function PurchaseRequest() {
 
         let filteredData = purchReqRequest?.filter(item => item.originator.toLocaleUpperCase('tr-TR').includes(searchTerm.toLocaleUpperCase('tr-TR')))
         setData(filteredData)
+    }
+
+    const fixDateCalc = (date) => {
+
+        let datee = date?.substring(0, 10)
+
+        var longDateStr = moment(datee, 'M/D/Y').format("DD/MM/YYYY")
+
+        return longDateStr
     }
 
     return (
@@ -111,7 +123,7 @@ export default function PurchaseRequest() {
                                                                 {index + 1}
                                                             </Text>
                                                         </View>
-                                                        <VStack style={{ paddingLeft: 8, maxWidth: 284,paddingTop:8 }} space={"5px"}>
+                                                        <VStack style={{ paddingLeft: 8, maxWidth: 284, paddingTop: 8 }} space={"5px"}>
                                                             <Text style={{ fontWeight: "bold", flexWrap: "wrap", fontSize: 14 }}>
                                                                 {item?.originator}
                                                             </Text>
@@ -125,7 +137,8 @@ export default function PurchaseRequest() {
                                                             </Text>
 
                                                             <Text style={{ fontSize: 13, color: "#6C6C6C" }}>
-                                                                {new Date(item?.createdDate).getDate() + "/" + (new Date(item?.createdDate).getUTCMonth() + 1) + "/" + new Date(item?.createdDate).getFullYear()}
+                                                                {fixDateCalc(item.createdDate)}
+
                                                             </Text>
                                                         </VStack>
                                                     </HStack>

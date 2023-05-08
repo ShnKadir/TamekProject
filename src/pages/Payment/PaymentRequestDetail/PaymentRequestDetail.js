@@ -21,6 +21,9 @@ import getPaymentFilesRequest from '../../../common/api/paymentRequest/getPaymen
 // Redux
 import { useSelector } from 'react-redux'
 
+// Moment
+import moment from "moment"
+
 export default function PaymentRequestDetail({
     route
 }) {
@@ -49,12 +52,11 @@ export default function PaymentRequestDetail({
 
     const fixDateCalc = (date) => {
 
-        let day = date.substring(3, 5)
-        let month = date.substring(0, 2)
-        let year = date.substring(6, 10)
+        let datee = date?.substring(0, 10)
 
-        let fixedDate = day + "/" + month + "/" + year
-        return fixedDate
+        var longDateStr = moment(datee, 'M/D/Y').format("DD/MM/YYYY")
+
+        return longDateStr
     }
 
     return (
@@ -314,7 +316,6 @@ export default function PaymentRequestDetail({
                                     lineHeight: 22,
                                     textAlign: 'right'
                                 }}>
-                                    {/* {new Date(data?.paymentDate).toLocaleDateString("tr-TR").replaceAll('.', '/')} */}
                                     {fixDateCalc(data?.paymentDate)}
                                 </Text>
                             </View>

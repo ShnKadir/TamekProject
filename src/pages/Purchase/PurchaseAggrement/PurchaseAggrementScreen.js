@@ -27,6 +27,9 @@ import { styles } from './PurchaseAggrementScreenStyle'
 import { useSelector } from 'react-redux'
 import { RETURN_TEXT } from '../../../common/Enums'
 
+// Moment
+import moment from "moment"
+
 export default function PurchaseAggrementScreen() {
 
     const navigation = useNavigation()
@@ -60,6 +63,16 @@ export default function PurchaseAggrementScreen() {
         setData(filteredData)
     }
 
+    
+    const fixDateCalc = (date) => {
+
+        let datee = date?.substring(0, 10)
+
+        var longDateStr = moment(datee, 'M/D/Y').format("DD/MM/YYYY")
+
+        return longDateStr
+    }
+    
     return (
 
         <SafeAreaView style={{ flex: 1 }}>
@@ -121,7 +134,7 @@ export default function PurchaseAggrementScreen() {
 
                                                             <HStack style={{ maxWidth: 260, width: 260 }}>
                                                                 <Text style={{ flexWrap: "wrap", fontSize: 13, fontWeight: "bold" }}>
-                                                                    {new Date(item?.createdDate).getDate() + "/" + (new Date(item?.createdDate).getUTCMonth() + 1) + "/" + new Date(item?.createdDate).getFullYear()}
+                                                                    {fixDateCalc(item?.createdDate)}                                                                    
                                                                 </Text>
                                                             </HStack>
                                                         </VStack>

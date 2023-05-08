@@ -13,6 +13,9 @@ import { useNavigation } from '@react-navigation/native'
 import { useState } from 'react'
 import { useEffect } from 'react'
 
+// Moment
+import moment from "moment"
+
 export default function PurchaseInvoicesDetail({
     route
 }) {
@@ -40,6 +43,15 @@ export default function PurchaseInvoicesDetail({
             converterCost = (total)?.toLocaleString('en-US', { style: 'decimal', currency: data?.currency })
         }
         return converterCost
+    }
+
+    const fixDateCalc = (date) => {
+
+        let datee = date?.substring(0, 10)
+
+        var longDateStr = moment(datee, 'M/D/Y').format("DD/MM/YYYY")
+
+        return longDateStr
     }
 
     return (
@@ -87,7 +99,7 @@ export default function PurchaseInvoicesDetail({
                                     }}>Fatura No</Text>
                                 </View>
 
-                                <View style={{ width: "50%"}}>
+                                <View style={{ width: "50%" }}>
 
                                     <Text style={{
                                         color: "#000000",
@@ -117,12 +129,12 @@ export default function PurchaseInvoicesDetail({
                                     }}>Tedarikçi</Text>
                                 </View>
 
-                                <View style={{ width: "50%"}}>
+                                <View style={{ width: "50%" }}>
 
                                     <Text style={{
                                         color: "#000000",
                                         textAlign: 'right',
-                                        fontSize:16
+                                        fontSize: 16
                                     }}>
                                         {data?.name}
                                     </Text>
@@ -150,15 +162,14 @@ export default function PurchaseInvoicesDetail({
                                     </Text>
                                 </View>
 
-                                <View style={{ width: "50%"}}>
+                                <View style={{ width: "50%" }}>
 
                                     <Text style={{
                                         color: "#000000",
                                         textAlign: 'right',
-                                        fontSize:16
+                                        fontSize: 16
                                     }}>
-
-                                        {new Date(data?.invoiceDate).getDate() + "/" + (new Date(data?.invoiceDate).getUTCMonth() + 1) + "/" + new Date(data?.invoiceDate).getFullYear()}
+                                        {fixDateCalc(data?.invoiceDate)}
                                     </Text>
                                 </View>
                             </View>
@@ -181,12 +192,12 @@ export default function PurchaseInvoicesDetail({
                                     }}>Toplam</Text>
                                 </View>
 
-                                <View style={{ width: "50%"}}>
+                                <View style={{ width: "50%" }}>
 
                                     <Text style={{
                                         color: "#000000",
                                         textAlign: 'right',
-                                        fontSize:16
+                                        fontSize: 16
                                     }}>
                                         {calculateCost(data)} {data?.currency}
                                     </Text>
