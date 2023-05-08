@@ -1,19 +1,25 @@
 // React
-import React, { useLayoutEffect } from 'react'
+import React, { useLayoutEffect, useState } from 'react'
 
 // React Native
-import { View, Text, ScrollView, TouchableOpacity, SafeAreaView } from 'react-native'
+import {
+    View,
+    Text,
+    ScrollView,
+    TouchableOpacity,
+    SafeAreaView
+}
+    from 'react-native'
 import { HStack, VStack } from 'native-base'
 
 // Styles
-import { styles } from './PurchaseInvoicesDetailStyle'
+import { styles } from './PurchaseOrderDetailScreenStyle'
 
 // Navigation
 import { useNavigation } from '@react-navigation/native'
-import { useState } from 'react'
 import { useEffect } from 'react'
 
-export default function PurchaseInvoicesDetail({
+export default function PurchaseOrderDetailScreen({
     route
 }) {
 
@@ -28,7 +34,7 @@ export default function PurchaseInvoicesDetail({
     useLayoutEffect(() => {
         navigation.setOptions({
             headerLargeTitle: true,
-            title: 'Tedarikçi Faturası',
+            title: 'Onay Bekleyenler',
         })
     }, [navigation])
 
@@ -36,8 +42,8 @@ export default function PurchaseInvoicesDetail({
         let total = 0
         let converterCost = 0
         for (let i = 0; i < data?.lines?.length; i++) {
-            total += parseFloat((data?.lines?.[i]?.netAmount).toLocaleString('en-US', { style: 'decimal', currency: data?.currency }).replace(',', ''))
-            converterCost = (total)?.toLocaleString('en-US', { style: 'decimal', currency: data?.currency })
+            total += parseFloat((data?.lines?.[i]?.netAmount).toLocaleString('en-US', { style: 'decimal', currency: data?.currencyCode }).replace(',', ''))
+            converterCost = (total)?.toLocaleString('en-US', { style: 'decimal', currency: data?.currencyCode })
         }
         return converterCost
     }
@@ -79,7 +85,7 @@ export default function PurchaseInvoicesDetail({
 
                                 <Text style={{
                                     color: "#000000",
-                                }}>Fatura No</Text>
+                                }}>Satın Alma Sipariş No</Text>
                             </View>
 
                             <View style={{ width: "50%", marginLeft: 20 }}>
@@ -88,7 +94,7 @@ export default function PurchaseInvoicesDetail({
                                     color: "#000000",
                                     textAlign: 'left',
                                 }}>
-                                    {data?.invoiceId}
+                                    {data?.purchId}
                                 </Text>
                             </View>
                         </View>
@@ -106,7 +112,7 @@ export default function PurchaseInvoicesDetail({
 
                                 <Text style={{
                                     color: "#000000"
-                                }}>Tedarikçi</Text>
+                                }}>Firma</Text>
                             </View>
 
                             <View style={{ width: "50%", marginLeft: 20 }}>
@@ -135,7 +141,7 @@ export default function PurchaseInvoicesDetail({
                                 <Text style={{
                                     color: "#000000"
                                 }}>
-                                    Fatura Tarihi
+                                    Vade Tarihi
                                 </Text>
                             </View>
 
@@ -146,7 +152,7 @@ export default function PurchaseInvoicesDetail({
                                     textAlign: 'left'
                                 }}>
 
-                                    {new Date(data?.invoiceDate).getDate() + "/" + (new Date(data?.invoiceDate).getUTCMonth() + 1) + "/" + new Date(data?.invoiceDate).getFullYear()}
+                                    {data?.paymTerm}
                                 </Text>
                             </View>
                         </View>
@@ -173,13 +179,14 @@ export default function PurchaseInvoicesDetail({
                                     color: "#000000",
                                     textAlign: 'left'
                                 }}>
-                                    {calculateCost(data)} {data?.currency}
+                                    {calculateCost(data)} {data?.currencyCode}
                                 </Text>
                             </View>
                         </View>
                     </View>
                 </View>
             </View>
+
             <HStack style={styles.buttonStyle} space={"8px"}>
                 <TouchableOpacity
                     style={styles.denialButton}
@@ -204,57 +211,56 @@ export default function PurchaseInvoicesDetail({
                     data?.lines?.map((item, index) => {
 
                         return (
-
-                            <VStack style={{
-                                borderTopColor: "#F5F5F5",
-                                borderTopWidth: 1,
-                                paddingHorizontal: 16
-                            }}
-                                key={index}>
+                            <VStack style={{ borderTopColor: "#F5F5F5", borderTopWidth: 1, paddingHorizontal: 16 }} key={index}>
                                 <HStack style={styles.list}>
                                     <HStack style={{ alignItems: "center" }}>
                                         <View
                                             style={{
                                                 justifyContent: 'center',
                                                 backgroundColor: "#CCE2D9",
-                                                width: 24,
-                                                height: 24,
-                                                borderRadius: 12
+                                                width: 26,
+                                                height: 26,
+                                                borderRadius: 13,
+
                                             }}
                                         >
                                             <Text
                                                 style={{
 
-                                                    fontSize: 14,
-                                                    lineHeight: 16,
+                                                    fontSize: 13,
+                                                    lineHeight: 15,
                                                     color: "#007041",
                                                     textAlign: "center",
-                                                    alignSelf: "center"
-
+                                                    alignSelf: "center",
+                                                    justifyContent: 'center',
                                                 }}
                                             >
                                                 {index + 1}
                                             </Text>
                                         </View>
+
                                         <VStack style={{ marginLeft: 16, maxWidth: 270 }} space={"4px"}>
 
                                             <Text style={{ fontWeight: "bold", flexWrap: "wrap", fontSize: 12 }}>
-                                                {item?.itemName}
+                                                {item?.itemId}
                                             </Text>
                                             <Text style={{ fontSize: 11 }}>
-                                                Miktar:{item?.qty} - Toplam:{item?.netAmount} {data?.currency}
+                                                Ürün özellikleri: {item?.inventTechProperty}
                                             </Text>
                                             <Text style={{ fontSize: 11 }}>
-                                                Kategori: {item?.category}
+                                                Miktar:{item?.qty} {item?.unit} - Tutar: {item?.netAmount} {data?.currencyCode}
                                             </Text>
+
                                         </VStack>
+
                                     </HStack>
                                 </HStack>
                             </VStack>
+
+
                         )
                     })
                 }
-
             </ScrollView>
         </SafeAreaView>
     )

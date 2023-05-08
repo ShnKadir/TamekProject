@@ -62,8 +62,8 @@ export default function WaitingApprovalScreen() {
     let total = 0
     let converterCost = 0
     for (let i = 0; i < item?.lines?.length; i++) {
-      total += parseFloat((item?.lines?.[i]?.amount).toLocaleString('en-US', { style: 'decimal', currency: 'TL' }).replace(',', ''))
-      converterCost = (total).toLocaleString('en-US', { style: 'decimal', currency: 'USD' })
+      total += parseFloat((item?.lines?.[i]?.amount).toLocaleString('en-US', { style: 'decimal', currency: item?.currencyCode }).replace(',', ''))
+      converterCost = (total).toLocaleString('en-US', { style: 'decimal', currency: item?.currencyCode })
     }
     return converterCost
   }

@@ -29,9 +29,19 @@ export default function PurchaseAggrementDetail({
     useLayoutEffect(() => {
         navigation.setOptions({
             headerLargeTitle: true,
-            title: 'Satın Alma Talebi',
+            title: 'Onay Bekleyenler',
         })
     }, [navigation])
+
+    const calculateCost = (data) => {
+        let total = 0
+        let converterCost = 0
+        for (let i = 0; i < data?.lines?.length; i++) {
+            total += parseFloat((data?.lines?.[i]?.netAmount).toLocaleString('en-US', { style: 'decimal', currency: data?.currency }).replace(',', ''))
+            converterCost = (total)?.toLocaleString('en-US', { style: 'decimal', currency: data?.currency})
+        }
+        return converterCost
+    }
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
@@ -57,12 +67,14 @@ export default function PurchaseAggrementDetail({
 
                     </VStack>
                     <VStack style={{ flex: 1, backgroundColor: "#FFFFFF" }} space={"8px"} >
-                        <Text>{data?.reqNo}</Text>
-                        <Text>{data?.originator}</Text>
+                        <Text>{data?.agreementNo}</Text>
+                        <Text>{data?.createdBy}</Text>
                         <Text>
                             {new Date(data?.createdDate).getDate() + "/" + (new Date(data?.createdDate).getUTCMonth() + 1) + "/" + new Date(data?.createdDate).getFullYear()}
                         </Text>
-                        <Text>2,549.94 USD</Text>
+                        <Text>
+                            {calculateCost(data)} {data?.currency}
+                        </Text>
                     </VStack>
                 </View>
             </View>
@@ -131,10 +143,10 @@ export default function PurchaseAggrementDetail({
                                                 Tedarikçi: ROBOSET OTOMAS MAK. MÜH. LTD. ŞTİ.
                                             </Text> */}
                                             <Text style={{ fontSize: 11 }}>
-                                                Miktar:{item?.qty} - Tutar: {item?.lineAmountMst} {item?.currencyCode}
+                                                Miktar:{item?.qty} {item?.unit} - Tutar: {item?.netAmount} {data?.currency}
                                             </Text>
                                             <Text style={{ fontSize: 11 }}>
-                                                Açıklama: {item?.specialityDescription}
+                                                Son Kullanma Tarihi:  {new Date(item?.expirationDate).getDate() + "/" + (new Date(item?.expirationDate).getUTCMonth() + 1) + "/" + new Date(item?.expirationDate).getFullYear()}
                                             </Text>
                                         </VStack>
 

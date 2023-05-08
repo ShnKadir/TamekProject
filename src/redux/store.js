@@ -5,6 +5,8 @@ import expenceSlice from "./slice/expenceSlice"
 import paymentRequestSlice from "./slice/paymentRequestSlice"
 import purchaseAggrementRequestSlice from "./slice/purchaseAggrementRequestSlice"
 import infoModalSlice from "./slice/infoModalSlice"
+import purchaseOrderRequestSlice from "./slice/purchaseOrderRequestSlice"
+import purchaseInvoicesRequestSlice from "./slice/purchaseInvoicesRequestSlice"
 
 const store = configureStore({
 	reducer: {
@@ -13,6 +15,8 @@ const store = configureStore({
 		expence: expenceSlice,
 		payment: paymentRequestSlice,
 		purchaseAggrement: purchaseAggrementRequestSlice,
+		purchaseOrder:purchaseOrderRequestSlice,
+		purchaseInvoice:purchaseInvoicesRequestSlice,
 		infoModal: infoModalSlice
 
 	},

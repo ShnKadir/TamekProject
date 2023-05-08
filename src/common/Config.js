@@ -33,11 +33,27 @@ export const API = {
                 path: "/api/Purchase/GetPurchAggrementRequest",
                 method: "GET"
             }
+        },
+        PURCHASE_ORDER:{
+            GET: {
+                path: "/api/Purchase/GetPurchaseOrderRequest",
+                method: "GET"
+            }
+        },
+        PURCHASE_INVOİCE:{
+            GET: {
+                path: "/api/Purchase/GetPurchInvoiceRequest",
+                method: "GET"
+            }
         }
     },
     EXPENCE: {
         GET: {
             path: "/api/Expence/GetExpenceRequest",
+            method: "GET"
+        },
+        GET_FILE:{
+            path: "/api/Expence/GetExpencetFileRequests/",
             method: "GET"
         }
     },

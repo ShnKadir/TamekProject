@@ -30,6 +30,8 @@ import purchaseContract from '../../../assets/image/purchaseContract.png'
 import purchaseInvoice from '../../../assets/image/purchaseInvoice.png'
 import purchaseOrder from '../../../assets/image/purchaseOrder.png'
 import purchaseRequest from '../../../assets/image/purchaseRequest.png'
+import getPurchaseOrdersRequest from '../../common/api/purchase/PurchaseOrderRequest/getPurchaseOrdersRequest'
+import getPurchaseInvoicesRequest from '../../common/api/purchase/PurchaseInvoicesRequest/getPurchaseInvoicesRequest'
 
 export default function Menu() {
 
@@ -40,7 +42,8 @@ export default function Menu() {
     const paymentRequestData = useSelector(state => state.payment?.paymentRequestData)
     const purchaseRequestData = useSelector(state => state.purchaseRequest?.purchaseRequestData)
     const purchaseAggrementData = useSelector(state => state.purchaseAggrement?.purchaseAggrementData)
-    const purchaseInovices = useSelector(state => state.purchase?.purchaseInvoice?.resultObject?.purchaseInvoices)
+    const purchaseOrderData = useSelector(state => state.purchaseOrder?.purchaseOrderData)
+    const purchaseInvoiceData = useSelector(state => state.purchaseInvoice?.purchaseInvoiceData)
 
     const menuData = [
         {
@@ -128,9 +131,12 @@ export default function Menu() {
             navigation.navigate(MENU_NAV.PURCHASE_REQUEST)
         }
         else if (id === "4") {
-            navigation.navigate(MENU_NAV.PURCHASE_AGGREMENT_REQUEST)
+            navigation.navigate(MENU_NAV.PURCHASE_ORDER)
         }
         else if (id === "5") {
+            navigation.navigate(MENU_NAV.PURCHASE_AGGREMENT_REQUEST)
+        }
+        else if (id === "6") {
             navigation.navigate(MENU_NAV.PURCHASE_INVOICES)
         }
     }
@@ -140,6 +146,8 @@ export default function Menu() {
         getExpenceRequests()
         PaymentRequests()
         purchaseAggrementRequest()
+        getPurchaseOrdersRequest()
+        getPurchaseInvoicesRequest()
     }, [isLogin])
 
 
@@ -169,24 +177,29 @@ export default function Menu() {
                 purchaseRequestData?.resultObject?.purchReqRequest?.length
         }
         else if (id === "4") {
-            return 0
+            return purchaseOrderData === null
+            || purchaseOrderData?.resultObject?.purchaseOrderRequest?.length === 0
+            || purchaseOrderData?.returnText === "RECORD_NOT_FOUND" ?
+            0
+            :
+            purchaseOrderData?.resultObject?.purchaseOrderRequest?.length
         }
         else if (id === "5") {
             return purchaseAggrementData === null
-                || purchaseAggrementData?.length === 0
+                || purchaseAggrementData?.resultObject?.purchReqRequest?.length === 0
                 || purchaseAggrementData?.returnText === "RECORD_NOT_FOUND" ?
                 0
                 :
-                purchaseAggrementData?.length
+                purchaseAggrementData?.resultObject?.purchReqRequest?.length
 
         }
         else if (id === "6") {
-            return purchaseInovices === null
-                || purchaseInovices?.length === 0
-                || purchaseInovices?.returnText === "RECORD_NOT_FOUND" ?
-                0
-                :
-                0
+            return purchaseInvoiceData === null
+            || purchaseInvoiceData?.resultObject?.invoiceRequest?.length === 0
+            || purchaseInvoiceData?.returnText === "RECORD_NOT_FOUND" ?
+            0
+            :
+            purchaseInvoiceData?.resultObject?.invoiceRequest?.length
         }
     }
 

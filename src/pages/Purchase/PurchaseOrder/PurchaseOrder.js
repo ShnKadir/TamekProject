@@ -21,28 +21,28 @@ import { useNavigation } from '@react-navigation/native'
 import { MENU_NAV } from '../../../navigations/constants'
 
 // Styles
-import { styles } from './PurchaseAggrementScreenStyle'
+import { styles } from './PurchaseOrderStyle'
 
 // Redux
 import { useSelector } from 'react-redux'
 import { RETURN_TEXT } from '../../../common/Enums'
 
-export default function PurchaseAggrementScreen() {
+export default function PurchaseOrder() {
 
     const navigation = useNavigation()
 
-    const purchaseAggrementData = useSelector(state => state.purchaseAggrement?.purchaseAggrementData?.resultObject?.purchReqRequest)
-    const returnText = useSelector(state => state.purchaseAggrement?.purchaseAggrementData?.returnText)
+    const purchaseOrderRequest = useSelector(state => state.purchaseOrder?.purchaseOrderData?.resultObject?.purchaseOrderRequest)
+    const returnText = useSelector(state => state.purchaseOrder?.purchaseOrderData?.returnText)
 
     const goToDetailScreen = (item) => {
-        navigation.navigate(MENU_NAV.PURCHASE_AGGREMENT_REQUEST_DETAIL, { data: item })
+        navigation.navigate(MENU_NAV.PURCHASE_ORDER_DETAIL, { data: item })
     }
 
     const [data, setData] = useState()
 
     useEffect(() => {
-        setData(purchaseAggrementData)
-    }, [purchaseAggrementData])
+        setData(purchaseOrderRequest)
+    }, [purchaseOrderRequest])
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -56,7 +56,7 @@ export default function PurchaseAggrementScreen() {
 
     function searchFilterFunction(searchTerm) {
 
-        let filteredData = purchaseAggrementData?.filter(item => item.vendor?.toLocaleUpperCase('tr-TR').includes(searchTerm.toLocaleUpperCase('tr-TR')))
+        let filteredData = purchaseOrderRequest?.filter(item => item.name?.toLocaleUpperCase('tr-TR').includes(searchTerm.toLocaleUpperCase('tr-TR')))
         setData(filteredData)
     }
 
@@ -68,7 +68,7 @@ export default function PurchaseAggrementScreen() {
 
                     <View style={{ flex: 1, backgroundColor: "#FFFFFF", justifyContent: "center", alignItems: "center", paddingHorizontal: 16 }}>
                         <Text style={{ fontSize: 14, textAlign: "center" }}>
-                            Onayınızda bekleyen satın alma sözleşmesi bulunmamaktadır.
+                            Onayınızda bekleyen satın siparişi bulunmamaktadır.
                         </Text>
                     </View>
                     :
@@ -112,18 +112,16 @@ export default function PurchaseAggrementScreen() {
                                                         </View>
                                                         <VStack style={{ paddingLeft: 16, maxWidth: 284 }} space={"5px"}>
                                                             <Text style={{ fontWeight: "bold", flexWrap: "wrap" }}>
-                                                                {item.vendor}
+                                                                {item.purchId}
                                                             </Text>
 
                                                             <Text style={{ fontSize: 13, color: "#6C6C6C" }}>
-                                                                {item.createdBy}
+                                                                {item?.createdBy}
+                                                            </Text>
+                                                            <Text style={{ flexWrap: "wrap", fontSize: 13, fontWeight: "bold" }}>
+                                                                {item.amount}  {item.currencyCode}
                                                             </Text>
 
-                                                            <HStack style={{ maxWidth: 260, width: 260 }}>
-                                                                <Text style={{ flexWrap: "wrap", fontSize: 13, fontWeight: "bold" }}>
-                                                                    {new Date(item?.createdDate).getDate() + "/" + (new Date(item?.createdDate).getUTCMonth() + 1) + "/" + new Date(item?.createdDate).getFullYear()}
-                                                                </Text>
-                                                            </HStack>
                                                         </VStack>
                                                     </HStack>
                                                     <VStack>

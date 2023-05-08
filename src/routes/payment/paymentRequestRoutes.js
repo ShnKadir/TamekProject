@@ -16,6 +16,8 @@ import PurchaseInvoices from '../../pages/PurchaseInvoices/PurchaseInvoices'
 import PurchaseInvoicesDetail from '../../pages/PurchaseInvoices/PurchaseInvoicesDetail/PurchaseInvoicesDetail'
 import PurchaseAggrementScreen from './../../pages/Purchase/PurchaseAggrement/PurchaseAggrementScreen'
 import PurchaseAggrementDetail from '../../pages/Purchase/PurchaseAggrementDetail/PurchaseAggrementDetail'
+import PurchaseOrder from '../../pages/Purchase/PurchaseOrder/PurchaseOrder'
+import PurchaseOrderDetailScreen from '../../pages/Purchase/PurchaseOrderDetailScreen/PurchaseOrderDetailScreen'
 
 export default paymentRequestRoutes = [
     {
@@ -81,5 +83,13 @@ export default paymentRequestRoutes = [
     {
         name: MENU_NAV.PURCHASE_AGGREMENT_REQUEST_DETAIL,
         component: PurchaseAggrementDetail
+    },
+    {
+        name: MENU_NAV.PURCHASE_ORDER,
+        component: PurchaseOrder
+    },
+    {
+        name: MENU_NAV.PURCHASE_ORDER_DETAIL,
+        component: PurchaseOrderDetailScreen
     }
 ]

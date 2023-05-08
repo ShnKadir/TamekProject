@@ -9,6 +9,8 @@ export const MENU_NAV = {
   PURCHASE_INVOICES_DETAIL: "PurchaseInvoicesDetail",
   PURCHASE_AGGREMENT_REQUEST: "PurchaseAgreementRequest",
   PURCHASE_AGGREMENT_REQUEST_DETAIL: "PurchaseAgreementRequestDetail",
+  PURCHASE_ORDER: "PurchaseOrder",
+  PURCHASE_ORDER_DETAIL:"PurchaseOrderDetail",
   MENU: "Menu",
 }
 
@@ -27,5 +29,5 @@ export const LOGIN_NAV = {
 export const ACCOUNT_NAV = {
   ACCOUNT: "Account",
   CHANGE_PASSWORD: "ChangePassword",
-  LOGIN:"Login"
+  LOGIN: "Login"
 }

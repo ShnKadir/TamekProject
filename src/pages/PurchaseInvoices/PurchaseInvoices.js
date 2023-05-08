@@ -22,85 +22,26 @@ import { MENU_NAV } from './../../navigations/constants'
 
 // Styles
 import { styles } from './PurchaseInvoicesStyle'
+import { useSelector } from 'react-redux'
+import { RETURN_TEXT } from '../../common/Enums'
 
 export default function PurchaseInvoices() {
+
     const navigation = useNavigation()
 
-    const dummyDdata = [
-        {
-            id: "1",
-            number: "1",
-            name: "YILMAZ REDÜKTÖR SAN TİC A.Ş",
-            date: "16/12/2023",
-            costTotal: "87,736.00 USD",
-        },
-        {
-            id: "2",
-            number: "2",
-            name: "ERSA ENDÜSTRİYEL YAĞLAR TİC.LTD.ŞTİ",
-            date: "16/12/2023",
-            costTotal: "87,736.00 USD",
-        },
-        {
-            id: "3",
-            number: "3",
-            name: "ÜMELSAN ELEKTRİK-INS.DAY.TÜK.MAL.",
-            date: "16/12/2023",
-            costTotal: "87,736.00 USD",
-        },
-        {
-            id: "4",
-            number: "4",
-            name: "GESSAN MAKİNA ELEKTRONİK LTD.ŞTİ",
-            date: "16/12/2023",
-            costTotal: "87,736.00 USD",
-        },
-        {
-            id: "5",
-            number: "5",
-            name: "İSMAİL BULUTER ELİT ELDİVEN",
-            date: "16/12/2023",
-            costTotal: "87,736.00 USD",
-        },
-        {
-            id: "6",
-            number: "6",
-            name: "NAM KİŞİSEL KORUYUCU A.Ş.",
-            date: "16/12/2023",
-            costTotal: "87,736.00 USD",
-        },
-        {
-            id: "7",
-            number: "7",
-            name: "Soner Samet ERADAŞ",
-            date: "16/12/2023",
-            costTotal: "87,736.00 USD",
-        },
-        {
-            id: "8",
-            number: "8",
-            name: "BORUSAN LOJISTIK DAGITIM A.Ş.",
-            date: "16/12/2023",
-            costTotal: "87,736.00 USD",
-        },
-        {
-            id: "9",
-            number: "9",
-            name: "BORUSAN LOJISTIK DAGITIM A.Ş.",
-            date: "16/12/2023",
-            costTotal: "87,736.00 USD",
-        },
-    ]
+    const invoiceRequest = useSelector(state => state.purchaseInvoice.purchaseInvoiceData?.resultObject?.invoiceRequest)
 
-    const goToDetailScreen = (title) => {
-        navigation.navigate(MENU_NAV.PURCHASE_INVOICES_DETAIL, { title: title })
+    const returnText = useSelector(state => state.purchaseInvoice?.purchaseInvoiceData?.returnText)
+
+    const goToDetailScreen = (item) => {
+        navigation.navigate(MENU_NAV.PURCHASE_INVOICES_DETAIL, { data: item })
     }
 
     const [data, setData] = useState()
 
     useEffect(() => {
-        setData(dummyDdata)
-    }, [])
+        setData(invoiceRequest)
+    }, [invoiceRequest])
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -114,165 +55,126 @@ export default function PurchaseInvoices() {
 
     function searchFilterFunction(searchTerm) {
 
-        const dummyDdata = [
-            {
-                id: "1",
-                number: "1",
-                name: "YILMAZ REDÜKTÖR SAN TİC A.Ş",
-                date: "16/12/2023",
-                costTotal: "87,736.00 USD",
-            },
-            {
-                id: "2",
-                number: "2",
-                name: "ERSA ENDÜSTRİYEL YAĞLAR TİC.LTD.ŞTİ",
-                date: "16/12/2023",
-                costTotal: "87,736.00 USD",
-            },
-            {
-                id: "3",
-                number: "3",
-                name: "ÜMELSAN ELEKTRİK-INS.DAY.TÜK.MAL.",
-                date: "16/12/2023",
-                costTotal: "87,736.00 USD",
-            },
-            {
-                id: "4",
-                number: "4",
-                name: "GESSAN MAKİNA ELEKTRONİK LTD.ŞTİ",
-                date: "16/12/2023",
-                costTotal: "87,736.00 USD",
-            },
-            {
-                id: "5",
-                number: "5",
-                name: "İSMAİL BULUTER ELİT ELDİVEN",
-                date: "16/12/2023",
-                costTotal: "87,736.00 USD",
-            },
-            {
-                id: "6",
-                number: "6",
-                name: "NAM KİŞİSEL KORUYUCU A.Ş.",
-                date: "16/12/2023",
-                costTotal: "87,736.00 USD",
-            },
-            {
-                id: "7",
-                number: "7",
-                name: "Soner Samet ERADAŞ",
-                date: "16/12/2023",
-                costTotal: "87,736.00 USD",
-            },
-            {
-                id: "8",
-                number: "8",
-                name: "BORUSAN LOJISTIK DAGITIM A.Ş.",
-                date: "16/12/2023",
-                costTotal: "87,736.00 USD",
-            },
-            {
-                id: "9",
-                number: "9",
-                name: "BORUSAN LOJISTIK DAGITIM A.Ş.",
-                date: "16/12/2023",
-                costTotal: "87,736.00 USD",
-            },
-        ]
-        let filteredData = dummyDdata?.filter(item => item.name.toUpperCase().includes(searchTerm.toUpperCase()))
+        let filteredData = invoiceRequest?.filter(item => item.name?.toLocaleUpperCase('tr-TR').includes(searchTerm.toLocaleUpperCase('tr-TR'))
+            || item.invoiceId?.toLocaleUpperCase('tr-TR').includes(searchTerm.toLocaleUpperCase('tr-TR')))
         setData(filteredData)
+
     }
+
+    const calculateCost = (data) => {
+        let total = 0
+        let converterCost = 0
+        for (let i = 0; i < data?.lines?.length; i++) {
+            total += parseFloat((data?.lines?.[i]?.netAmount).toLocaleString('en-US', { style: 'decimal', currency: data?.currency }).replace(',', ''))
+            converterCost = (total)?.toLocaleString('en-US', { style: 'decimal', currency: data?.currency })
+        }
+        return converterCost
+    }
+
 
     return (
 
         <SafeAreaView style={{ flex: 1 }}>
+            {
+                returnText === RETURN_TEXT.RECORD_NOT_FOUND ?
 
-            <View style={{ flex: 1, backgroundColor: "#FFFFFF", justifyContent: "center", alignItems: "center" }}>
-                <Text style={{ fontSize: 14, textAlign: "center" }}>
-                    Satın Alma Faturası bulunmamaktadır.
-                </Text>
-            </View>
-            {/* <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
+                    <View style={{ flex: 1, backgroundColor: "#FFFFFF", justifyContent: "center", alignItems: "center" }}>
+                        <Text style={{ fontSize: 14, textAlign: "center" }}>
+                            Satın Alma Faturası bulunmamaktadır.
+                        </Text>
+                    </View>
+                    :
+                    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
 
-                <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+                        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
 
-                    <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 60 }}>
+                            <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 60 }}>
 
-                        {
-                            data?.map((item, index) => {
-                                return (
-                                    <TouchableOpacity
-                                        onPress={() => goToDetailScreen(item.name)}
-                                        key={index}
-                                    >
+                                {
+                                    data?.map((item, index) => {
+                                        return (
+                                            <TouchableOpacity
+                                                onPress={() => goToDetailScreen(item)}
+                                                key={index}
+                                            >
 
-                                        <HStack style={styles.list} >
-                                            <HStack style={{ alignItems: "center", maxWidth: 324 }}>
-                                                <View
-                                                    style={{
-                                                        alignItems: 'center',
-                                                        justifyContent: 'center',
-                                                        backgroundColor: '#CCE2D9',
-                                                        width: 24,
-                                                        height: 24,
-                                                        borderRadius: 12
-                                                    }}
-                                                >
-                                                    <Text
-                                                        style={{
-                                                            textAlign: 'center',
-                                                            fontSize: 12,
-                                                            lineHeight: 12,
-                                                            color: '#007041'
-                                                        }}
-                                                    >
-                                                        {item.number}
-                                                    </Text>
-                                                </View>
-                                                <VStack style={{ paddingLeft: 8, maxWidth: 284 }} space={"5px"}>
-                                                    <Text style={{ fontWeight: "bold", flexWrap: "wrap" }}>
-                                                        {item.name}
-                                                    </Text>
+                                                <HStack style={styles.list} >
+                                                    <HStack style={{ alignItems: "center", maxWidth: 324 }}>
+                                                        <View
+                                                            style={{
+                                                                alignItems: 'center',
+                                                                justifyContent: 'center',
+                                                                backgroundColor: '#CCE2D9',
+                                                                width: 24,
+                                                                height: 24,
+                                                                borderRadius: 12
+                                                            }}
+                                                        >
+                                                            <Text
+                                                                style={{
+                                                                    textAlign: 'center',
+                                                                    fontSize: 12,
+                                                                    lineHeight: 12,
+                                                                    color: '#007041'
+                                                                }}
+                                                            >
+                                                                {index + 1}
+                                                            </Text>
+                                                        </View>
+                                                        <VStack style={{ paddingLeft: 8, maxWidth: 284 }} space={"5px"}>
+                                                            <Text style={{ fontWeight: "bold", flexWrap: "wrap", fontSize: 13 }}>
+                                                                {item.name}
+                                                            </Text>
 
-                                                    <Text style={{ fontSize: 15, color: "#6C6C6C" }}>
-                                                        {item.date}
-                                                    </Text>
+                                                            <Text style={{ flexWrap: "wrap", fontSize: 13, color: "#6C6C6C" }}>
+                                                                {item.invoiceId}
+                                                            </Text>
 
+                                                            {/* <Text style={{ fontSize: 13, color: "#6C6C6C" }}>
+                                                                {new Date(item?.invoiceDate).getDate() + "/" + (new Date(item?.invoiceDate).getUTCMonth() + 1) + "/" + new Date(item?.invoiceDate).getFullYear()}
+                                                            </Text> */}
 
-                                                    <HStack style={{ maxWidth: 260, width: 260 }}>
-                                                        <Text style={{ flexWrap: "wrap", fontSize: 14, fontWeight: "bold" }}>
-                                                            {item.costTotal}
-                                                        </Text>
+                                                            <HStack style={{ maxWidth: 260, width: 270, justifyContent: "space-between" }}>
+                                                                <Text style={{ fontSize: 13, color: "#000000", fontWeight: "bold" }}>
+                                                                    {item.createdBy}
+                                                                </Text>
+                                                                <Text style={{ fontSize: 13, color: "#000000", fontWeight: "bold" }}>
+                                                                    {calculateCost(item)} {item.currency}
+                                                                </Text>
+                                                            </HStack>
+                                                        </VStack>
                                                     </HStack>
-                                                </VStack>
-                                            </HStack>
-                                            <VStack>
-                                                <TouchableOpacity
-                                                    hitSlop={{
-                                                        top: 20,
-                                                        bottom: 20,
-                                                        left: 20,
-                                                        right: 20,
-                                                    }}
-                                                    onPress={() => goToDetailScreen(item.name)}
-                                                >
-                                                    <Icon
-                                                        name="angle-right"
-                                                        type="font-awesome"
-                                                        size={20}
-                                                        color="#A9A9A9"
-                                                        style={{ marginRight: 16 }}
-                                                    />
-                                                </TouchableOpacity>
-                                            </VStack>
-                                        </HStack>
-                                    </TouchableOpacity>
-                                )
+                                                    <VStack>
+                                                        <TouchableOpacity
+                                                            hitSlop={{
+                                                                top: 20,
+                                                                bottom: 20,
+                                                                left: 20,
+                                                                right: 20,
+                                                            }}
+                                                            onPress={() => goToDetailScreen(item)}
+                                                        >
+                                                            <Icon
+                                                                name="angle-right"
+                                                                type="font-awesome"
+                                                                size={20}
+                                                                color="#A9A9A9"
+                                                                style={{ marginRight: 16 }}
+                                                            />
+                                                        </TouchableOpacity>
+                                                    </VStack>
+                                                </HStack>
+                                            </TouchableOpacity>
+                                        )
 
-                            })}
-                    </ScrollView>
-                </TouchableWithoutFeedback>
-            </KeyboardAvoidingView> */}
+                                    })
+                                }
+
+
+                            </ScrollView>
+                        </TouchableWithoutFeedback>
+                    </KeyboardAvoidingView>
+            }
         </SafeAreaView>
 
     )

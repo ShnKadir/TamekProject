@@ -8,6 +8,7 @@ export const styles = StyleSheet.create({
         height: 76,
         alignContent: "center",
         marginTop:16
+      
     },
     denialButton: {
         height: 44,
