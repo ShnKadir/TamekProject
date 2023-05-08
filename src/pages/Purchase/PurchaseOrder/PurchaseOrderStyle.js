@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
     list: {
         justifyContent: "space-between",
         alignItems: "center",
-        paddingBottom: 16,
+        paddingBottom: 8,
         paddingHorizontal: 16,
         backgroundColor: "#FFFFFF",
         marginBottom: 4

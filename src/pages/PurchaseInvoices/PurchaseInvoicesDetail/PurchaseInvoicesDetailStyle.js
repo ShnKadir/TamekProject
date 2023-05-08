@@ -6,8 +6,7 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         height: 76,
-        alignContent: "center",
-        marginTop:16
+        alignContent: "center"
     },
     denialButton: {
         height: 44,

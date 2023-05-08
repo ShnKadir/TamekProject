@@ -28,8 +28,8 @@ export default function PurchaseAggrementDetail({
 
     useLayoutEffect(() => {
         navigation.setOptions({
-            headerLargeTitle: true,
-            title: 'Onay Bekleyenler',
+            headerLargeTitle: false,
+            title: 'Satın Alma Sözleşmeleri Talep Kaydı',
         })
     }, [navigation])
 
@@ -38,7 +38,7 @@ export default function PurchaseAggrementDetail({
         let converterCost = 0
         for (let i = 0; i < data?.lines?.length; i++) {
             total += parseFloat((data?.lines?.[i]?.netAmount).toLocaleString('en-US', { style: 'decimal', currency: data?.currency }).replace(',', ''))
-            converterCost = (total)?.toLocaleString('en-US', { style: 'decimal', currency: data?.currency})
+            converterCost = (total)?.toLocaleString('en-US', { style: 'decimal', currency: data?.currency })
         }
         return converterCost
     }
@@ -46,36 +46,153 @@ export default function PurchaseAggrementDetail({
     return (
         <SafeAreaView style={{ flex: 1 }}>
 
-            <View style={{ height: 160, maxHeight: 170 }}>
-
+            <View style={{ height: 170, maxHeight: 220 }}>
                 <View style={{
                     flex: 1,
                     flexDirection: 'row',
                     paddingHorizontal: 16,
-                    paddingVertical: 32,
+                    paddingVertical: 8,
                     backgroundColor: "#FFFFFF",
                     marginHorizontal: 8,
                     marginVertical: 8,
                     borderRadius: 16
                 }}
                 >
-                    <VStack style={{ flex: 1, backgroundColor: "#FFFFFF" }} space={"8px"}>
-                        <Text>Talep No</Text>
-                        <Text>Talep Sahibi</Text>
-                        <Text>Talep Tarihi</Text>
-                        <Text>Toplam</Text>
+                    <ScrollView showsVerticalScrollIndicator={false}>
+                        <View
+                            style={{
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                                marginBottom: 8,
+                                width: "100%"
+                            }}
+                        >
+                            <View
+                                style={{
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                    justifyContent: "space-between",
+                                    marginBottom: 8,
+                                    width: "100%"
+                                }}
+                            >
+                                <View style={{ width: "50%", marginTop: 16 }}>
 
-                    </VStack>
-                    <VStack style={{ flex: 1, backgroundColor: "#FFFFFF" }} space={"8px"} >
-                        <Text>{data?.agreementNo}</Text>
-                        <Text>{data?.createdBy}</Text>
-                        <Text>
-                            {new Date(data?.createdDate).getDate() + "/" + (new Date(data?.createdDate).getUTCMonth() + 1) + "/" + new Date(data?.createdDate).getFullYear()}
-                        </Text>
-                        <Text>
-                            {calculateCost(data)} {data?.currency}
-                        </Text>
-                    </VStack>
+                                    <Text style={{
+                                        color: "#000000",
+                                        fontWeight: "bold",
+                                        fontSize: 14
+                                    }}>Talep No</Text>
+                                </View>
+
+                                <View style={{ width: "50%" }}>
+
+                                    <Text style={{
+                                        color: "#000000",
+                                        textAlign: 'right',
+                                        fontSize: 16
+                                    }}>
+                                        {data?.agreementNo}
+                                    </Text>
+                                </View>
+                            </View>
+
+                            <View
+                                style={{
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                    justifyContent: "space-between",
+                                    marginBottom: 8,
+                                    width: "100%"
+                                }}
+                            >
+                                <View style={{ width: "50%" }}>
+
+                                    <Text style={{
+                                        color: "#000000",
+                                        fontWeight: "bold",
+                                        fontSize: 14
+                                    }}>Talep Sahibi</Text>
+                                </View>
+
+                                <View style={{ width: "50%" }}>
+
+                                    <Text style={{
+                                        color: "#000000",
+                                        textAlign: 'right',
+                                        fontSize: 16
+                                    }}>
+                                        {data?.createdBy}
+                                    </Text>
+                                </View>
+
+                            </View>
+
+                            <View
+                                style={{
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                    justifyContent: "space-between",
+                                    marginBottom: 8,
+                                    width: "100%"
+                                }}
+                            >
+                                <View style={{ width: "50%" }}>
+
+                                    <Text style={{
+                                        color: "#000000",
+                                        fontWeight: "bold",
+                                        fontSize: 14
+                                    }}>
+                                        Talep Tarihi
+                                    </Text>
+                                </View>
+
+                                <View style={{ width: "50%" }}>
+
+                                    <Text style={{
+                                        color: "#000000",
+                                        textAlign: 'right',
+                                        fontSize: 16
+                                    }}>
+
+                                        {new Date(data?.createdDate).getDate() + "/" + (new Date(data?.createdDate).getUTCMonth() + 1) + "/" + new Date(data?.createdDate).getFullYear()}
+                                    </Text>
+                                </View>
+                            </View>
+
+                            <View
+                                style={{
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                    justifyContent: "space-between",
+                                    marginBottom: 8,
+                                    width: "100%"
+                                }}
+                            >
+
+                                <View style={{ width: "50%" }}>
+                                    <Text style={{
+                                        color: "#000000",
+                                        fontWeight: "bold",
+                                        fontSize: 14
+                                    }}>Toplam</Text>
+                                </View>
+
+                                <View style={{ width: "50%" }}>
+
+                                    <Text style={{
+                                        color: "#000000",
+                                        textAlign: 'right',
+                                        fontSize: 16
+                                    }}>
+                                        {calculateCost(data)} {data?.currency}
+                                    </Text>
+                                </View>
+                            </View>
+
+                        </View>
+                    </ScrollView>
                 </View>
             </View>
 
@@ -139,12 +256,15 @@ export default function PurchaseAggrementDetail({
                                             <Text style={{ fontSize: 11 }}>
                                                 Departman: {item?.inventSiteName}
                                             </Text>
-                                            {/* <Text style={{ fontSize: 11 }}>
-                                                Tedarikçi: ROBOSET OTOMAS MAK. MÜH. LTD. ŞTİ.
-                                            </Text> */}
+
                                             <Text style={{ fontSize: 11 }}>
-                                                Miktar:{item?.qty} {item?.unit} - Tutar: {item?.netAmount} {data?.currency}
+                                                Miktar:{item?.qty} {item?.unit}
                                             </Text>
+
+                                            <Text style={{ fontSize: 11 }}>
+                                                Tutar: {item?.netAmount} {data?.currency}
+                                            </Text>
+
                                             <Text style={{ fontSize: 11 }}>
                                                 Son Kullanma Tarihi:  {new Date(item?.expirationDate).getDate() + "/" + (new Date(item?.expirationDate).getUTCMonth() + 1) + "/" + new Date(item?.expirationDate).getFullYear()}
                                             </Text>
@@ -153,8 +273,6 @@ export default function PurchaseAggrementDetail({
                                     </HStack>
                                 </HStack>
                             </VStack>
-
-
                         )
                     })
                 }

@@ -33,8 +33,8 @@ export default function PurchaseOrderDetailScreen({
 
     useLayoutEffect(() => {
         navigation.setOptions({
-            headerLargeTitle: true,
-            title: 'Onay Bekleyenler',
+            headerLargeTitle: false,
+            title: 'Satın Alma Sipariş Kaydı',
         })
     }, [navigation])
 
@@ -51,139 +51,153 @@ export default function PurchaseOrderDetailScreen({
     return (
         <SafeAreaView style={{ flex: 1 }}>
 
-            <View style={{ height: 160, maxHeight: 170 }}>
-
+            <View style={{ height: 180, maxHeight: 220 }}>
                 <View style={{
                     flex: 1,
                     flexDirection: 'row',
                     paddingHorizontal: 16,
-                    paddingVertical: 32,
+                    paddingVertical:8,
                     backgroundColor: "#FFFFFF",
                     marginHorizontal: 8,
                     marginVertical: 8,
                     borderRadius: 16
                 }}
                 >
-                    <View
-                        style={{
-                            alignItems: "center",
-                            justifyContent: "space-between",
-                            marginBottom: 8,
-                            width: "100%"
-                        }}
-                    >
+                    <ScrollView showsVerticalScrollIndicator={false}>
                         <View
                             style={{
-                                flexDirection: "row",
                                 alignItems: "center",
                                 justifyContent: "space-between",
                                 marginBottom: 8,
                                 width: "100%"
                             }}
                         >
-                            <View style={{ width: "50%" }}>
+                            <View
+                                style={{
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                    justifyContent: "space-between",
+                                    marginBottom: 8,
+                                    width: "100%",
+                                    marginTop: 16
+                                }}
+                            >
+                                <View style={{ width: "50%" }}>
 
-                                <Text style={{
-                                    color: "#000000",
-                                }}>Satın Alma Sipariş No</Text>
+                                    <Text style={{
+                                        color: "#000000",
+                                        fontWeight: "bold",
+                                        fontSize: 14
+                                    }}>Satın Alma Sipariş No</Text>
+                                </View>
+
+                                <View style={{ width: "50%" }}>
+
+                                    <Text style={{
+                                        color: "#000000",
+                                        textAlign: 'right',
+                                        fontSize: 16
+                                    }}>
+                                        {data?.purchId}
+                                    </Text>
+                                </View>
                             </View>
 
-                            <View style={{ width: "50%", marginLeft: 20 }}>
+                            <View
+                                style={{
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                    justifyContent: "space-between",
+                                    marginBottom: 8,
+                                    width: "100%"
+                                }}
+                            >
+                                <View style={{ width: "50%" }}>
 
-                                <Text style={{
-                                    color: "#000000",
-                                    textAlign: 'left',
-                                }}>
-                                    {data?.purchId}
-                                </Text>
+                                    <Text style={{
+                                        color: "#000000",
+                                        fontWeight: "bold",
+                                        fontSize: 14
+                                    }}>Firma</Text>
+                                </View>
+
+                                <View style={{ width: "50%" }}>
+
+                                    <Text style={{
+                                        color: "#000000",
+                                        textAlign: 'right',
+                                        fontSize: 16
+                                    }}>
+                                        {data?.name}
+                                    </Text>
+                                </View>
+
+                            </View>
+
+                            <View
+                                style={{
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                    justifyContent: "space-between",
+                                    marginBottom: 8,
+                                    width: "100%"
+                                }}
+                            >
+                                <View style={{ width: "50%" }}>
+
+                                    <Text style={{
+                                        color: "#000000",
+                                        fontWeight: "bold",
+                                        fontSize: 14
+                                    }}>
+                                        Vade Tarihi
+                                    </Text>
+                                </View>
+
+                                <View style={{ width: "50%" }}>
+
+                                    <Text style={{
+                                        color: "#000000",
+                                        textAlign: 'right',
+                                        fontSize: 16
+                                    }}>
+
+                                        {data?.paymTerm}
+                                    </Text>
+                                </View>
+                            </View>
+
+                            <View
+                                style={{
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                    justifyContent: "space-between",
+                                    marginBottom: 8,
+                                    width: "100%"
+                                }}
+                            >
+
+                                <View style={{ width: "50%" }}>
+                                    <Text style={{
+                                        color: "#000000",
+                                        fontWeight: "bold",
+                                        fontSize: 14
+                                    }}>Toplam</Text>
+                                </View>
+
+                                <View style={{ width: "50%" }}>
+
+                                    <Text style={{
+                                        color: "#000000",
+                                        textAlign: 'right',
+                                        fontSize: 16
+                                    }}>
+                                        {calculateCost(data)} {data?.currencyCode}
+                                    </Text>
+                                </View>
                             </View>
                         </View>
-
-                        <View
-                            style={{
-                                flexDirection: "row",
-                                alignItems: "center",
-                                justifyContent: "space-between",
-                                marginBottom: 8,
-                                width: "100%"
-                            }}
-                        >
-                            <View style={{ width: "50%" }}>
-
-                                <Text style={{
-                                    color: "#000000"
-                                }}>Firma</Text>
-                            </View>
-
-                            <View style={{ width: "50%", marginLeft: 20 }}>
-
-                                <Text style={{
-                                    color: "#000000",
-                                    textAlign: 'left'
-                                }}>
-                                    {data?.name}
-                                </Text>
-                            </View>
-
-                        </View>
-
-                        <View
-                            style={{
-                                flexDirection: "row",
-                                alignItems: "center",
-                                justifyContent: "space-between",
-                                marginBottom: 8,
-                                width: "100%"
-                            }}
-                        >
-                            <View style={{ width: "50%" }}>
-
-                                <Text style={{
-                                    color: "#000000"
-                                }}>
-                                    Vade Tarihi
-                                </Text>
-                            </View>
-
-                            <View style={{ width: "50%", marginLeft: 20 }}>
-
-                                <Text style={{
-                                    color: "#000000",
-                                    textAlign: 'left'
-                                }}>
-
-                                    {data?.paymTerm}
-                                </Text>
-                            </View>
-                        </View>
-
-                        <View
-                            style={{
-                                flexDirection: "row",
-                                alignItems: "center",
-                                justifyContent: "space-between",
-                                marginBottom: 8,
-                                width: "100%"
-                            }}
-                        >
-
-                            <View style={{ width: "50%" }}>
-                                <Text style={{
-                                    color: "#000000"
-                                }}>Toplam</Text>
-                            </View>
-
-                            <View style={{ width: "50%", marginLeft: 20 }}>
-
-                                <Text style={{
-                                    color: "#000000",
-                                    textAlign: 'left'
-                                }}>
-                                    {calculateCost(data)} {data?.currencyCode}
-                                </Text>
-                            </View>
-                        </View>
-                    </View>
+                    </ScrollView>
                 </View>
             </View>
 
@@ -239,20 +253,22 @@ export default function PurchaseOrderDetailScreen({
                                             </Text>
                                         </View>
 
-                                        <VStack style={{ marginLeft: 16, maxWidth: 270 }} space={"4px"}>
+                                        <VStack style={{ marginLeft: 16, maxWidth: 270, marginTop: 8 }} space={"4px"}>
 
                                             <Text style={{ fontWeight: "bold", flexWrap: "wrap", fontSize: 12 }}>
                                                 {item?.itemId}
                                             </Text>
                                             <Text style={{ fontSize: 11 }}>
-                                                Ürün özellikleri: {item?.inventTechProperty}
+                                                {item?.inventTechProperty}
                                             </Text>
                                             <Text style={{ fontSize: 11 }}>
-                                                Miktar:{item?.qty} {item?.unit} - Tutar: {item?.netAmount} {data?.currencyCode}
+                                                Miktar:{item?.qty} {item?.unit}
                                             </Text>
 
+                                            <Text style={{ fontSize: 11 }}>
+                                                Tutar: {item?.netAmount} {data?.currencyCode}
+                                            </Text>
                                         </VStack>
-
                                     </HStack>
                                 </HStack>
                             </VStack>

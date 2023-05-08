@@ -6,10 +6,9 @@ export const styles = StyleSheet.create({
         backgroundColor: "#F5F5F5"
     },
     list: {
-        paddingTop: 16,
         justifyContent: "space-between",
         alignItems: "center",
-        paddingBottom: 16,
+        paddingBottom: 8,
         paddingHorizontal: 16,
         backgroundColor:"#FFFFFF",
 		marginBottom:4

@@ -110,7 +110,7 @@ export default function PurchaseOrder() {
                                                                 {index + 1}
                                                             </Text>
                                                         </View>
-                                                        <VStack style={{ paddingLeft: 16, maxWidth: 284 }} space={"5px"}>
+                                                        <VStack style={{ paddingLeft: 16, maxWidth: 284,paddingTop:8 }} space={"5px"}>
                                                             <Text style={{ fontWeight: "bold", flexWrap: "wrap" }}>
                                                                 {item.purchId}
                                                             </Text>

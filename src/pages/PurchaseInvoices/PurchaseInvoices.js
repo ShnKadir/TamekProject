@@ -71,7 +71,6 @@ export default function PurchaseInvoices() {
         return converterCost
     }
 
-
     return (
 
         <SafeAreaView style={{ flex: 1 }}>
@@ -121,7 +120,7 @@ export default function PurchaseInvoices() {
                                                                 {index + 1}
                                                             </Text>
                                                         </View>
-                                                        <VStack style={{ paddingLeft: 8, maxWidth: 284 }} space={"5px"}>
+                                                        <VStack style={{ paddingLeft: 8, maxWidth: 284,paddingTop:8 }} space={"5px"}>
                                                             <Text style={{ fontWeight: "bold", flexWrap: "wrap", fontSize: 13 }}>
                                                                 {item.name}
                                                             </Text>
@@ -129,10 +128,6 @@ export default function PurchaseInvoices() {
                                                             <Text style={{ flexWrap: "wrap", fontSize: 13, color: "#6C6C6C" }}>
                                                                 {item.invoiceId}
                                                             </Text>
-
-                                                            {/* <Text style={{ fontSize: 13, color: "#6C6C6C" }}>
-                                                                {new Date(item?.invoiceDate).getDate() + "/" + (new Date(item?.invoiceDate).getUTCMonth() + 1) + "/" + new Date(item?.invoiceDate).getFullYear()}
-                                                            </Text> */}
 
                                                             <HStack style={{ maxWidth: 260, width: 270, justifyContent: "space-between" }}>
                                                                 <Text style={{ fontSize: 13, color: "#000000", fontWeight: "bold" }}>

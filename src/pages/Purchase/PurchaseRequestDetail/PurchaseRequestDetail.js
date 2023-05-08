@@ -204,6 +204,176 @@ export default function PurchaseRequestDetail({
                             </View>
                         </View>
 
+                        <View
+                            style={{
+                                flexDirection: "row",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                                paddingHorizontal: 16,
+                                marginBottom: 8,
+                                width: "100%"
+                            }}
+                        >
+                            <View style={{ width: "30%" }}>
+
+                                <Text style={{
+                                    color: "#000000",
+                                    fontSize: 15,
+                                    lineHeight: 22,
+                                    fontWeight: "bold"
+                                }}>Ürün No</Text>
+                            </View>
+
+                            <View style={{ width: "60%" }}>
+
+                                <Text style={{
+                                    color: "#000000",
+                                    fontSize: 16,
+                                    lineHeight: 22,
+                                    textAlign: 'right'
+                                }}>
+                                    {data?.itemId}
+                                </Text>
+                            </View>
+
+                        </View>
+
+                        <View
+                            style={{
+                                flexDirection: "row",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                                paddingHorizontal: 16,
+                                marginBottom: 8,
+                                width: "100%"
+                            }}
+                        >
+                            <View style={{ width: "30%" }}>
+
+                                <Text style={{
+                                    color: "#000000",
+                                    fontSize: 15,
+                                    lineHeight: 22,
+                                    fontWeight: "bold"
+                                }}>Ürün</Text>
+                            </View>
+
+                            <View style={{ width: "60%" }}>
+
+                                <Text style={{
+                                    color: "#000000",
+                                    fontSize: 16,
+                                    lineHeight: 22,
+                                    textAlign: 'right'
+                                }}>
+                                    {data?.itemName}
+                                </Text>
+                            </View>
+
+                        </View>
+
+                        <View
+                            style={{
+                                flexDirection: "row",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                                paddingHorizontal: 16,
+                                marginBottom: 8,
+                                width: "100%"
+                            }}
+                        >
+                            <View style={{ width: "30%" }}>
+
+                                <Text style={{
+                                    color: "#000000",
+                                    fontSize: 15,
+                                    lineHeight: 22,
+                                    fontWeight: "bold"
+                                }}>Miktar</Text>
+                            </View>
+
+                            <View style={{ width: "60%" }}>
+
+                                <Text style={{
+                                    color: "#000000",
+                                    fontSize: 16,
+                                    lineHeight: 22,
+                                    textAlign: 'right'
+                                }}>
+                                    {data?.qty} {data?.unit}
+                                </Text>
+                            </View>
+
+                        </View>
+
+                        <View
+                            style={{
+                                flexDirection: "row",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                                paddingHorizontal: 16,
+                                marginBottom: 8,
+                                width: "100%"
+                            }}
+                        >
+                            <View style={{ width: "30%" }}>
+
+                                <Text style={{
+                                    color: "#000000",
+                                    fontSize: 15,
+                                    lineHeight: 22,
+                                    fontWeight: "bold"
+                                }}>Tutar</Text>
+                            </View>
+
+                            <View style={{ width: "60%" }}>
+
+                                <Text style={{
+                                    color: "#000000",
+                                    fontSize: 16,
+                                    lineHeight: 22,
+                                    textAlign: 'right'
+                                }}>
+                                    {data?.lineAmountMst} {data?.currencyCode}
+                                </Text>
+                            </View>
+
+                        </View>
+
+                        <View
+                            style={{
+                                flexDirection: "row",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                                paddingHorizontal: 16,
+                                marginBottom: 8,
+                                width: "100%"
+                            }}
+                        >
+                            <View style={{ width: "30%" }}>
+
+                                <Text style={{
+                                    color: "#000000",
+                                    fontSize: 15,
+                                    lineHeight: 22,
+                                    fontWeight: "bold"
+                                }}>Açıklama</Text>
+                            </View>
+
+                            <View style={{ width: "60%" }}>
+
+                                <Text style={{
+                                    color: "#000000",
+                                    fontSize: 16,
+                                    lineHeight: 22,
+                                    textAlign: 'right'
+                                }}>
+                                    {data?.specialityDescription}
+                                </Text>
+                            </View>
+
+                        </View>
+
                     </View>
                 </View>
             </ScrollView>

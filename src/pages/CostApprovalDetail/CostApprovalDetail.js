@@ -103,15 +103,14 @@ export default function CostApprovalDetail({
                                 marginBottom: 8
                             }}
                         >
-                            <Text style={{ color: "#000000", fontSize: 13, lineHeight: 18 }}>Harcayan</Text>
+                            <Text style={{ color: "#000000", fontSize: 13, fontWeight: "bold" }}>Harcayan</Text>
 
                             <Text style={{
-                                fontWeight: "bold",
                                 color: "#000000",
                                 fontSize: 17,
                                 flex: 1,
                                 lineHeight: 22,
-                                textAlign: 'right'
+                                textAlign: 'right',
                             }}>
                                 {data?.spenderUserIdName}
                             </Text>
@@ -126,7 +125,7 @@ export default function CostApprovalDetail({
                                 marginBottom: 8
                             }}
                         >
-                            <Text style={{ color: "#000000", fontSize: 13 }}>Tarih</Text>
+                            <Text style={{ color: "#000000", fontSize: 13, fontWeight: "bold" }}>Tarih</Text>
 
                             <Text style={{
                                 color: "#000000",
@@ -135,7 +134,6 @@ export default function CostApprovalDetail({
                                 lineHeight: 22,
                                 textAlign: "right"
                             }}>
-                                {/* {new Date(data?.dateOfEntry).toLocaleDateString("tr-TR").replaceAll('.', '/')} */}
                                 {fixDateCalc(data?.dateOfEntry)}
                             </Text>
                         </View>
@@ -149,7 +147,7 @@ export default function CostApprovalDetail({
                                 marginBottom: 8
                             }}
                         >
-                            <Text style={{ color: "#000000", fontSize: 13 }}>Toplam</Text>
+                            <Text style={{ color: "#000000", fontSize: 13, fontWeight: "bold" }}>Toplam</Text>
 
                             <Text style={{
                                 color: "#000000",

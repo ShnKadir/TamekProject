@@ -27,8 +27,8 @@ export default function PurchaseInvoicesDetail({
 
     useLayoutEffect(() => {
         navigation.setOptions({
-            headerLargeTitle: true,
-            title: 'Tedarikçi Faturası',
+            headerLargeTitle: false,
+            title: 'Satın Alma Faturası Kaydı',
         })
     }, [navigation])
 
@@ -45,139 +45,155 @@ export default function PurchaseInvoicesDetail({
     return (
         <SafeAreaView style={{ flex: 1 }}>
 
-            <View style={{ height: 160, maxHeight: 170 }}>
+            <View style={{ height: 200, maxHeight: 220 }}>
 
                 <View style={{
                     flex: 1,
                     flexDirection: 'row',
                     paddingHorizontal: 16,
-                    paddingVertical: 32,
+                    paddingVertical: 16,
                     backgroundColor: "#FFFFFF",
                     marginHorizontal: 8,
                     marginVertical: 8,
                     borderRadius: 16
                 }}
                 >
-                    <View
-                        style={{
-                            alignItems: "center",
-                            justifyContent: "space-between",
-                            marginBottom: 8,
-                            width: "100%"
-                        }}
-                    >
+                    <ScrollView showsVerticalScrollIndicator={false}>
+
+
                         <View
                             style={{
-                                flexDirection: "row",
                                 alignItems: "center",
                                 justifyContent: "space-between",
                                 marginBottom: 8,
                                 width: "100%"
                             }}
                         >
-                            <View style={{ width: "50%" }}>
+                            <View
+                                style={{
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                    justifyContent: "space-between",
+                                    marginBottom: 8,
+                                    width: "100%"
+                                }}
+                            >
+                                <View style={{ width: "50%" }}>
 
-                                <Text style={{
-                                    color: "#000000",
-                                }}>Fatura No</Text>
+                                    <Text style={{
+                                        color: "#000000",
+                                        fontWeight: "bold",
+                                        fontSize: 14
+                                    }}>Fatura No</Text>
+                                </View>
+
+                                <View style={{ width: "50%"}}>
+
+                                    <Text style={{
+                                        color: "#000000",
+                                        textAlign: 'right',
+                                        fontSize: 16
+                                    }}>
+                                        {data?.invoiceId}
+                                    </Text>
+                                </View>
                             </View>
 
-                            <View style={{ width: "50%", marginLeft: 20 }}>
+                            <View
+                                style={{
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                    justifyContent: "space-between",
+                                    marginBottom: 8,
+                                    width: "100%"
+                                }}
+                            >
+                                <View style={{ width: "50%" }}>
 
-                                <Text style={{
-                                    color: "#000000",
-                                    textAlign: 'left',
-                                }}>
-                                    {data?.invoiceId}
-                                </Text>
+                                    <Text style={{
+                                        color: "#000000",
+                                        fontWeight: "bold",
+                                        fontSize: 14
+                                    }}>Tedarikçi</Text>
+                                </View>
+
+                                <View style={{ width: "50%"}}>
+
+                                    <Text style={{
+                                        color: "#000000",
+                                        textAlign: 'right',
+                                        fontSize:16
+                                    }}>
+                                        {data?.name}
+                                    </Text>
+                                </View>
+
+                            </View>
+
+                            <View
+                                style={{
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                    justifyContent: "space-between",
+                                    marginBottom: 8,
+                                    width: "100%"
+                                }}
+                            >
+                                <View style={{ width: "50%" }}>
+
+                                    <Text style={{
+                                        color: "#000000",
+                                        fontWeight: "bold",
+                                        fontSize: 14
+                                    }}>
+                                        Fatura Tarihi
+                                    </Text>
+                                </View>
+
+                                <View style={{ width: "50%"}}>
+
+                                    <Text style={{
+                                        color: "#000000",
+                                        textAlign: 'right',
+                                        fontSize:16
+                                    }}>
+
+                                        {new Date(data?.invoiceDate).getDate() + "/" + (new Date(data?.invoiceDate).getUTCMonth() + 1) + "/" + new Date(data?.invoiceDate).getFullYear()}
+                                    </Text>
+                                </View>
+                            </View>
+
+                            <View
+                                style={{
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                    justifyContent: "space-between",
+                                    marginBottom: 8,
+                                    width: "100%"
+                                }}
+                            >
+
+                                <View style={{ width: "50%" }}>
+                                    <Text style={{
+                                        color: "#000000",
+                                        fontWeight: "bold",
+                                        fontSize: 14
+                                    }}>Toplam</Text>
+                                </View>
+
+                                <View style={{ width: "50%"}}>
+
+                                    <Text style={{
+                                        color: "#000000",
+                                        textAlign: 'right',
+                                        fontSize:16
+                                    }}>
+                                        {calculateCost(data)} {data?.currency}
+                                    </Text>
+                                </View>
                             </View>
                         </View>
-
-                        <View
-                            style={{
-                                flexDirection: "row",
-                                alignItems: "center",
-                                justifyContent: "space-between",
-                                marginBottom: 8,
-                                width: "100%"
-                            }}
-                        >
-                            <View style={{ width: "50%" }}>
-
-                                <Text style={{
-                                    color: "#000000"
-                                }}>Tedarikçi</Text>
-                            </View>
-
-                            <View style={{ width: "50%", marginLeft: 20 }}>
-
-                                <Text style={{
-                                    color: "#000000",
-                                    textAlign: 'left'
-                                }}>
-                                    {data?.name}
-                                </Text>
-                            </View>
-
-                        </View>
-
-                        <View
-                            style={{
-                                flexDirection: "row",
-                                alignItems: "center",
-                                justifyContent: "space-between",
-                                marginBottom: 8,
-                                width: "100%"
-                            }}
-                        >
-                            <View style={{ width: "50%" }}>
-
-                                <Text style={{
-                                    color: "#000000"
-                                }}>
-                                    Fatura Tarihi
-                                </Text>
-                            </View>
-
-                            <View style={{ width: "50%", marginLeft: 20 }}>
-
-                                <Text style={{
-                                    color: "#000000",
-                                    textAlign: 'left'
-                                }}>
-
-                                    {new Date(data?.invoiceDate).getDate() + "/" + (new Date(data?.invoiceDate).getUTCMonth() + 1) + "/" + new Date(data?.invoiceDate).getFullYear()}
-                                </Text>
-                            </View>
-                        </View>
-
-                        <View
-                            style={{
-                                flexDirection: "row",
-                                alignItems: "center",
-                                justifyContent: "space-between",
-                                marginBottom: 8,
-                                width: "100%"
-                            }}
-                        >
-
-                            <View style={{ width: "50%" }}>
-                                <Text style={{
-                                    color: "#000000"
-                                }}>Toplam</Text>
-                            </View>
-
-                            <View style={{ width: "50%", marginLeft: 20 }}>
-
-                                <Text style={{
-                                    color: "#000000",
-                                    textAlign: 'left'
-                                }}>
-                                    {calculateCost(data)} {data?.currency}
-                                </Text>
-                            </View>
-                        </View>
-                    </View>
+                    </ScrollView>
                 </View>
             </View>
             <HStack style={styles.buttonStyle} space={"8px"}>
@@ -242,7 +258,10 @@ export default function PurchaseInvoicesDetail({
                                                 {item?.itemName}
                                             </Text>
                                             <Text style={{ fontSize: 11 }}>
-                                                Miktar:{item?.qty} - Toplam:{item?.netAmount} {data?.currency}
+                                                Miktar:{item?.qty}
+                                            </Text>
+                                            <Text style={{ fontSize: 11 }}>
+                                                Tutar:{item?.netAmount} {data?.currency}
                                             </Text>
                                             <Text style={{ fontSize: 11 }}>
                                                 Kategori: {item?.category}
@@ -254,7 +273,6 @@ export default function PurchaseInvoicesDetail({
                         )
                     })
                 }
-
             </ScrollView>
         </SafeAreaView>
     )

@@ -6,9 +6,7 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         height: 76,
-        alignContent: "center",
-        marginTop:16
-      
+        alignContent: "center"
     },
     denialButton: {
         height: 44,
@@ -16,8 +14,6 @@ export const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         borderRadius: 8,
-        padding: 8,
-
         backgroundColor: '#F3E1E0',
         fontSize: 14,
     },

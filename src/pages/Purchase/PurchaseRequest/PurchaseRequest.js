@@ -111,9 +111,13 @@ export default function PurchaseRequest() {
                                                                 {index + 1}
                                                             </Text>
                                                         </View>
-                                                        <VStack style={{ paddingLeft: 8, maxWidth: 284 }} space={"5px"}>
+                                                        <VStack style={{ paddingLeft: 8, maxWidth: 284,paddingTop:8 }} space={"5px"}>
                                                             <Text style={{ fontWeight: "bold", flexWrap: "wrap", fontSize: 14 }}>
                                                                 {item?.originator}
+                                                            </Text>
+
+                                                            <Text style={{ fontSize: 14 }}>
+                                                                {item?.header}
                                                             </Text>
 
                                                             <Text style={{ fontSize: 13, color: "#6C6C6C" }}>
