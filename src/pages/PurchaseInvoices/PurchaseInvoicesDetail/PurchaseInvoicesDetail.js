@@ -57,17 +57,17 @@ export default function PurchaseInvoicesDetail({
     return (
         <SafeAreaView style={{ flex: 1 }}>
 
-            <View style={{ height: 200, maxHeight: 220 }}>
-
+            <View>
                 <View style={{
-                    flex: 1,
                     flexDirection: 'row',
                     paddingHorizontal: 16,
                     paddingVertical: 16,
                     backgroundColor: "#FFFFFF",
                     marginHorizontal: 8,
                     marginVertical: 8,
-                    borderRadius: 16
+                    borderWidth: 1,
+                    borderRadius: 16,
+                    borderColor: "#FFFFFF"
                 }}
                 >
                     <ScrollView showsVerticalScrollIndicator={false}>
@@ -269,14 +269,17 @@ export default function PurchaseInvoicesDetail({
                                                 {item?.itemName}
                                             </Text>
                                             <Text style={{ fontSize: 11 }}>
+                                                Kategori: {item?.category}
+                                            </Text>
+                                            <Text style={{ fontSize: 11 }}>
                                                 Miktar:{item?.qty}
                                             </Text>
                                             <Text style={{ fontSize: 11 }}>
                                                 Tutar:{item?.netAmount} {data?.currency}
                                             </Text>
                                             <Text style={{ fontSize: 11 }}>
-                                                Kategori: {item?.category}
-                                            </Text>
+                                                Birim Fiyat: {item?.unitPrice} {data?.currency}
+                                            </Text>                                           
                                         </VStack>
                                     </HStack>
                                 </HStack>

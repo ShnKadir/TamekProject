@@ -15,6 +15,7 @@ import { useNavigation } from '@react-navigation/native'
 
 // Moment
 import moment from "moment"
+import getExpenceFileRequests from '../../common/api/expence/getExpenceFileRequests'
 
 export default function CostApprovalDetail({
     route
@@ -74,6 +75,10 @@ export default function CostApprovalDetail({
     }
 
 
+    const getFile = (file) => {
+        getExpenceFileRequests(file)
+    }
+
     return (
 
         <SafeAreaView>
@@ -84,7 +89,6 @@ export default function CostApprovalDetail({
                     <View style={{
                         paddingVertical: 32,
                         backgroundColor: "#FFFFFF",
-                        maxHeight: 300,
                         marginTop: 8,
                         marginBottom: 24,
                         borderWidth: 1,
@@ -114,6 +118,7 @@ export default function CostApprovalDetail({
                                 flex: 1,
                                 lineHeight: 22,
                                 textAlign: 'right',
+                                marginLeft:16
                             }}>
                                 {data?.spenderUserIdName}
                             </Text>
@@ -272,7 +277,7 @@ export default function CostApprovalDetail({
                                             </VStack>
 
                                         </HStack>
-                                        <TouchableOpacity>
+                                        <TouchableOpacity onPress={() => getFile(item?.expenseRequestFormHeader)}>
                                             <Icon
                                                 name="ios-attach-sharp"
                                                 type="ionicon"

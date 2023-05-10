@@ -22,11 +22,8 @@ export default async function getExpenceFileRequests(fileName) {
     const response = await apiCall({ config: API.EXPENCE.GET_FILE, parameters: parameters })
 
     if (response) {
-        
-        if (response.resultStatus) {
 
-            store.dispatch(getExpenceFileSuccess(response))
-        }
+        store.dispatch(getExpenceFileSuccess(response))
     }
     else {
         store.dispatch(getExpenceFileFailure(""))

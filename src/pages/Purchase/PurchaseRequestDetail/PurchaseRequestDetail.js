@@ -38,7 +38,7 @@ export default function PurchaseRequestDetail({
     useLayoutEffect(() => {
         navigation.setOptions({
             headerLargeTitle: false,
-            title: "Onay Bekleyenler"
+            title: "Satın Alma Talep Kaydı"
         })
     }, [navigation])
 

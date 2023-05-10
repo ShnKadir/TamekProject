@@ -55,19 +55,29 @@ export default function PurchaseAggrementDetail({
         return longDateStr
     }
 
+    const divideCalculation = (item) => {
+
+        let totalCost = parseFloat(item?.netAmount)
+
+        let qty = parseFloat(item?.qty)
+
+        return totalCost / qty
+    }
+
     return (
         <SafeAreaView style={{ flex: 1 }}>
 
-            <View style={{ height: 170, maxHeight: 220 }}>
+            <View>
                 <View style={{
-                    flex: 1,
                     flexDirection: 'row',
                     paddingHorizontal: 16,
-                    paddingVertical: 8,
+                    paddingVertical: 16,
                     backgroundColor: "#FFFFFF",
                     marginHorizontal: 8,
                     marginVertical: 8,
-                    borderRadius: 16
+                    borderWidth: 1,
+                    borderRadius: 16,
+                    borderColor: "#FFFFFF"
                 }}
                 >
                     <ScrollView showsVerticalScrollIndicator={false}>
@@ -94,7 +104,7 @@ export default function PurchaseAggrementDetail({
                                         color: "#000000",
                                         fontWeight: "bold",
                                         fontSize: 14
-                                    }}>Talep No</Text>
+                                    }}>Sipariş No</Text>
                                 </View>
 
                                 <View style={{ width: "50%" }}>
@@ -124,7 +134,7 @@ export default function PurchaseAggrementDetail({
                                         color: "#000000",
                                         fontWeight: "bold",
                                         fontSize: 14
-                                    }}>Talep Sahibi</Text>
+                                    }}>Giren Kullanıcı</Text>
                                 </View>
 
                                 <View style={{ width: "50%" }}>
@@ -156,7 +166,7 @@ export default function PurchaseAggrementDetail({
                                         fontWeight: "bold",
                                         fontSize: 14
                                     }}>
-                                        Talep Tarihi
+                                        Giriş Tarihi
                                     </Text>
                                 </View>
 
@@ -169,7 +179,7 @@ export default function PurchaseAggrementDetail({
                                     }}>
 
                                         {fixDateCalc(data?.createdDate)}
-                                        
+
                                     </Text>
                                 </View>
                             </View>
@@ -189,7 +199,7 @@ export default function PurchaseAggrementDetail({
                                         color: "#000000",
                                         fontWeight: "bold",
                                         fontSize: 14
-                                    }}>Toplam</Text>
+                                    }}>Sözleşme Toplam Tutar</Text>
                                 </View>
 
                                 <View style={{ width: "50%" }}>
@@ -264,10 +274,14 @@ export default function PurchaseAggrementDetail({
                                         <VStack style={{ marginLeft: 16, maxWidth: 270 }} space={"4px"}>
 
                                             <Text style={{ fontWeight: "bold", flexWrap: "wrap", fontSize: 12 }}>
-                                                {item?.itemName}
+                                                {item?.itemId} - {item?.itemName}
                                             </Text>
                                             <Text style={{ fontSize: 11 }}>
-                                                Departman: {item?.inventSiteName}
+                                                Tesis: {item?.inventSiteName}
+                                            </Text>
+
+                                            <Text style={{ fontSize: 11 }}>
+                                                Zirai Bölge: {item?.agriculturalZone}
                                             </Text>
 
                                             <Text style={{ fontSize: 11 }}>
@@ -279,10 +293,13 @@ export default function PurchaseAggrementDetail({
                                             </Text>
 
                                             <Text style={{ fontSize: 11 }}>
-                                                Son Kullanma Tarihi:  {new Date(item?.expirationDate).getDate() + "/" + (new Date(item?.expirationDate).getUTCMonth() + 1) + "/" + new Date(item?.expirationDate).getFullYear()}
+                                                Birim Fiyat: {divideCalculation(item)} {data?.currency}
+                                            </Text>
+
+                                            <Text style={{ fontSize: 11 }}>
+                                                Son Kullanma Tarihi: {fixDateCalc(item?.expirationDate)}
                                             </Text>
                                         </VStack>
-
                                     </HStack>
                                 </HStack>
                             </VStack>

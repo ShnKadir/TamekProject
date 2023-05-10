@@ -53,7 +53,7 @@ export const API = {
             method: "GET"
         },
         GET_FILE:{
-            path: "/api/Expence/GetExpencetFileRequests/",
+            path: "/api/Expence/GetExpencetFileRequest/",
             method: "GET"
         }
     },

@@ -48,19 +48,29 @@ export default function PurchaseOrderDetailScreen({
         return converterCost
     }
 
+    const divideCalculation = (item) => {
+
+        let totalCost = parseFloat(item?.netAmount)
+
+        let qty = parseFloat(item?.qty)
+
+        return totalCost / qty
+    }
+
     return (
         <SafeAreaView style={{ flex: 1 }}>
 
-            <View style={{ height: 180, maxHeight: 220 }}>
+            <View>
                 <View style={{
-                    flex: 1,
                     flexDirection: 'row',
                     paddingHorizontal: 16,
-                    paddingVertical:8,
+                    paddingVertical: 16,
                     backgroundColor: "#FFFFFF",
                     marginHorizontal: 8,
-                    marginVertical: 8,
-                    borderRadius: 16
+                    marginVertical: 8,                   
+                    borderWidth: 1,
+                    borderRadius: 16,
+                    borderColor: "#FFFFFF"
                 }}
                 >
                     <ScrollView showsVerticalScrollIndicator={false}>
@@ -268,12 +278,18 @@ export default function PurchaseOrderDetailScreen({
                                             <Text style={{ fontSize: 11 }}>
                                                 Tutar: {item?.netAmount} {data?.currencyCode}
                                             </Text>
+
+                                            <Text style={{ fontSize: 11 }}>
+                                                Birim Fiyat: {item?.unitPrice} {data?.currencyCode}
+                                            </Text>
+
+                                            {/* <Text style={{ fontSize: 11 }}>
+                                                Birim Fiyat: {divideCalculation(item)} {data?.currencyCode}
+                                            </Text> */}
                                         </VStack>
                                     </HStack>
                                 </HStack>
                             </VStack>
-
-
                         )
                     })
                 }
