@@ -3,7 +3,7 @@ import React from 'react'
 import { useEffect } from 'react'
 
 // React Native
-import { Text, View, SafeAreaView, TouchableOpacity, ScrollView } from 'react-native'
+import { Text, View, SafeAreaView, TouchableOpacity, ScrollView, Dimensions } from 'react-native'
 import { Icon } from 'react-native-elements'
 import { VStack, HStack, Image } from 'native-base'
 
@@ -36,6 +36,8 @@ import getPurchaseInvoicesRequest from '../../common/api/purchase/PurchaseInvoic
 export default function Menu() {
 
     const navigation = useNavigation()
+
+    const windowHeight = Dimensions.get('window').height;
 
     const isLogin = useSelector(state => state.auth?.isLogin)
     const expenceData = useSelector(state => state.expence?.expenceData)
@@ -178,11 +180,11 @@ export default function Menu() {
         }
         else if (id === "4") {
             return purchaseOrderData === null
-            || purchaseOrderData?.resultObject?.purchaseOrderRequest?.length === 0
-            || purchaseOrderData?.returnText === "RECORD_NOT_FOUND" ?
-            0
-            :
-            purchaseOrderData?.resultObject?.purchaseOrderRequest?.length
+                || purchaseOrderData?.resultObject?.purchaseOrderRequest?.length === 0
+                || purchaseOrderData?.returnText === "RECORD_NOT_FOUND" ?
+                0
+                :
+                purchaseOrderData?.resultObject?.purchaseOrderRequest?.length
         }
         else if (id === "5") {
             return purchaseAggrementData === null
@@ -195,103 +197,91 @@ export default function Menu() {
         }
         else if (id === "6") {
             return purchaseInvoiceData === null
-            || purchaseInvoiceData?.resultObject?.invoiceRequest?.length === 0
-            || purchaseInvoiceData?.returnText === "RECORD_NOT_FOUND" ?
-            0
-            :
-            purchaseInvoiceData?.resultObject?.invoiceRequest?.length
+                || purchaseInvoiceData?.resultObject?.invoiceRequest?.length === 0
+                || purchaseInvoiceData?.returnText === "RECORD_NOT_FOUND" ?
+                0
+                :
+                purchaseInvoiceData?.resultObject?.invoiceRequest?.length
         }
     }
 
     return (
 
         <SafeAreaView style={{ flex: 1, backgroundColor: "#007041" }}>
+            <View style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+            }}>
+                <ScrollView contentContainerStyle={{justifyContent:"center",flex:1}}>
 
-            <ScrollView
-                style={{
-                    flex: 1,
-                    backgroundColor: "#007041",
-                    paddingHorizontal: 16
-                }}
-            >
+                {
+                    menuData?.map((item, index) => {
+                        return (
 
-                <View style={{
-                    paddingHorizontal: 16,
-                    alignItems: "center",
-                    justifyContent: "center",
-                    marginTop: 70
-                }}>
+                            <TouchableOpacity onPress={() => goToWaitingApprovalScreen(item?.id)} key={index}>
 
-                    <VStack style={{ marginBottom: 60 }}>
-
-                        <Text style={{ fontSize: 40, color: "#FFFFFF", textAlign: "center" }}>Tamek uygulamasına Hoşgeldiniz</Text>
-                    </VStack>
-                    {
-                        menuData?.map((item, index) => {
-                            return (
-
-                                <TouchableOpacity onPress={() => goToWaitingApprovalScreen(item?.id)} key={index}>
-
-                                    <VStack style={styles.subContainer} >
-                                        <HStack style={styles.list}>
-                                            <HStack style={{ alignItems: "center", marginLeft: 16 }}>
-                                                {item?.icon}
-                                                <Text
-                                                    style={styles.labelStyle}>
-                                                    {item?.name}
-                                                </Text>
-                                            </HStack>
-
-                                            <HStack style={{ justifyContent: "space-between", alignItems: "center" }}>
-                                                {
-                                                    calculateHeader(item?.id) !== 0 &&
-                                                    <View style={{
-                                                        backgroundColor: "#338D67",
-                                                        marginRight: 10,
-                                                        borderRadius: 50,
-                                                        width: 24,
-                                                        height: 24,
-                                                        justifyContent: "center"
-                                                    }}>
-
-                                                        <Text
-                                                            style={{
-                                                                fontSize: 13,
-                                                                lineHeight: 14,
-                                                                textAlign: "center",
-                                                                color: "#FFFFFF"
-                                                            }}>
-                                                            {calculateHeader(item?.id)}
-                                                        </Text>
-                                                    </View>
-                                                }
-
-                                                <TouchableOpacity
-                                                    hitSlop={{
-                                                        top: 20,
-                                                        bottom: 20,
-                                                        left: 20,
-                                                        right: 20,
-                                                    }}
-                                                    onPress={() => goToWaitingApprovalScreen(item?.id)}
-                                                >
-                                                    <Icon
-                                                        name="chevron-right"
-                                                        type="font-awesome-5"
-                                                        size={13}
-                                                        color="#FFFFFF"
-                                                        style={{ marginRight: 16 }}
-                                                    />
-                                                </TouchableOpacity>
-                                            </HStack>
+                                <VStack style={styles.subContainer} >
+                                    <HStack style={styles.list}>
+                                        <HStack style={{ alignItems: "center", marginLeft: 16 }}>
+                                            {item?.icon}
+                                            <Text
+                                                style={styles.labelStyle}>
+                                                {item?.name}
+                                            </Text>
                                         </HStack>
-                                    </VStack>
-                                </TouchableOpacity>
-                            )
-                        })
-                    }
-                </View>
-            </ScrollView>
+
+                                        <HStack style={{ justifyContent: "space-between", alignItems: "center" }}>
+                                            {
+                                                calculateHeader(item?.id) !== 0 &&
+                                                <View style={{
+                                                    backgroundColor: "#338D67",
+                                                    marginRight: 10,
+                                                    borderRadius: 50,
+                                                    width: 24,
+                                                    height: 24,
+                                                    justifyContent: "center"
+                                                }}>
+
+                                                    <Text
+                                                        style={{
+                                                            fontSize: 13,
+                                                            lineHeight: 14,
+                                                            textAlign: "center",
+                                                            color: "#FFFFFF"
+                                                        }}>
+                                                        {calculateHeader(item?.id)}
+                                                    </Text>
+                                                </View>
+                                            }
+
+                                            <TouchableOpacity
+                                                hitSlop={{
+                                                    top: 20,
+                                                    bottom: 20,
+                                                    left: 20,
+                                                    right: 20,
+                                                }}
+                                                onPress={() => goToWaitingApprovalScreen(item?.id)}
+                                            >
+                                                <Icon
+                                                    name="chevron-right"
+                                                    type="font-awesome-5"
+                                                    size={13}
+                                                    color="#FFFFFF"
+                                                    style={{ marginRight: 16 }}
+                                                />
+                                            </TouchableOpacity>
+                                        </HStack>
+                                    </HStack>
+                                </VStack>
+                            </TouchableOpacity>
+                        )
+                    })
+                }
+                </ScrollView>
+
+            </View>
         </SafeAreaView>
     )
 }
