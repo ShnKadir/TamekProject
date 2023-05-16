@@ -67,7 +67,7 @@ export default function PurchaseOrderDetailScreen({
                     paddingVertical: 16,
                     backgroundColor: "#FFFFFF",
                     marginHorizontal: 8,
-                    marginVertical: 8,                   
+                    marginVertical: 8,
                     borderWidth: 1,
                     borderRadius: 16,
                     borderColor: "#FFFFFF"
@@ -280,7 +280,7 @@ export default function PurchaseOrderDetailScreen({
                                             </Text>
 
                                             <Text style={{ fontSize: 11 }}>
-                                                Birim Fiyat: {item?.unitPrice} {data?.currencyCode}
+                                                Birim Fiyat: {item?.netAmount/item?.qty}  {data?.currencyCode}
                                             </Text>
 
                                             {/* <Text style={{ fontSize: 11 }}>

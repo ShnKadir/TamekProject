@@ -275,7 +275,7 @@ export default function PurchaseInvoicesDetail({
                                                 Miktar:{item?.qty}
                                             </Text>
                                             <Text style={{ fontSize: 11 }}>
-                                                Tutar:{item?.netAmount} {data?.currency}
+                                                Tutar:{(item?.netAmount)} {data?.currency}
                                             </Text>
                                             <Text style={{ fontSize: 11 }}>
                                                 Birim Fiyat: {item?.unitPrice} {data?.currency}
