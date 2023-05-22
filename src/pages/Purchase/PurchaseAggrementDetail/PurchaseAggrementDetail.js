@@ -20,6 +20,7 @@ import { useNavigation } from '@react-navigation/native'
 
 // Moment
 import moment from "moment"
+import postRecordApproveRejectControl from '../../../common/api/postRecordApproveRejectControl'
 
 export default function PurchaseAggrementDetail({
     route
@@ -63,6 +64,15 @@ export default function PurchaseAggrementDetail({
 
         return totalCost / qty
     }
+
+    const handleOnRecordRejected = () => {
+        postRecordApproveRejectControl(data?.tableRecId, data?.recId, 9, navigation)
+    }
+
+    const handleOnRecordApprove = () => {
+        postRecordApproveRejectControl(data?.tableRecId, data?.recId, 4, navigation)
+    }
+
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
@@ -222,6 +232,7 @@ export default function PurchaseAggrementDetail({
             <HStack style={styles.buttonStyle} space={"8px"}>
                 <TouchableOpacity
                     style={styles.denialButton}
+                    onPress={handleOnRecordRejected}
                 >
                     <Text style={{ color: "#DA291C", fontWeight: "600" }} >
                         Reddet
@@ -229,6 +240,7 @@ export default function PurchaseAggrementDetail({
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.approveButton}
+                    onPress={handleOnRecordApprove}
                 >
                     <Text style={{ color: "#03B354", fontWeight: "600" }} >
                         Onayla

@@ -18,6 +18,7 @@ import { styles } from './PurchaseOrderDetailScreenStyle'
 // Navigation
 import { useNavigation } from '@react-navigation/native'
 import { useEffect } from 'react'
+import postRecordApproveRejectControl from '../../../common/api/postRecordApproveRejectControl'
 
 export default function PurchaseOrderDetailScreen({
     route
@@ -56,6 +57,15 @@ export default function PurchaseOrderDetailScreen({
 
         return totalCost / qty
     }
+
+    const handleOnRecordRejected = () => {
+        postRecordApproveRejectControl(data?.tableRecId, data?.recId, 9,navigation)
+    }
+
+    const handleOnRecordApprove = () => {
+        postRecordApproveRejectControl(data?.tableRecId, data?.recId, 4, navigation)
+    }
+
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
@@ -214,6 +224,7 @@ export default function PurchaseOrderDetailScreen({
             <HStack style={styles.buttonStyle} space={"8px"}>
                 <TouchableOpacity
                     style={styles.denialButton}
+                    onPress={handleOnRecordRejected}
                 >
                     <Text style={{ color: "#DA291C", fontWeight: "600" }} >
                         Reddet
@@ -221,6 +232,7 @@ export default function PurchaseOrderDetailScreen({
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.approveButton}
+                    onPress={handleOnRecordApprove}
                 >
                     <Text style={{ color: "#03B354", fontWeight: "600" }} >
                         Onayla
@@ -280,7 +292,7 @@ export default function PurchaseOrderDetailScreen({
                                             </Text>
 
                                             <Text style={{ fontSize: 11 }}>
-                                                Birim Fiyat: {item?.netAmount/item?.qty}  {data?.currencyCode}
+                                                Birim Fiyat: {item?.netAmount / item?.qty}  {data?.currencyCode}
                                             </Text>
 
                                             {/* <Text style={{ fontSize: 11 }}>

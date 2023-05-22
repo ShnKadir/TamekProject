@@ -15,6 +15,7 @@ import { useEffect } from 'react'
 
 // Moment
 import moment from "moment"
+import postRecordApproveRejectControl from '../../../common/api/postRecordApproveRejectControl'
 
 export default function PurchaseInvoicesDetail({
     route
@@ -52,6 +53,14 @@ export default function PurchaseInvoicesDetail({
         var longDateStr = moment(datee, 'M/D/Y').format("DD/MM/YYYY")
 
         return longDateStr
+    }
+
+    const handleOnRecordRejected = () => {
+        postRecordApproveRejectControl(data?.tableRecId, data?.recId, 9, navigation)
+    }
+
+    const handleOnRecordApprove = () => {
+        postRecordApproveRejectControl(data?.tableRecId, data?.recId, 4, navigation)
     }
 
     return (
@@ -210,6 +219,7 @@ export default function PurchaseInvoicesDetail({
             <HStack style={styles.buttonStyle} space={"8px"}>
                 <TouchableOpacity
                     style={styles.denialButton}
+                    onPress={handleOnRecordRejected}
                 >
                     <Text style={{ color: "#DA291C", fontWeight: "600" }} >
                         Reddet
@@ -217,6 +227,7 @@ export default function PurchaseInvoicesDetail({
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.approveButton}
+                    onPress={handleOnRecordApprove}
                 >
                     <Text style={{ color: "#03B354", fontWeight: "600" }} >
                         Onayla

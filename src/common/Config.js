@@ -66,5 +66,11 @@ export const API = {
             path: "/api/Payment/GetPaymentFileRequest/",
             method: "GET"
         }
+    },
+    RECORD_APPROVE_REJECT_CONTROL:{
+        POST:{
+            path: "/api/Process/RecordApproveRejectControl",
+            method: "POST"
+        }
     }
 }

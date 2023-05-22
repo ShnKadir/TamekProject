@@ -20,6 +20,7 @@ import { useNavigation } from '@react-navigation/native'
 
 // Moment
 import moment from "moment"
+import postRecordApproveRejectControl from '../../../common/api/postRecordApproveRejectControl'
 
 export default function PurchaseRequestDetail({
     route
@@ -51,6 +52,13 @@ export default function PurchaseRequestDetail({
         return longDateStr
     }
 
+    const handleOnRecordRejected = () => {
+        postRecordApproveRejectControl(data?.tableRecId, data?.recId, 9)
+    }
+
+    const handleOnRecordApprove = () => {
+        postRecordApproveRejectControl(data?.tableRecId, data?.recId, 4)
+    }
 
     return (
 
@@ -394,6 +402,7 @@ export default function PurchaseRequestDetail({
             <HStack style={styles.buttonStyle} space={"8px"}>
                 <TouchableOpacity
                     style={styles.denialButton}
+                    onPress={handleOnRecordRejected}
                 >
                     <Text style={{ color: "#DA291C", fontWeight: "600" }} >
                         Reddet
@@ -401,6 +410,7 @@ export default function PurchaseRequestDetail({
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.approveButton}
+                    onPress={handleOnRecordApprove}
                 >
                     <Text style={{ color: "#007041", fontWeight: "600" }} >
                         Onayla

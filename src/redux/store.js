@@ -7,6 +7,7 @@ import purchaseAggrementRequestSlice from "./slice/purchaseAggrementRequestSlice
 import infoModalSlice from "./slice/infoModalSlice"
 import purchaseOrderRequestSlice from "./slice/purchaseOrderRequestSlice"
 import purchaseInvoicesRequestSlice from "./slice/purchaseInvoicesRequestSlice"
+import recordApproveRejectControlSlice from "./slice/recordApproveRejectControlSlice"
 
 const store = configureStore({
 	reducer: {
@@ -17,6 +18,7 @@ const store = configureStore({
 		purchaseAggrement: purchaseAggrementRequestSlice,
 		purchaseOrder:purchaseOrderRequestSlice,
 		purchaseInvoice:purchaseInvoicesRequestSlice,
+		recordApproveStatusControl:recordApproveRejectControlSlice,
 		infoModal: infoModalSlice
 
 	},
