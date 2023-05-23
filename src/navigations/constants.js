@@ -12,6 +12,7 @@ export const MENU_NAV = {
   PURCHASE_ORDER: "PurchaseOrder",
   PURCHASE_ORDER_DETAIL:"PurchaseOrderDetail",
   MENU: "Menu",
+  OPEN_FILE:"OpenFile"
 }
 
 export const PAYMENT_NAV = {

@@ -18,7 +18,9 @@ import { MENU_NAV } from '../../navigations/constants'
 import getPurchaseRequests from '../../common/api/purchase/purchaseRequest/getPurchaseRequests'
 import getExpenceRequests from '../../common/api/expence/getExpenceRequests'
 import PaymentRequests from '../../common/api/paymentRequest/PaymentRequests'
-import purchaseAggrementRequest from '../../common/api/purchase/purchaseAggrementRequest/purchaseAggrementRequests'
+import getPurchaseOrdersRequest from '../../common/api/purchase/PurchaseOrderRequest/getPurchaseOrdersRequest'
+import getPurchaseInvoicesRequest from '../../common/api/purchase/PurchaseInvoicesRequest/getPurchaseInvoicesRequest'
+import purchaseAggrementRequests from '../../common/api/purchase/purchaseAggrementRequest/purchaseAggrementRequests'
 
 // Redux
 import { useSelector } from 'react-redux'
@@ -30,8 +32,6 @@ import purchaseContract from '../../../assets/image/purchaseContract.png'
 import purchaseInvoice from '../../../assets/image/purchaseInvoice.png'
 import purchaseOrder from '../../../assets/image/purchaseOrder.png'
 import purchaseRequest from '../../../assets/image/purchaseRequest.png'
-import getPurchaseOrdersRequest from '../../common/api/purchase/PurchaseOrderRequest/getPurchaseOrdersRequest'
-import getPurchaseInvoicesRequest from '../../common/api/purchase/PurchaseInvoicesRequest/getPurchaseInvoicesRequest'
 
 export default function Menu() {
 
@@ -147,7 +147,7 @@ export default function Menu() {
         getPurchaseRequests()
         getExpenceRequests()
         PaymentRequests()
-        purchaseAggrementRequest()
+        purchaseAggrementRequests()
         getPurchaseOrdersRequest()
         getPurchaseInvoicesRequest()
     }, [isLogin])

@@ -13,7 +13,7 @@ import {
 // Helper
 import apiCall from "../../apiCall"
 
-export default async function purchaseAggrementRequest() {
+export default async function purchaseAggrementRequests() {
 
     store.dispatch(getPurchaseAggrementRequest())
 

@@ -12,17 +12,17 @@ import {
 // Helper
 import apiCall from "./apiCall"
 
+//Components
 import getPurchaseOrdersRequest from "./purchase/PurchaseOrderRequest/getPurchaseOrdersRequest"
 import getPurchaseInvoicesRequest from "./purchase/PurchaseInvoicesRequest/getPurchaseInvoicesRequest"
-import { useSelector } from "react-redux"
-import { API_STATUS } from "../Enums"
+import purchaseAggrementRequests from "./purchase/purchaseAggrementRequest/purchaseAggrementRequests"
 
-export default async function postRecordApproveRejectControl(tableRecId, recId, enumStatusId, navigation) {
+
+export default async function postRecordApproveRejectControl(tableRecId, recId, enumStatusId) {
 
 
     const state = store.getState()
-    const purchaseOrderRequestApiStatus = state.purchaseOrder?.purchaseOrderRequestApiStatus
-    const purchaseInvoiceRequestApiStatus = state.purchaseInvoice?.purchaseInvoiceRequestApiStatus
+
     store.dispatch(postRecordApproveRejectControlRequest())
 
     const requestBody = {
@@ -37,18 +37,20 @@ export default async function postRecordApproveRejectControl(tableRecId, recId, 
     })
 
     if (response) {
-        debugger
+
         if (response?.resultStatus) {
+            
             store.dispatch(postRecordApproveRejectControlSuccess(response))
-            getPurchaseOrdersRequest()
-            getPurchaseInvoicesRequest()
 
-            if (purchaseOrderRequestApiStatus === API_STATUS.SUCCESS && purchaseInvoiceRequestApiStatus === API_STATUS.SUCCESS) {
-
-                navigation.goBack()
+            if (response.returnText === "OPERATION_SUCCESS") {
+                
+                getPurchaseOrdersRequest()
+                getPurchaseInvoicesRequest()
+                purchaseAggrementRequests()
             }
         }
     }
+
     else {
         store.dispatch(postRecordApproveRejectControlFailure(""))
     }

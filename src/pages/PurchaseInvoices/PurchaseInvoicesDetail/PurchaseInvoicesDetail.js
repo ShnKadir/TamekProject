@@ -1,8 +1,8 @@
 // React
-import React, { useLayoutEffect } from 'react'
+import React, { useState,useEffect } from 'react'
 
 // React Native
-import { View, Text, ScrollView, TouchableOpacity, SafeAreaView } from 'react-native'
+import { View, Text, ScrollView, TouchableOpacity, SafeAreaView,Alert } from 'react-native'
 import { HStack, VStack } from 'native-base'
 
 // Styles
@@ -10,12 +10,18 @@ import { styles } from './PurchaseInvoicesDetailStyle'
 
 // Navigation
 import { useNavigation } from '@react-navigation/native'
-import { useState } from 'react'
-import { useEffect } from 'react'
 
 // Moment
 import moment from "moment"
+
+// Api
 import postRecordApproveRejectControl from '../../../common/api/postRecordApproveRejectControl'
+
+// Redux
+import { useSelector } from 'react-redux'
+
+// Enum
+import { API_STATUS } from '../../../common/Enums'
 
 export default function PurchaseInvoicesDetail({
     route
@@ -23,18 +29,20 @@ export default function PurchaseInvoicesDetail({
 
     const navigation = useNavigation()
 
+    const recordApproveRejectControlApiStatus = useSelector(state => state.recordApproveStatusControl?.recordApproveRejectControlApiStatus)
+
     const [data, setData] = useState(route.params.data)
 
     useEffect(() => {
         setData(route.params.data)
     }, [route])
 
-    useLayoutEffect(() => {
-        navigation.setOptions({
-            headerLargeTitle: false,
-            title: 'Satın Alma Faturası Kaydı',
-        })
-    }, [navigation])
+    // useLayoutEffect(() => {
+    //     navigation.setOptions({
+    //         headerLargeTitle: false,
+    //         title: 'Satın Alma Faturası Kaydı',
+    //     })
+    // }, [navigation])
 
     const calculateCost = (data) => {
         let total = 0
@@ -56,11 +64,42 @@ export default function PurchaseInvoicesDetail({
     }
 
     const handleOnRecordRejected = () => {
-        postRecordApproveRejectControl(data?.tableRecId, data?.recId, 9, navigation)
+
+        postRecordApproveRejectControl(data?.tableRecId, data?.recId, 9)
+
+        if (recordApproveRejectControlApiStatus === API_STATUS.SUCCESS) {
+
+            Alert.alert(
+                '',
+                'Reddetme işlemi başarıyla gerçekleştirildi.',
+                [
+                    {
+                        text: 'Tamam',
+                        onPress: () => navigation.goBack()
+                    },
+                ],
+                { cancelable: false },
+            )
+        }
     }
 
     const handleOnRecordApprove = () => {
-        postRecordApproveRejectControl(data?.tableRecId, data?.recId, 4, navigation)
+
+        postRecordApproveRejectControl(data?.tableRecId, data?.recId, 4)
+        
+        if (recordApproveRejectControlApiStatus === API_STATUS.SUCCESS) {
+            Alert.alert(
+                '',
+                'Onaylama işlemi başarıyla gerçekleştirildi.',
+                [
+                    {
+                        text: 'Tamam',
+                        onPress: () => navigation.goBack()
+                    },
+                ],
+                { cancelable: false },
+            )
+        }
     }
 
     return (

@@ -7,7 +7,8 @@ import {
     Text,
     ScrollView,
     TouchableOpacity,
-    SafeAreaView
+    SafeAreaView,
+    Alert
 }
     from 'react-native'
 import { HStack, VStack } from 'native-base'
@@ -20,7 +21,15 @@ import { useNavigation } from '@react-navigation/native'
 
 // Moment
 import moment from "moment"
+
+//Api
 import postRecordApproveRejectControl from '../../../common/api/postRecordApproveRejectControl'
+
+//Enum
+import { API_STATUS } from '../../../common/Enums'
+
+// Redux
+import { useSelector } from 'react-redux'
 
 export default function PurchaseAggrementDetail({
     route
@@ -28,14 +37,9 @@ export default function PurchaseAggrementDetail({
 
     const navigation = useNavigation()
 
-    const [data, setData] = useState(route.params.data)
+    const recordApproveRejectControlApiStatus = useSelector(state => state.recordApproveStatusControl?.recordApproveRejectControlApiStatus)
 
-    useLayoutEffect(() => {
-        navigation.setOptions({
-            headerLargeTitle: false,
-            title: 'Satın Alma Sözleşmeleri Talep Kaydı',
-        })
-    }, [navigation])
+    const [data, setData] = useState(route.params.data)
 
     const calculateCost = (data) => {
         let total = 0
@@ -66,11 +70,43 @@ export default function PurchaseAggrementDetail({
     }
 
     const handleOnRecordRejected = () => {
-        postRecordApproveRejectControl(data?.tableRecId, data?.recId, 9, navigation)
+
+        postRecordApproveRejectControl(data?.tableRecId, data?.recId, 9)
+
+        if (recordApproveRejectControlApiStatus === API_STATUS.SUCCESS) {
+
+            Alert.alert(
+                '',
+                'Reddetme işlemi başarıyla gerçekleştirildi.',
+                [
+                    {
+                        text: 'Tamam',
+                        onPress: () => navigation.goBack()
+                    },
+                ],
+                { cancelable: false },
+            )
+        }
+
     }
 
     const handleOnRecordApprove = () => {
-        postRecordApproveRejectControl(data?.tableRecId, data?.recId, 4, navigation)
+
+        postRecordApproveRejectControl(data?.tableRecId, data?.recId, 4)
+
+        if (recordApproveRejectControlApiStatus === API_STATUS.SUCCESS) {
+            Alert.alert(
+                '',
+                'Onaylama işlemi başarıyla gerçekleştirildi.',
+                [
+                    {
+                        text: 'Tamam',
+                        onPress: () => navigation.goBack()
+                    },
+                ],
+                { cancelable: false },
+            )
+        }
     }
 
 

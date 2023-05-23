@@ -5,7 +5,6 @@ import React, { useLayoutEffect } from 'react'
 import { View, Text, TouchableOpacity, SafeAreaView } from 'react-native'
 import { Icon } from 'react-native-elements'
 import { HStack, ScrollView } from 'native-base'
-import * as OpenAnything from "react-native-openanything"
 
 // Styles
 import { styles } from './PaymentRequestDetailStyle'
@@ -24,6 +23,8 @@ import { useSelector } from 'react-redux'
 // Moment
 import moment from "moment"
 
+import { MENU_NAV } from '../../../navigations/constants'
+
 export default function PaymentRequestDetail({
     route
 }) {
@@ -31,6 +32,7 @@ export default function PaymentRequestDetail({
     const navigation = useNavigation()
 
     const paymentFile = useSelector(state => state.payment?.getPaymentFile?.resultObject)
+
     const [data, setData] = useState(route.params.data)
 
     useEffect(() => {
@@ -62,7 +64,6 @@ export default function PaymentRequestDetail({
     return (
 
         <SafeAreaView style={{ flex: 1 }}>
-
             <ScrollView style={{ flex: 1, backgroundColor: "#F5F5F5" }} contentContainerStyle={{ flexGrow: 1 }} >
                 <View style={{ paddingHorizontal: 16, paddingBottom: 200 }}>
 
@@ -370,7 +371,7 @@ export default function PaymentRequestDetail({
 
                                 </Text>
 
-                                <TouchableOpacity onPress={() => OpenAnything.Pdf(paymentFile)}>
+                                <TouchableOpacity onPress={() => navigation.navigate(MENU_NAV.OPEN_FILE)}>
                                     <Icon
                                         name="ios-attach-sharp"
                                         type="ionicon"
@@ -383,7 +384,6 @@ export default function PaymentRequestDetail({
                         }
                     </View>
                 </View>
-
             </ScrollView>
             <HStack style={styles.buttonStyle} space={"8px"}>
                 <TouchableOpacity
@@ -402,6 +402,9 @@ export default function PaymentRequestDetail({
                 </TouchableOpacity>
 
             </HStack>
+
+
+
         </SafeAreaView>
     )
 }

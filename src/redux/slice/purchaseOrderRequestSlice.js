@@ -30,7 +30,7 @@ const purchaseOrderRequestSlice = createSlice({
 // Action creators are generated for each case reducer function
 export const {
 
-    clearPurchaseRequestSlice,
+    clearPurchaseOrderRequestSlice,
     getPurchaseOderRequest,
     getPurchaseOrderSuccess,
     getPurchaseOrderFailure

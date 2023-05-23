@@ -18,6 +18,7 @@ import PurchaseAggrementScreen from './../../pages/Purchase/PurchaseAggrement/Pu
 import PurchaseAggrementDetail from '../../pages/Purchase/PurchaseAggrementDetail/PurchaseAggrementDetail'
 import PurchaseOrder from '../../pages/Purchase/PurchaseOrder/PurchaseOrder'
 import PurchaseOrderDetailScreen from '../../pages/Purchase/PurchaseOrderDetailScreen/PurchaseOrderDetailScreen'
+import OpenFile from '../../pages/Payment/PaymentRequestDetail/OpenFile'
 
 export default paymentRequestRoutes = [
     {
@@ -63,9 +64,7 @@ export default paymentRequestRoutes = [
         name: MENU_NAV.PURCHASE_REQUEST_DETAIL,
         component: PurchaseRequestDetail,
         screenOption: {
-            headerShown: true,
-            title: "Header gelcek",
-            headerBackTitle: "Back"
+            title: "Satın Alma Talep Kaydı",
         }
     },
     {
@@ -74,7 +73,10 @@ export default paymentRequestRoutes = [
     },
     {
         name: MENU_NAV.PURCHASE_INVOICES_DETAIL,
-        component: PurchaseInvoicesDetail
+        component: PurchaseInvoicesDetail,
+        screenOption: {
+            title: "Satın Alma Faturası Kaydı"
+        }
     },
     {
         name: MENU_NAV.PURCHASE_AGGREMENT_REQUEST,
@@ -82,7 +84,10 @@ export default paymentRequestRoutes = [
     },
     {
         name: MENU_NAV.PURCHASE_AGGREMENT_REQUEST_DETAIL,
-        component: PurchaseAggrementDetail
+        component: PurchaseAggrementDetail,
+        screenOption: {
+            title: "Satın Alma Sözleşmeleri Talep Kaydı"
+        }
     },
     {
         name: MENU_NAV.PURCHASE_ORDER,
@@ -90,6 +95,16 @@ export default paymentRequestRoutes = [
     },
     {
         name: MENU_NAV.PURCHASE_ORDER_DETAIL,
-        component: PurchaseOrderDetailScreen
-    }
+        component: PurchaseOrderDetailScreen,
+        screenOption: {
+            title: "Satın Alma Sipariş Kaydı"
+        }
+    },
+    {
+        name: MENU_NAV.OPEN_FILE,
+        component: OpenFile,
+        screenOption: {
+            headerShown: true
+        }
+    },
 ]

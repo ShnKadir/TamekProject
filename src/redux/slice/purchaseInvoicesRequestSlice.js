@@ -30,7 +30,7 @@ const purchaseInvoicesRequestSlice = createSlice({
 // Action creators are generated for each case reducer function
 export const {
 
-    clearPurchaseRequestSlice,
+    clearPurchaseInvoiceRequestSlice,
     getPurchaseInvoiceRequest,
     getPurchaseInvoiceSuccess,
     getPurchaseInvoiceFailure
