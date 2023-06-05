@@ -1,8 +1,8 @@
 // React
-import React, { useLayoutEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 
 // React Native
-import { View, Text, TouchableOpacity, SafeAreaView } from 'react-native'
+import { View, Text, TouchableOpacity, SafeAreaView, Button } from 'react-native'
 import { Icon } from 'react-native-elements'
 import { HStack, ScrollView } from 'native-base'
 
@@ -11,8 +11,7 @@ import { styles } from './PaymentRequestDetailStyle'
 
 // Navigation
 import { useNavigation } from '@react-navigation/native'
-import { useState } from 'react'
-import { useEffect } from 'react'
+import { MENU_NAV } from '../../../navigations/constants'
 
 // Api
 import getPaymentFilesRequest from '../../../common/api/paymentRequest/getPaymentFilesRequest'
@@ -23,13 +22,16 @@ import { useSelector } from 'react-redux'
 // Moment
 import moment from "moment"
 
-import { MENU_NAV } from '../../../navigations/constants'
+// Api
+import postRecordApproveRejectControl from '../../../common/api/postRecordApproveRejectControl'
 
 export default function PaymentRequestDetail({
     route
 }) {
 
     const navigation = useNavigation()
+
+    let isRejected = false
 
     const paymentFile = useSelector(state => state.payment?.getPaymentFile?.resultObject)
 
@@ -38,14 +40,6 @@ export default function PaymentRequestDetail({
     useEffect(() => {
         setData(route.params.data)
     }, [route])
-
-
-    useLayoutEffect(() => {
-        navigation.setOptions({
-            headerLargeTitle: false,
-            title: 'Ödeme Talep Kaydı',
-        })
-    }, [navigation])
 
     useEffect(() => {
         getPaymentFilesRequest(data?.fileName)
@@ -59,6 +53,16 @@ export default function PaymentRequestDetail({
         var longDateStr = moment(datee, 'M/D/Y').format("DD/MM/YYYY")
 
         return longDateStr
+    }
+
+    const handleOnRecordRejected = () => {
+        isRejected = true
+        postRecordApproveRejectControl(data?.tableRecId, data?.recId, 9, navigation, isRejected)
+    }
+
+    const handleOnRecordApprove = () => {
+        isRejected = false
+        postRecordApproveRejectControl(data?.tableRecId, data?.recId, 4, navigation, isRejected)
     }
 
     return (
@@ -388,6 +392,7 @@ export default function PaymentRequestDetail({
             <HStack style={styles.buttonStyle} space={"8px"}>
                 <TouchableOpacity
                     style={styles.denialButton}
+                    onPress={handleOnRecordRejected}
                 >
                     <Text style={{ color: "#DA291C", fontWeight: "600" }} >
                         Reddet
@@ -395,6 +400,7 @@ export default function PaymentRequestDetail({
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.approveButton}
+                    onPress={handleOnRecordApprove}
                 >
                     <Text style={{ color: "#007041", fontWeight: "600" }} >
                         Onayla
@@ -402,9 +408,6 @@ export default function PaymentRequestDetail({
                 </TouchableOpacity>
 
             </HStack>
-
-
-
         </SafeAreaView>
     )
 }

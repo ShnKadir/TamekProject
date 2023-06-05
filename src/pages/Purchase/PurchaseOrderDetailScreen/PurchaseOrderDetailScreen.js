@@ -7,8 +7,7 @@ import {
     Text,
     ScrollView,
     TouchableOpacity,
-    SafeAreaView,
-    Alert
+    SafeAreaView
 }
     from 'react-native'
 import { HStack, VStack } from 'native-base'
@@ -22,21 +21,15 @@ import { useNavigation } from '@react-navigation/native'
 // Api
 import postRecordApproveRejectControl from '../../../common/api/postRecordApproveRejectControl'
 
-// Redux
-import { useSelector } from 'react-redux'
-
-// Enum
-import { API_STATUS } from '../../../common/Enums'
-
 export default function PurchaseOrderDetailScreen({
     route
 }) {
 
     const navigation = useNavigation()
 
-    const [data, setData] = useState(route.params.data)
+    let isRejected = false
 
-    const recordApproveRejectControlApiStatus = useSelector(state => state.recordApproveStatusControl?.recordApproveRejectControlApiStatus)
+    const [data, setData] = useState(route.params.data)
 
     useEffect(() => {
         setData(route.params.data)
@@ -62,41 +55,13 @@ export default function PurchaseOrderDetailScreen({
     }
 
     const handleOnRecordRejected = () => {
-
-        postRecordApproveRejectControl(data?.tableRecId, data?.recId, 9)
-
-        if (recordApproveRejectControlApiStatus === API_STATUS.SUCCESS) {
-
-            Alert.alert(
-                '',
-                'Reddetme işlemi başarıyla gerçekleştirildi.',
-                [
-                    {
-                        text: 'Tamam',
-                        onPress: () => navigation.goBack()
-                    },
-                ],
-                { cancelable: false },
-            )
-        }
+        isRejected = true
+        postRecordApproveRejectControl(data?.tableRecId, data?.recId, 9, navigation, isRejected)
     }
 
     const handleOnRecordApprove = () => {
-        postRecordApproveRejectControl(data?.tableRecId, data?.recId, 4)
-
-        if (recordApproveRejectControlApiStatus === API_STATUS.SUCCESS) {
-            Alert.alert(
-                '',
-                'Onaylama işlemi başarıyla gerçekleştirildi.',
-                [
-                    {
-                        text: 'Tamam',
-                        onPress: () => navigation.goBack()
-                    },
-                ],
-                { cancelable: false },
-            )
-        }
+        isRejected = false
+        postRecordApproveRejectControl(data?.tableRecId, data?.recId, 4, navigation, isRejected)
     }
 
     return (

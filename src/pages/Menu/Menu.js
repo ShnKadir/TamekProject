@@ -188,11 +188,11 @@ export default function Menu() {
         }
         else if (id === "5") {
             return purchaseAggrementData === null
-                || purchaseAggrementData?.resultObject?.purchReqRequest?.length === 0
+                || purchaseAggrementData?.resultObject?.purchAgreementRequest?.length === 0
                 || purchaseAggrementData?.returnText === "RECORD_NOT_FOUND" ?
                 0
                 :
-                purchaseAggrementData?.resultObject?.purchReqRequest?.length
+                purchaseAggrementData?.resultObject?.purchAgreementRequest?.length
 
         }
         else if (id === "6") {

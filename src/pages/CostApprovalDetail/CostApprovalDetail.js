@@ -2,7 +2,7 @@
 import React, { useLayoutEffect, useEffect, useState } from 'react'
 
 // React Native
-import { View, Text, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native'
+import { View, Text, TouchableOpacity, ScrollView, SafeAreaView, Alert } from 'react-native'
 import { VStack, HStack } from 'native-base'
 import { Icon, SearchBar } from 'react-native-elements'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -15,13 +15,24 @@ import { useNavigation } from '@react-navigation/native'
 
 // Moment
 import moment from "moment"
+
+// Api
 import getExpenceFileRequests from '../../common/api/expence/getExpenceFileRequests'
+import postRecordApproveRejectControl from '../../common/api/postRecordApproveRejectControl'
+
+// Enum
+import { API_STATUS } from '../../common/Enums'
+
+// Redux
+import { useSelector } from 'react-redux'
 
 export default function CostApprovalDetail({
     route
 }) {
 
     const navigation = useNavigation()
+
+    let isRejected = false
 
     const [data, setData] = useState(route?.params?.data)
     const [dataLines, setDataLines] = useState(route?.params?.data?.lines)
@@ -33,13 +44,6 @@ export default function CostApprovalDetail({
         setDataLines(route?.params?.data?.lines)
 
     }, [route])
-
-    useLayoutEffect(() => {
-        navigation.setOptions({
-            headerLargeTitle: false,
-            title: "Onay Bekleyenler"
-        })
-    }, [navigation])
 
     useEffect(() => {
         let total = 0
@@ -77,6 +81,16 @@ export default function CostApprovalDetail({
 
     const getFile = (file) => {
         getExpenceFileRequests(file)
+    }
+
+    const handleOnRecordRejected = () => {
+        isRejected = true
+        postRecordApproveRejectControl(data?.tableRecId, data?.recId, 9,navigation,isRejected)
+    }
+
+    const handleOnRecordApprove = () => {
+        isRejected=false
+        postRecordApproveRejectControl(data?.tableRecId, data?.recId, 4,navigation,isRejected)
     }
 
     return (
@@ -118,7 +132,7 @@ export default function CostApprovalDetail({
                                 flex: 1,
                                 lineHeight: 22,
                                 textAlign: 'right',
-                                marginLeft:16
+                                marginLeft: 16
                             }}>
                                 {data?.spenderUserIdName}
                             </Text>
@@ -181,6 +195,7 @@ export default function CostApprovalDetail({
 
                                 <TouchableOpacity
                                     style={styles.denialButton}
+                                    onPress={handleOnRecordRejected}
                                 >
                                     <Text style={{ color: "#DA291C", fontWeight: "600" }} >
                                         Reddet
@@ -192,6 +207,7 @@ export default function CostApprovalDetail({
 
                                 <TouchableOpacity
                                     style={styles.approveButton}
+                                    onPress={handleOnRecordApprove}
                                 >
                                     <Text style={{ color: "#007041", fontWeight: "600" }} >
                                         Onayla

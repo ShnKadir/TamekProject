@@ -32,7 +32,7 @@ export default paymentRequestRoutes = [
         name: MENU_NAV.COST_APPROVAL_DETAIL,
         component: CostApprovalDetail,
         screenOption: {
-            headerShown: true,
+            title: "Onay Bekleyenler"
         }
     },
     {
@@ -45,16 +45,16 @@ export default paymentRequestRoutes = [
         }
     },
     {
+        name: MENU_NAV.PAYMENT_REQUEST,
+        component: PaymentRequest,
+        
+    },
+    {
         name: MENU_NAV.PAYMENT_REQUEST_DETAIL,
         component: PaymentRequestDetail,
         screenOption: {
-            headerShown: true
+            title:"Ödeme Talep Kaydı"
         }
-    },
-    {
-        name: MENU_NAV.PAYMENT_REQUEST,
-        component: PaymentRequest,
-
     },
     {
         name: MENU_NAV.PURCHASE_REQUEST,

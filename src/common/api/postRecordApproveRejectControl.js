@@ -1,6 +1,9 @@
 // Config
 import { API } from "../Config"
 
+// React Native
+import { Alert } from "react-native"
+
 // Redux
 import store from "../../redux/store"
 import {
@@ -16,10 +19,11 @@ import apiCall from "./apiCall"
 import getPurchaseOrdersRequest from "./purchase/PurchaseOrderRequest/getPurchaseOrdersRequest"
 import getPurchaseInvoicesRequest from "./purchase/PurchaseInvoicesRequest/getPurchaseInvoicesRequest"
 import purchaseAggrementRequests from "./purchase/purchaseAggrementRequest/purchaseAggrementRequests"
+import getExpenceRequests from "./expence/getExpenceRequests"
+import PaymentRequests from "./paymentRequest/PaymentRequests"
+import getPurchaseRequests from "./purchase/purchaseRequest/getPurchaseRequests"
 
-
-export default async function postRecordApproveRejectControl(tableRecId, recId, enumStatusId) {
-
+export default async function postRecordApproveRejectControl(tableRecId, recId, enumStatusId,navigation,isRejected) {
 
     const state = store.getState()
 
@@ -47,6 +51,38 @@ export default async function postRecordApproveRejectControl(tableRecId, recId, 
                 getPurchaseOrdersRequest()
                 getPurchaseInvoicesRequest()
                 purchaseAggrementRequests()
+                getExpenceRequests()
+                PaymentRequests()   
+                getPurchaseRequests() 
+                purchaseAggrementRequests()
+                
+                if(isRejected){
+
+                    Alert.alert(
+                        '',
+                        'Reddetme işlemi başarıyla gerçekleştirildi.',
+                        [
+                            {
+                                text: 'Tamam',
+                                onPress: () => navigation.goBack()
+                            },
+                        ],
+                        { cancelable: false },
+                    )
+                }
+                else{
+                    Alert.alert(
+                        '',
+                        'Onaylama işlemi başarıyla gerçekleştirildi.',
+                        [
+                            {
+                                text: 'Tamam',
+                                onPress: () => navigation.goBack()
+                            },
+                        ],
+                        { cancelable: false },
+                    )
+                }
             }
         }
     }

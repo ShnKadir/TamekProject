@@ -34,7 +34,7 @@ export default function PurchaseAggrementScreen() {
 
     const navigation = useNavigation()
 
-    const purchaseAggrementData = useSelector(state => state.purchaseAggrement?.purchaseAggrementData?.resultObject?.purchReqRequest)
+    const purchaseAggrementData = useSelector(state => state.purchaseAggrement?.purchaseAggrementData?.resultObject?.purchAgreementRequest)
     const returnText = useSelector(state => state.purchaseAggrement?.purchaseAggrementData?.returnText)
 
     const goToDetailScreen = (item) => {
