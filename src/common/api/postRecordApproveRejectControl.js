@@ -23,7 +23,7 @@ import getExpenceRequests from "./expence/getExpenceRequests"
 import PaymentRequests from "./paymentRequest/PaymentRequests"
 import getPurchaseRequests from "./purchase/purchaseRequest/getPurchaseRequests"
 
-export default async function postRecordApproveRejectControl(tableRecId, recId, enumStatusId,navigation,isRejected) {
+export default async function postRecordApproveRejectControl(tableRecId, recId, enumStatusId, navigation, isRejected) {
 
     const state = store.getState()
 
@@ -43,20 +43,20 @@ export default async function postRecordApproveRejectControl(tableRecId, recId, 
     if (response) {
 
         if (response?.resultStatus) {
-            
+
             store.dispatch(postRecordApproveRejectControlSuccess(response))
 
             if (response.returnText === "OPERATION_SUCCESS") {
-                
+
                 getPurchaseOrdersRequest()
                 getPurchaseInvoicesRequest()
                 purchaseAggrementRequests()
                 getExpenceRequests()
-                PaymentRequests()   
-                getPurchaseRequests() 
+                PaymentRequests()
+                getPurchaseRequests()
                 purchaseAggrementRequests()
-                
-                if(isRejected){
+
+                if (isRejected) {
 
                     Alert.alert(
                         '',
@@ -70,7 +70,7 @@ export default async function postRecordApproveRejectControl(tableRecId, recId, 
                         { cancelable: false },
                     )
                 }
-                else{
+                else {
                     Alert.alert(
                         '',
                         'Onaylama işlemi başarıyla gerçekleştirildi.',
@@ -84,6 +84,18 @@ export default async function postRecordApproveRejectControl(tableRecId, recId, 
                     )
                 }
             }
+        }
+        else {
+            Alert.alert(
+                '',
+                'İşlem gerçekleştirilemedi.',
+                [
+                    {
+                        text: 'Tamam'
+                    },
+                ],
+                { cancelable: false },
+            )
         }
     }
 

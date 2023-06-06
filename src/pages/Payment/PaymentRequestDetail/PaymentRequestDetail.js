@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react'
 
 // React Native
-import { View, Text, TouchableOpacity, SafeAreaView, Button } from 'react-native'
+import { View, Text, TouchableOpacity, SafeAreaView, Button, Platform, Share } from 'react-native'
 import { Icon } from 'react-native-elements'
 import { HStack, ScrollView } from 'native-base'
 
@@ -25,6 +25,10 @@ import moment from "moment"
 // Api
 import postRecordApproveRejectControl from '../../../common/api/postRecordApproveRejectControl'
 
+// File Library
+import * as FileSystem from "expo-file-system"
+import { shareAsync } from "expo-sharing"
+
 export default function PaymentRequestDetail({
     route
 }) {
@@ -36,6 +40,7 @@ export default function PaymentRequestDetail({
     const paymentFile = useSelector(state => state.payment?.getPaymentFile?.resultObject)
 
     const [data, setData] = useState(route.params.data)
+    const [fileExtension, setFileExtension] = useState()
 
     useEffect(() => {
         setData(route.params.data)
@@ -45,6 +50,10 @@ export default function PaymentRequestDetail({
         getPaymentFilesRequest(data?.fileName)
     }, [data])
 
+    useEffect(() => {
+        let extension = paymentFile?.substring(paymentFile?.lastIndexOf('.') + 1, paymentFile?.length)
+        setFileExtension(extension)
+    }, [paymentFile])
 
     const fixDateCalc = (date) => {
 
@@ -64,6 +73,76 @@ export default function PaymentRequestDetail({
         isRejected = false
         postRecordApproveRejectControl(data?.tableRecId, data?.recId, 4, navigation, isRejected)
     }
+
+    const downloadFromUrl = async () => {
+        if (fileExtension === "jpg" || fileExtension === "jpeg" || fileExtension === "pdf") {
+
+            navigation.navigate(MENU_NAV.OPEN_FILE)
+        }
+        else {
+
+            let fileType = paymentFile?.substring(paymentFile?.lastIndexOf('.') + 1, paymentFile?.length)
+            const filename = "file." + fileType;
+            const result = await FileSystem.downloadAsync(
+                paymentFile,
+                FileSystem.documentDirectory + filename
+            )
+
+            save(result.uri, filename, result.headers["Content-Type"])
+
+            //Direkt fotoğraflara indiriyor.
+
+            // FileSystem.downloadAsync(
+            //     "http://techslides.com/demos/sample-videos/small.mp4",
+            //     FileSystem.documentDirectory + 'small.mp4'
+            // )
+            //     .then(({ uri }) => {
+            //         console.log('Finished downloading to ', uri);
+            //         share(uri);
+            //     })
+            //     .catch(error => {
+            //         console.error(error);
+            //     });
+        }
+    }
+
+    // const share = async (url) => {
+    //     try {
+    //         const result = await Share.share({
+    //             url
+    //         });
+
+    //         if (result.action === Share.sharedAction) {
+    //             if (result.activityType) {
+    //                 // shared with activity type of result.activityType
+    //             } else {
+    //                 // shared
+    //             }
+    //         } else if (result.action === Share.dismissedAction) {
+    //             // dismissed
+    //         }
+    //     } catch (error) {
+    //         alert(error.message);
+    //     }
+    // }
+
+    const save = async (uri, filename, mimetype) => {
+        if (Platform.OS === "android") {
+            const permissions = await FileSystem.StorageAccessFramework.requestDirectoryPermissionsAsync()
+            if (permissions.granted) {
+                const base64 = await FileSystem.readAsStringAsync(uri, { encoding: FileSystem.EncodingType.Base64 })
+                await FileSystem.StorageAccessFramework.createFileAsync(permissions.directoryUri, filename, mimetype)
+                    .then(async (uri) => {
+                        await FileSystem.writeAsStringAsync(uri, base64, { encoding: FileSystem.EncodingType.Base64 })
+                    })
+                    .catch(e => console.log(e))
+            } else {
+                shareAsync(uri)
+            }
+        } else {
+            shareAsync(uri)
+        }
+    };
 
     return (
 
@@ -372,10 +451,10 @@ export default function PaymentRequestDetail({
                                     lineHeight: 22,
                                     fontWeight: 'bold'
                                 }}>
-
+                                    Dosya
                                 </Text>
 
-                                <TouchableOpacity onPress={() => navigation.navigate(MENU_NAV.OPEN_FILE)}>
+                                <TouchableOpacity onPress={downloadFromUrl}>
                                     <Icon
                                         name="ios-attach-sharp"
                                         type="ionicon"
@@ -386,6 +465,8 @@ export default function PaymentRequestDetail({
                                 </TouchableOpacity>
                             </View>
                         }
+
+                        {/* <Button title="Download From URL" onPress={downloadFromUrl} /> */}
                     </View>
                 </View>
             </ScrollView>
