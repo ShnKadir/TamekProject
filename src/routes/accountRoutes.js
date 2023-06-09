@@ -12,6 +12,12 @@ export default accountRoutes = [
         component: Account,
         screenOption: {
             headerShown: true,
+            title: "Hesap Ayarları",
+            headerTitleStyle: {
+                fontSize: 18,
+                color: "#1f1f1f"
+            },
+            headerTitleAlign: "center",
         }
     },
     {

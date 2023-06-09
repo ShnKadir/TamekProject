@@ -4,14 +4,23 @@ import React from 'react'
 // React Native
 import { TouchableOpacity, Text, View } from 'react-native'
 import { Icon } from 'react-native-elements'
+import { HStack, Image, VStack } from 'native-base'
 
 // Redux
 import clearRedux from '../../helpers/redux/clearRedux'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useDispatch } from 'react-redux'
 import { logout } from '../../redux/slice/authSlice'
+
+//Navigation
 import { useNavigation } from '@react-navigation/native'
 import { ACCOUNT_NAV, LOGIN_NAV } from '../../navigations/constants'
+
+//Asset
+import userImage from '../../../assets/image/userImage.png'
+
+//Styles
+import { styles } from './AccountStyle'
 
 export default function Account() {
 
@@ -31,60 +40,117 @@ export default function Account() {
   }
 
   return (
-    <View style={{ justifyContent: "center", flex: 1, alignItems: "center" }}>
-      
+    <View style={{ backgroundColor: "#fff", flex: 1 }}>
+
+      <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }}>
+
+        <Image
+          style={{
+            resizeMode: "contain",
+            height: 150,
+            position: "absolute",
+            top: 30
+          }}
+          source={userImage}
+          alt={" "}
+        />
+      </View>
+
+      <View style={{ backgroundColor: "#007041", borderRadius: 50, flex: 1 }}>
+
         <TouchableOpacity
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          padding: 24,
-        }}
-        activeOpacity={0.5}
-        onPress={() => changePassword()}
-      >
-        <Icon
-          name="key-outline"
-          type="ionicon"
-          size={24}
           style={{
-            width: 24,
-            marginRight: 16
+            flexDirection: "row",
+            alignItems: "center",
+            paddingTop: 24,
+            padding: 1
           }}
-        />
-        <Text style={{
-          fontSize: 16,
+          activeOpacity={0.5}
+          onPress={() => changePassword()}
+        >
+          <VStack style={styles.subContainer}>
 
-        }}>
-          Şifre Değiştir
-        </Text>
-      </TouchableOpacity>
+            <HStack style={{ justifyContent: "space-between", alignItems: "center" }}>
+              <HStack>
+                <Icon
+                  name="key-outline"
+                  type="ionicon"
+                  size={24}
+                  color="#007041"
+                  style={{
+                    width: 24,
+                    marginRight: 16
+                  }}
+                />
+                <Text style={{
+                  fontSize: 16,
 
-      <TouchableOpacity
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          padding: 24,
-        }}
-        activeOpacity={0.5}
-        onPress={() => onLogoutPress()}
-      >
-        <Icon
-          name="power-sharp"
-          type="ionicon"
-          size={24}
-          style={{
-            width: 24,
-            marginRight: 16
-          }}
-        />
-        <Text style={{
-          fontSize: 16,
+                }}>
+                  Şifre Değiştir
+                </Text>
+              </HStack>
+              <HStack style={{ justifyContent: "space-between", alignItems: "center" }}>
+                <Icon
+                  name="chevron-right"
+                  type="font-awesome-5"
+                  size={20}
+                  color="#007041"
+                  style={{ marginRight: 16 }}
+                />
+              </HStack>
+            </HStack>
+          </VStack>
 
-        }}>
-          Çıkış Yap
-        </Text>
-      </TouchableOpacity>
-    
+        </TouchableOpacity>
+
+        <View style={{ position: "absolute", bottom: 100 }}>
+
+          <TouchableOpacity
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              padding: 1,
+            }}
+            activeOpacity={0.5}
+            onPress={() => onLogoutPress()}
+          >
+            <VStack style={styles.subContainer}>
+
+              <HStack style={{ justifyContent: "space-between", alignItems: "center" }}>
+                <HStack>
+                  <Icon
+                    name="power-sharp"
+                    type="ionicon"
+                    size={24}
+                    color="#007041"
+                    style={{
+                      width: 24,
+                      marginRight: 16
+                    }}
+                  />
+                  <Text style={{
+                    fontSize: 16,
+
+                  }}>
+                    Çıkış Yap
+                  </Text>
+                </HStack>
+
+                <HStack style={{ justifyContent: "space-between", alignItems: "center" }}>
+                  <Icon
+                    name="chevron-right"
+                    type="font-awesome-5"
+                    size={20}
+                    color="#007041"
+                    style={{ marginRight: 16 }}
+                  />
+                </HStack>
+              </HStack>
+            </VStack>
+          </TouchableOpacity>
+        </View>
+
+      </View>
     </View>
   )
 }
