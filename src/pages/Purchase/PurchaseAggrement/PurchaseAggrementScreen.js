@@ -63,7 +63,7 @@ export default function PurchaseAggrementScreen() {
         setData(filteredData)
     }
 
-    
+
     const fixDateCalc = (date) => {
 
         let datee = date?.substring(0, 10)
@@ -72,7 +72,7 @@ export default function PurchaseAggrementScreen() {
 
         return longDateStr
     }
-    
+
     return (
 
         <SafeAreaView style={{ flex: 1 }}>
@@ -128,13 +128,17 @@ export default function PurchaseAggrementScreen() {
                                                                 {item.vendor}
                                                             </Text>
 
+                                                            <Text style={{ flexWrap: "wrap", fontSize: 13, fontWeight: "bold" }}>
+                                                                {item.agreementNo}
+                                                            </Text>
+
                                                             <Text style={{ fontSize: 13, color: "#6C6C6C" }}>
                                                                 {item.createdBy}
                                                             </Text>
 
                                                             <HStack style={{ maxWidth: 260, width: 260 }}>
                                                                 <Text style={{ flexWrap: "wrap", fontSize: 13, fontWeight: "bold" }}>
-                                                                    {fixDateCalc(item?.createdDate)}                                                                    
+                                                                    {fixDateCalc(item?.createdDate)}
                                                                 </Text>
                                                             </HStack>
                                                         </VStack>

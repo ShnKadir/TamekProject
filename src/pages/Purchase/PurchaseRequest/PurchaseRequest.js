@@ -128,12 +128,16 @@ export default function PurchaseRequest() {
                                                                 {item?.originator}
                                                             </Text>
 
-                                                            <Text style={{ fontSize: 14 }}>
-                                                                {item?.header}
+                                                            <Text style={{ fontSize: 13,fontWeight: "bold"}}>
+                                                                {item?.reqNo}
                                                             </Text>
 
-                                                            <Text style={{ fontSize: 13, color: "#6C6C6C" }}>
-                                                                {item?.reqNo}
+                                                            <Text style={{ fontSize: 14 }}>
+                                                                {item?.itemName}
+                                                            </Text>
+
+                                                            <Text style={{ fontSize: 14 }} numberOfLines={1}>
+                                                                {item?.header}
                                                             </Text>
 
                                                             <Text style={{ fontSize: 13, color: "#6C6C6C" }}>
