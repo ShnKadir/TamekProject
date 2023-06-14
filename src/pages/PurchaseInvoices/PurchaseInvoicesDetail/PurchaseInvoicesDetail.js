@@ -1,5 +1,5 @@
 // React
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 
 // React Native
 import { View, Text, ScrollView, TouchableOpacity, SafeAreaView } from 'react-native'
@@ -52,12 +52,12 @@ export default function PurchaseInvoicesDetail({
 
     const handleOnRecordRejected = () => {
         isRejected = true
-        postRecordApproveRejectControl(data?.tableRecId, data?.recId, 9,navigation,isRejected)
+        postRecordApproveRejectControl(data?.tableRecId, data?.recId, 9, navigation, isRejected)
     }
 
     const handleOnRecordApprove = () => {
-        isRejected=false
-        postRecordApproveRejectControl(data?.tableRecId, data?.recId, 4,navigation,isRejected)        
+        isRejected = false
+        postRecordApproveRejectControl(data?.tableRecId, data?.recId, 4, navigation, isRejected)
     }
 
     return (
@@ -283,11 +283,17 @@ export default function PurchaseInvoicesDetail({
                                                 Miktar:{item?.qty}
                                             </Text>
                                             <Text style={{ fontSize: 11 }}>
+                                                Birim Fiyat: {item?.unitPrice} {data?.currency}
+                                            </Text>
+                                            <Text style={{ fontSize: 11 }}>
+                                                Satış Birim Fiyat: {item?.sasUnitPrice} {data?.currency}
+                                            </Text>
+                                            <Text style={{ fontSize: 11 }}>
                                                 Tutar:{(item?.netAmount)} {data?.currency}
                                             </Text>
                                             <Text style={{ fontSize: 11 }}>
-                                                Birim Fiyat: {item?.unitPrice} {data?.currency}
-                                            </Text>                                           
+                                                Tutar Farkı:{(item?.difference)} {data?.currency}
+                                            </Text>
                                         </VStack>
                                     </HStack>
                                 </HStack>

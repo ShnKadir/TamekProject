@@ -292,9 +292,9 @@ export default function PurchaseOrderDetailScreen({
                                                 Birim Fiyat: {item?.netAmount / item?.qty}  {data?.currencyCode}
                                             </Text>
 
-                                            {/* <Text style={{ fontSize: 11 }}>
-                                                Birim Fiyat: {divideCalculation(item)} {data?.currencyCode}
-                                            </Text> */}
+                                            <Text style={{ fontSize: 11 }}>
+                                                Tutar Farkı:  {item?.differenceAmount} {data?.currencyCode}
+                                            </Text>
                                         </VStack>
                                     </HStack>
                                 </HStack>
