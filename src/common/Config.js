@@ -34,13 +34,13 @@ export const API = {
                 method: "GET"
             }
         },
-        PURCHASE_ORDER:{
+        PURCHASE_ORDER: {
             GET: {
                 path: "/api/Purchase/GetPurchaseOrderRequest",
                 method: "GET"
             }
         },
-        PURCHASE_INVOİCE:{
+        PURCHASE_INVOİCE: {
             GET: {
                 path: "/api/Purchase/GetPurchInvoiceRequest",
                 method: "GET"
@@ -52,8 +52,12 @@ export const API = {
             path: "/api/Expence/GetExpenceRequest",
             method: "GET"
         },
-        GET_FILE:{
+        GET_FILE: {
             path: "/api/Expence/GetExpencetFileRequest/",
+            method: "GET"
+        },
+        GET_FILE_LINE: {
+            path: "/api/Expence/GetExpenseLineFileRequest/",
             method: "GET"
         }
     },
@@ -62,13 +66,13 @@ export const API = {
             path: "/api/Payment/GetPaymentRequest",
             method: "GET"
         },
-        GET_FILE:{
+        GET_FILE: {
             path: "/api/Payment/GetPaymentFileRequest/",
             method: "GET"
         }
     },
-    RECORD_APPROVE_REJECT_CONTROL:{
-        POST:{
+    RECORD_APPROVE_REJECT_CONTROL: {
+        POST: {
             path: "/api/Process/RecordApproveRejectControl",
             method: "POST"
         }

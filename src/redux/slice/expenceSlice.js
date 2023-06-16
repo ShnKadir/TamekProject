@@ -4,11 +4,13 @@ import { createSlice } from '@reduxjs/toolkit'
 import { API_STATUS } from "../../common/Enums"
 
 const initialState = {
-    expenceData: null,    
-    expenceFile:null,
+    expenceData: null,
+    expenceFile: null,
+    expenceFileLine: null,
 
     expenceDataApiStatus: API_STATUS.NONE,
-    expenceFileApistatus:API_STATUS.NONE
+    expenceFileApistatus: API_STATUS.NONE,
+    expenceFileLineApiStatus: API_STATUS.NONE
 }
 
 const expenceSlice = createSlice({
@@ -38,6 +40,17 @@ const expenceSlice = createSlice({
         getExpenceFileFailure: (state, action) => {
             state.expenceFileApistatus = API_STATUS.FAILURE
         },
+
+        getExpenceFileLineRequest: state => {
+            state.expenceFileLineApiStatus = API_STATUS.REQUEST
+        },
+        getExpenceFileLineSuccess: (state, action) => {
+            state.expenceFileLine = action.payload
+            state.expenceFileLineApiStatus = API_STATUS.SUCCESS
+        },
+        getExpenceFileLineFailure: (state, action) => {
+            state.expenceFileLineApiStatus = API_STATUS.FAILURE
+        },
     }
 })
 
@@ -51,7 +64,11 @@ export const {
 
     getExpenceFileRequest,
     getExpenceFileSuccess,
-    getExpenceFileFailure
+    getExpenceFileFailure,
+
+    getExpenceFileLineRequest,
+    getExpenceFileLineSuccess,
+    getExpenceFileLineFailure
 
 } = expenceSlice.actions
 
