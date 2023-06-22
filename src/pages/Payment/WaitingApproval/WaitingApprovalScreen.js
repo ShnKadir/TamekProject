@@ -57,9 +57,10 @@ export default function WaitingApprovalScreen() {
 
   function searchFilterFunction(searchTerm) {
 
-    let filteredData = expenseRequest?.filter(item => item?.expenseRequestFormHeader?.toLocaleUpperCase('tr-TR').includes(searchTerm.toLocaleUpperCase('tr-TR')) || item?.spenderUserIdName?.toUpperCase().includes(searchTerm.toLocaleUpperCase('tr-TR')))
+    let filteredData = expenseRequest?.filter(item => item?.spenderUserIdName?.toLocaleUpperCase('tr-TR').includes(searchTerm?.toLocaleUpperCase('tr-TR')))
     setData(filteredData)
   }
+
 
   const calculateCost = (item) => {
     let total = 0
@@ -78,7 +79,7 @@ export default function WaitingApprovalScreen() {
     var longDateStr = moment(datee, 'M/D/Y').format("DD/MM/YYYY")
 
     return longDateStr
-}
+  }
 
   return (
 
@@ -129,7 +130,7 @@ export default function WaitingApprovalScreen() {
                                   {index + 1}
                                 </Text>
                               </View>
-                              <VStack style={{ paddingLeft: 8, maxWidth: 284,paddingTop:8 }} space={"5px"}>
+                              <VStack style={{ paddingLeft: 8, maxWidth: 284, paddingTop: 8 }} space={"5px"}>
                                 <Text style={{ fontWeight: "bold", flexWrap: "wrap", fontSize: 13 }}>
                                   {item?.spenderUserIdName}
                                 </Text>

@@ -1,9 +1,17 @@
 // React
-import React, { useCallback, useState } from 'react'
+import React, { useState } from 'react'
 import { useEffect } from 'react'
 
 // React Native
-import { Text, View, SafeAreaView, TouchableOpacity, ScrollView, Dimensions, RefreshControl } from 'react-native'
+import {
+    Text,
+    View,
+    SafeAreaView,
+    TouchableOpacity,
+    ScrollView,
+    RefreshControl,
+    ActivityIndicator
+} from 'react-native'
 import { Icon } from 'react-native-elements'
 import { VStack, HStack, Image } from 'native-base'
 
@@ -11,7 +19,7 @@ import { VStack, HStack, Image } from 'native-base'
 import { styles } from './MenuStyle'
 
 // Navigation
-import { useFocusEffect, useNavigation } from '@react-navigation/native'
+import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { MENU_NAV } from '../../navigations/constants'
 
 // Api
@@ -37,9 +45,6 @@ export default function Menu() {
 
     const navigation = useNavigation()
 
-    const windowHeight = Dimensions.get('window').height;
-
-    const isLogin = useSelector(state => state.auth?.isLogin)
     const expenceData = useSelector(state => state.expence?.expenceData)
     const paymentRequestData = useSelector(state => state.payment?.paymentRequestData)
     const purchaseRequestData = useSelector(state => state.purchaseRequest?.purchaseRequestData)
@@ -47,7 +52,26 @@ export default function Menu() {
     const purchaseOrderData = useSelector(state => state.purchaseOrder?.purchaseOrderData)
     const purchaseInvoiceData = useSelector(state => state.purchaseInvoice?.purchaseInvoiceData)
 
-    const [refreshing, setRefreshing] = useState(false)
+    const [refreshing, setRefreshing] = useState(false);
+    const [showActivityIndicator, setShowActivityIndicator] = useState(false)
+    const isFocused = useIsFocused();
+
+    const fetchData = () => {
+        getPurchaseRequests()
+        getExpenceRequests()
+        PaymentRequests()
+        purchaseAggrementRequests()
+        getPurchaseOrdersRequest()
+        getPurchaseInvoicesRequest()
+    };
+
+    const handleRefresh = () => {
+        setRefreshing(true)
+        fetchData()
+        setTimeout(() => {
+            setRefreshing(false)
+        }, 1000)
+    };
 
     const menuData = [
         {
@@ -145,29 +169,6 @@ export default function Menu() {
         }
     }
 
-    const callApis = () => {
-        getPurchaseRequests()
-        getExpenceRequests()
-        PaymentRequests()
-        purchaseAggrementRequests()
-        getPurchaseOrdersRequest()
-        getPurchaseInvoicesRequest()
-    }
-
-    useFocusEffect(
-        useCallback(() => {
-            setRefreshing(true)
-            callApis()
-            setTimeout(() => {
-                setRefreshing(false)
-            }, 1000)
-        }, [])
-    );
-
-    useEffect(() => {
-        callApis()
-    }, [isLogin])
-
     const calculateHeader = (id) => {
         if (id === "1") {
             return expenceData === null
@@ -220,13 +221,21 @@ export default function Menu() {
         }
     }
 
-    const onRefresh = React.useCallback(() => {
-        setRefreshing(true)
-        callApis()
-        setTimeout(() => {
-            setRefreshing(false)
-        }, 1000)
-    }, []);
+    useEffect(() => {
+        let timeoutId
+
+        if (isFocused) {
+            setShowActivityIndicator(true)
+            fetchData()
+
+            timeoutId = setTimeout(() => {
+                setShowActivityIndicator(false)
+                setRefreshing(false);
+            }, 2000);
+        }
+
+        return () => clearTimeout(timeoutId)
+    }, [isFocused])
 
     return (
 
@@ -236,14 +245,16 @@ export default function Menu() {
                 justifyContent: "center",
                 alignItems: "center",
             }}>
+
                 <ScrollView
                     showsVerticalScrollIndicator={false}
                     contentContainerStyle={{ justifyContent: "center", flex: 1 }}
                     refreshControl={
                         <RefreshControl
                             refreshing={refreshing}
-                            onRefresh={onRefresh}
-                        />}
+                            onRefresh={handleRefresh}
+                        />
+                    }
                 >
 
                     {
@@ -310,8 +321,10 @@ export default function Menu() {
                             )
                         })
                     }
-                </ScrollView>
 
+                    {showActivityIndicator && <ActivityIndicator size="small" color="#FFFFFF" style={{ padding: 5 }} />}
+
+                </ScrollView>
             </View>
         </SafeAreaView>
     )

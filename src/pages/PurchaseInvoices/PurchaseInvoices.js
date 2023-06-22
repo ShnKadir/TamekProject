@@ -55,10 +55,9 @@ export default function PurchaseInvoices() {
 
     function searchFilterFunction(searchTerm) {
 
-        let filteredData = invoiceRequest?.filter(item => item.name?.toLocaleUpperCase('tr-TR').includes(searchTerm.toLocaleUpperCase('tr-TR'))
-            || item.invoiceId?.toLocaleUpperCase('tr-TR').includes(searchTerm.toLocaleUpperCase('tr-TR')))
+        let filteredData = invoiceRequest?.filter(item => item.name?.toLocaleUpperCase('tr-TR').includes(searchTerm?.toLocaleUpperCase('tr-TR'))
+            || item.invoiceId?.toLocaleUpperCase('tr-TR').includes(searchTerm?.toLocaleUpperCase('tr-TR')))
         setData(filteredData)
-
     }
 
     const calculateCost = (data) => {

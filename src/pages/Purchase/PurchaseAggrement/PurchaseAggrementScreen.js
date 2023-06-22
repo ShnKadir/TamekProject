@@ -59,7 +59,7 @@ export default function PurchaseAggrementScreen() {
 
     function searchFilterFunction(searchTerm) {
 
-        let filteredData = purchaseAggrementData?.filter(item => item.vendor?.toLocaleUpperCase('tr-TR').includes(searchTerm.toLocaleUpperCase('tr-TR')))
+        let filteredData = purchaseAggrementData?.filter(item => item.vendor?.toLocaleUpperCase('tr-TR').includes(searchTerm?.toLocaleUpperCase('tr-TR')))
         setData(filteredData)
     }
 
@@ -100,7 +100,7 @@ export default function PurchaseAggrementScreen() {
                                                 key={index}
                                             >
 
-                                                <HStack style={styles.list} >
+                                                <HStack style={styles.list} key={index}>
                                                     <HStack style={{ alignItems: "center", maxWidth: 324 }}>
                                                         <View
                                                             style={{
@@ -123,9 +123,10 @@ export default function PurchaseAggrementScreen() {
                                                                 {index + 1}
                                                             </Text>
                                                         </View>
-                                                        <VStack style={{ paddingLeft: 16, maxWidth: 284 }} space={"5px"}>
-                                                            <Text style={{ fontWeight: "bold", flexWrap: "wrap" }}>
-                                                                {item.vendor}
+
+                                                        <VStack style={{ paddingLeft: 8, maxWidth: 284, paddingTop: 8 }} space={"5px"}>
+                                                            <Text style={{ fontWeight: "bold", flexWrap: "wrap", fontSize: 13 }}>
+                                                            {item.vendor}
                                                             </Text>
 
                                                             <Text style={{ flexWrap: "wrap", fontSize: 13, fontWeight: "bold" }}>
@@ -136,12 +137,16 @@ export default function PurchaseAggrementScreen() {
                                                                 {item.createdBy}
                                                             </Text>
 
-                                                            <HStack style={{ maxWidth: 260, width: 260 }}>
-                                                                <Text style={{ flexWrap: "wrap", fontSize: 13, fontWeight: "bold" }}>
+                                                            <HStack style={{ width: 260, justifyContent: "space-between", maxWidth: 260 }}>
+                                                                <HStack style={{ maxWidth: 156, paddingRight: 68 }}>
+                                                                    <Text style={{ flexWrap: "wrap", fontSize: 13, fontWeight: "500", color: "#6C6C6C" }}>
                                                                     {fixDateCalc(item?.createdDate)}
-                                                                </Text>
+                                                                    </Text>
+                                                                </HStack>
+
                                                             </HStack>
                                                         </VStack>
+
                                                     </HStack>
                                                     <VStack>
                                                         <TouchableOpacity
