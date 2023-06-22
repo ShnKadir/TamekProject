@@ -283,10 +283,10 @@ export default function PurchaseInvoicesDetail({
                                                 Miktar:{item?.qty}
                                             </Text>
                                             <Text style={{ fontSize: 11 }}>
-                                                PO Birim Fiyat: {item?.unitPrice} {data?.currency}
+                                                Birim Fiyat: {item?.unitPrice} {data?.currency}
                                             </Text>
                                             <Text style={{ fontSize: 11 }}>
-                                                Satış Birim Fiyat: {item?.sasUnitPrice} {data?.currency}
+                                                PO Birim Fiyat: {item?.sasUnitPrice} {data?.currency}
                                             </Text>
                                             <Text style={{ fontSize: 11 }}>
                                                 Tutar:{(item?.netAmount)} {data?.currency}

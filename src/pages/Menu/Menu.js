@@ -1,5 +1,5 @@
 // React
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { useEffect } from 'react'
 
 // React Native
@@ -11,7 +11,7 @@ import { VStack, HStack, Image } from 'native-base'
 import { styles } from './MenuStyle'
 
 // Navigation
-import { useNavigation } from '@react-navigation/native'
+import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { MENU_NAV } from '../../navigations/constants'
 
 // Api
@@ -145,15 +145,28 @@ export default function Menu() {
         }
     }
 
-    useEffect(() => {
+    const callApis = () => {
         getPurchaseRequests()
         getExpenceRequests()
         PaymentRequests()
         purchaseAggrementRequests()
         getPurchaseOrdersRequest()
         getPurchaseInvoicesRequest()
-    }, [isLogin])
+    }
 
+    useFocusEffect(
+        useCallback(() => {
+            setRefreshing(true)
+            callApis()
+            setTimeout(() => {
+                setRefreshing(false)
+            }, 1000)
+        }, [])
+    );
+
+    useEffect(() => {
+        callApis()
+    }, [isLogin])
 
     const calculateHeader = (id) => {
         if (id === "1") {
@@ -209,12 +222,7 @@ export default function Menu() {
 
     const onRefresh = React.useCallback(() => {
         setRefreshing(true)
-        getPurchaseRequests()
-        getExpenceRequests()
-        PaymentRequests()
-        purchaseAggrementRequests()
-        getPurchaseOrdersRequest()
-        getPurchaseInvoicesRequest()
+        callApis()
         setTimeout(() => {
             setRefreshing(false)
         }, 1000)
