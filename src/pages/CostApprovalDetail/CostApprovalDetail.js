@@ -1,9 +1,9 @@
 //React
-import React, { useLayoutEffect, useEffect, useState } from 'react'
+import React, {  useEffect, useState } from 'react'
 
 // React Native
-import { View, Text, TouchableOpacity, ScrollView, SafeAreaView, Alert } from 'react-native'
-import { VStack, HStack } from 'native-base'
+import { View, Text, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native'
+import { VStack } from 'native-base'
 import { Icon, SearchBar } from 'react-native-elements'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
@@ -20,11 +20,15 @@ import moment from "moment"
 import getExpenceFileRequests from '../../common/api/expence/getExpenceFileRequests'
 import postRecordApproveRejectControl from '../../common/api/postRecordApproveRejectControl'
 
-// Enum
-import { API_STATUS } from '../../common/Enums'
-
 // Redux
 import { useSelector } from 'react-redux'
+import { MENU_NAV } from '../../navigations/constants'
+
+// File Library
+import * as FileSystem from "expo-file-system"
+import { shareAsync } from "expo-sharing"
+import { Platform } from 'react-native'
+import CostApprovalDetailLine from './CostApprovalDetailLine'
 
 export default function CostApprovalDetail({
     route
@@ -38,6 +42,8 @@ export default function CostApprovalDetail({
     const [dataLines, setDataLines] = useState(route?.params?.data?.lines)
     const [search, setSearch] = useState("")
     const [totalAmount, setTotalAmount] = useState("")
+
+    const expenceFileHeader = useSelector(state => state.expence?.expenceFile?.resultObject)
 
     useEffect(() => {
         setData(route?.params?.data)
@@ -72,25 +78,61 @@ export default function CostApprovalDetail({
     const fixDateCalc = (date) => {
 
         let datee = date?.substring(0, 10)
-
         var longDateStr = moment(datee, 'M/D/Y').format("DD/MM/YYYY")
-
         return longDateStr
     }
 
+    useEffect(() => {
+        getExpenceFileRequests(data?.expenseRequestFormHeader)
+    }, [data])
 
-    const getFile = (file) => {
-        getExpenceFileRequests(file)
-    }
 
     const handleOnRecordRejected = () => {
         isRejected = true
-        postRecordApproveRejectControl(data?.tableRecId, data?.recId, 9,navigation,isRejected)
+        postRecordApproveRejectControl(data?.tableRecId, data?.recId, 9, navigation, isRejected)
     }
 
     const handleOnRecordApprove = () => {
-        isRejected=false
-        postRecordApproveRejectControl(data?.tableRecId, data?.recId, 4,navigation,isRejected)
+        isRejected = false
+        postRecordApproveRejectControl(data?.tableRecId, data?.recId, 4, navigation, isRejected)
+    }
+
+    const save = async (uri, filename, mimetype) => {
+        if (Platform.OS === "android") {
+            const permissions = await FileSystem.StorageAccessFramework.requestDirectoryPermissionsAsync()
+            if (permissions.granted) {
+                const base64 = await FileSystem.readAsStringAsync(uri, { encoding: FileSystem.EncodingType.Base64 })
+                await FileSystem.StorageAccessFramework.createFileAsync(permissions.directoryUri, filename, mimetype)
+                    .then(async (uri) => {
+                        await FileSystem.writeAsStringAsync(uri, base64, { encoding: FileSystem.EncodingType.Base64 })
+                    })
+                    .catch(e => console.log(e))
+            } else {
+                shareAsync(uri)
+            }
+        } else {
+            shareAsync(uri)
+        }
+    };
+
+    const downloadFromUrl = async (fileData) => {
+
+        let extension = fileData?.substring(fileData?.lastIndexOf('.') + 1, fileData?.length)
+
+        if (extension === "jpg" || extension === "jpeg" || extension === "pdf") {
+
+            navigation.navigate(MENU_NAV.OPEN_FILE,{data:fileData})
+        }
+        else {
+
+            let fileType = fileData?.substring(fileData?.lastIndexOf('.') + 1, fileData?.length)
+            const filename = "file." + fileType;
+            const result = await FileSystem.downloadAsync(
+                fileData,
+                FileSystem.documentDirectory + filename
+            )
+            save(result.uri, filename, result.headers["Content-Type"])
+        }
     }
 
     return (
@@ -186,6 +228,46 @@ export default function CostApprovalDetail({
                             style={{
                                 flexDirection: "row",
                                 alignItems: "center",
+                                paddingHorizontal: 16,
+                                marginTop: 10,
+                                fontWeight: "bold"
+                            }}
+                        >
+
+                            <Text style={{
+                                color: "#000000",
+                                fontSize: 15,
+                                lineHeight: 22,
+                                fontWeight: 'bold'
+                            }}>
+                                Dosya
+                            </Text>
+
+                            <View style={{ justifyContent: "flex-end", flexDirection: "row", flex: 1 }}>
+                                {
+                                    expenceFileHeader?.map((item, index) => {
+                                        return (
+                                            <View key={index}>
+                                                <TouchableOpacity onPress={() => downloadFromUrl(item)}>
+                                                    <Icon
+                                                        name="ios-attach-sharp"
+                                                        type="ionicon"
+                                                        size={26}
+                                                        color="black"
+                                                    />
+                                                </TouchableOpacity>
+                                            </View>
+                                        )
+                                    })
+                                }
+                            </View>
+
+                        </View>
+
+                        <View
+                            style={{
+                                flexDirection: "row",
+                                alignItems: "center",
                                 justifyContent: "space-between",
                                 paddingHorizontal: 16,
                                 marginTop: 16
@@ -247,68 +329,18 @@ export default function CostApprovalDetail({
 
                         {
                             dataLines?.map((item, index) => {
+
                                 return (
-                                    <HStack style={styles.list} key={index}>
-                                        <HStack style={{ alignItems: "center" }}>
-                                            <View
-                                                style={{
-                                                    justifyContent: 'center',
-                                                    backgroundColor: "#CCE2D9",
-                                                    width: 24,
-                                                    height: 24,
-                                                    borderRadius: 12
-                                                }}
-                                            >
-                                                <Text
-                                                    style={{
-
-                                                        fontSize: 14,
-                                                        lineHeight: 16,
-                                                        color: "#007041",
-                                                        textAlign: "center",
-                                                        alignSelf: "center"
-
-                                                    }}
-                                                >
-                                                    {item?.lineNum}
-                                                </Text>
-                                            </View>
-                                            <VStack style={{ marginLeft: 16, maxWidth: 270 }} space={"4px"}>
-                                                <Text style={{ fontWeight: "bold" }}>
-                                                    Kategori: {item?.expenseCategory}
-                                                </Text>
-                                                <Text style={{ fontSize: 13, lineHeight: 18 }}>
-                                                    Masraf: {item?.expenseName}
-                                                </Text>
-                                                <Text style={{ fontSize: 13, lineHeight: 18, paddingLeft: 0, marginLeft: 0, fontWeight: "bold" }}>
-                                                    {/* {new Date(item?.expenseDate).toLocaleDateString("tr-TR").replaceAll('.', '/')} - {item?.amount} {data?.currencyCode} */}
-                                                    {fixDateCalc(item?.expenseDate)} - {item?.amount} {data?.currencyCode}
-                                                </Text>
-                                                <Text style={{ fontSize: 13, lineHeight: 18 }}>
-                                                    Kredi Kart: {item?.creditCard}
-                                                </Text>
-                                                <Text style={{ flexWrap: "wrap" }}>
-                                                    Açıklama: {item?.description}
-                                                </Text>
-                                            </VStack>
-
-                                        </HStack>
-                                        <TouchableOpacity onPress={() => getFile(item?.expenseRequestFormHeader)}>
-                                            <Icon
-                                                name="ios-attach-sharp"
-                                                type="ionicon"
-                                                size={24}
-                                                color="black"
-                                                style={{ marginRight: 12 }}
-                                            />
-                                        </TouchableOpacity>
-                                    </HStack>
+                                    <CostApprovalDetailLine
+                                        key={index}
+                                        index={index}
+                                        item={item}
+                                        data={data}
+                                    />
 
                                 )
                             })
                         }
-
-
 
                         <VStack style={{ backgroundColor: "#FFFFFF", paddingBottom: 80 }} />
                     </ScrollView>
@@ -316,6 +348,6 @@ export default function CostApprovalDetail({
 
             </View >
 
-        </SafeAreaView>
+        </SafeAreaView >
     )
 }

@@ -9,13 +9,19 @@ import { useSelector } from 'react-redux'
 
 //Navigation
 import { useNavigation } from '@react-navigation/native'
+import { useEffect } from 'react'
+import { useState } from 'react'
 
-export default function OpenFile() {
-
+export default function OpenFile({
+    route
+}) {
 
     const navigation = useNavigation()
 
-    const paymentFile = useSelector(state => state.payment?.getPaymentFile?.resultObject)
+    const [fileDataUrl, setFileDataUrl] = useState("")
+    useEffect(() => {
+        setFileDataUrl(route?.params?.data)
+    }, [route])
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -25,6 +31,6 @@ export default function OpenFile() {
     }, [navigation])
 
     return (
-        <WebView source={{ uri: paymentFile }} />
+        <WebView source={{ uri: fileDataUrl }} />
     )
 }

@@ -77,7 +77,7 @@ export default function PaymentRequestDetail({
     const downloadFromUrl = async () => {
         if (fileExtension === "jpg" || fileExtension === "jpeg" || fileExtension === "pdf") {
 
-            navigation.navigate(MENU_NAV.OPEN_FILE)
+            navigation.navigate(MENU_NAV.OPEN_FILE,{data:paymentFile})
         }
         else {
 
@@ -105,26 +105,6 @@ export default function PaymentRequestDetail({
             //     });
         }
     }
-
-    // const share = async (url) => {
-    //     try {
-    //         const result = await Share.share({
-    //             url
-    //         });
-
-    //         if (result.action === Share.sharedAction) {
-    //             if (result.activityType) {
-    //                 // shared with activity type of result.activityType
-    //             } else {
-    //                 // shared
-    //             }
-    //         } else if (result.action === Share.dismissedAction) {
-    //             // dismissed
-    //         }
-    //     } catch (error) {
-    //         alert(error.message);
-    //     }
-    // }
 
     const save = async (uri, filename, mimetype) => {
         if (Platform.OS === "android") {
