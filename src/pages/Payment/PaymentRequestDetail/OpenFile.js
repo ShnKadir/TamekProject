@@ -1,16 +1,14 @@
 // React
 import React, { useLayoutEffect } from 'react'
+import { useEffect } from 'react'
+import { useState } from 'react'
 
-//React Native
+// React Native
 import { WebView } from 'react-native-webview'
-
-// Redux
-import { useSelector } from 'react-redux'
+import { ActivityIndicator } from 'react-native-paper'
 
 //Navigation
 import { useNavigation } from '@react-navigation/native'
-import { useEffect } from 'react'
-import { useState } from 'react'
 
 export default function OpenFile({
     route
@@ -18,7 +16,8 @@ export default function OpenFile({
 
     const navigation = useNavigation()
 
-    const [fileDataUrl, setFileDataUrl] = useState("")
+    const [fileDataUrl, setFileDataUrl] = useState(null)
+
     useEffect(() => {
         setFileDataUrl(route?.params?.data)
     }, [route])
@@ -31,6 +30,10 @@ export default function OpenFile({
     }, [navigation])
 
     return (
-        <WebView source={{ uri: fileDataUrl }} />
+
+        fileDataUrl === null ?
+            <ActivityIndicator size={'small'} color="#CCE2D9" />
+            :
+            <WebView source={{ uri: fileDataUrl }} />
     )
 }

@@ -12,11 +12,11 @@ import { clearRecordApproveStatusControlSlice } from "../../redux/slice/recordAp
 export default function clearRedux() {
 
     store.dispatch(clearAuthSlice())
-    store.dispatch(clearPurchaseRequestSlice())
     store.dispatch(clearExpenceSlice())
     store.dispatch(clearPaymentRequestSlice())
     store.dispatch(clearPurchaseAggrementSlice())
-    store.dispatch(clearPurchaseOrderRequestSlice())
     store.dispatch(clearPurchaseInvoiceRequestSlice())
+    store.dispatch(clearPurchaseOrderRequestSlice())
+    store.dispatch(clearPurchaseRequestSlice())
     store.dispatch(clearRecordApproveStatusControlSlice())
 }

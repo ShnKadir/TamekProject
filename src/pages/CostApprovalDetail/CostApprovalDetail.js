@@ -1,11 +1,20 @@
 //React
-import React, {  useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 // React Native
-import { View, Text, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native'
+import {
+    View,
+    Text,
+    TouchableOpacity,
+    ScrollView,
+    SafeAreaView,
+    Platform
+}
+    from 'react-native'
 import { VStack } from 'native-base'
 import { Icon, SearchBar } from 'react-native-elements'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { ActivityIndicator } from 'react-native-paper'
 
 // Styles
 import { styles } from './CostApprovalDetailStyle'
@@ -27,8 +36,10 @@ import { MENU_NAV } from '../../navigations/constants'
 // File Library
 import * as FileSystem from "expo-file-system"
 import { shareAsync } from "expo-sharing"
-import { Platform } from 'react-native'
+
+// Components
 import CostApprovalDetailLine from './CostApprovalDetailLine'
+import { API_STATUS } from '../../common/Enums'
 
 export default function CostApprovalDetail({
     route
@@ -44,6 +55,7 @@ export default function CostApprovalDetail({
     const [totalAmount, setTotalAmount] = useState("")
 
     const expenceFileHeader = useSelector(state => state.expence?.expenceFile?.resultObject)
+    const expenceFileApistatus = useSelector(state => state.expence?.expenceFileApistatus)
 
     useEffect(() => {
         setData(route?.params?.data)
@@ -121,7 +133,7 @@ export default function CostApprovalDetail({
 
         if (extension === "jpg" || extension === "jpeg" || extension === "pdf") {
 
-            navigation.navigate(MENU_NAV.OPEN_FILE,{data:fileData})
+            navigation.navigate(MENU_NAV.OPEN_FILE, { data: fileData })
         }
         else {
 
@@ -139,214 +151,223 @@ export default function CostApprovalDetail({
 
         <SafeAreaView>
 
-            <View style={{ backgroundColor: "#FFFFFF" }}>
+            {
+                expenceFileApistatus === API_STATUS.SUCCESS ?
+                    <View style={{ backgroundColor: "#FFFFFF" }}>
 
-                <View style={{ paddingHorizontal: 16 }}>
-                    <View style={{
-                        paddingVertical: 32,
-                        backgroundColor: "#FFFFFF",
-                        marginTop: 8,
-                        marginBottom: 24,
-                        borderWidth: 1,
-                        borderRadius: 16,
-                        borderColor: "#FFFFFF",
-                        shadowRadius: 20,
-                        shadowColor: "black",
-                        shadowOffset: { width: 0, height: 2 },
-                        shadowOpacity: 0.1,
-                        elevation: 10,
-                    }}>
-
-                        <View
-                            style={{
-                                flexDirection: "row",
-                                alignItems: "center",
-                                justifyContent: "space-between",
-                                paddingHorizontal: 16,
-                                marginBottom: 8
-                            }}
-                        >
-                            <Text style={{ color: "#000000", fontSize: 13, fontWeight: "bold" }}>Harcayan</Text>
-
-                            <Text style={{
-                                color: "#000000",
-                                fontSize: 17,
-                                flex: 1,
-                                lineHeight: 22,
-                                textAlign: 'right',
-                                marginLeft: 16
+                        <View style={{ paddingHorizontal: 16 }}>
+                            <View style={{
+                                paddingVertical: 32,
+                                backgroundColor: "#FFFFFF",
+                                marginTop: 8,
+                                marginBottom: 24,
+                                borderWidth: 1,
+                                borderRadius: 16,
+                                borderColor: "#FFFFFF",
+                                shadowRadius: 20,
+                                shadowColor: "black",
+                                shadowOffset: { width: 0, height: 2 },
+                                shadowOpacity: 0.1,
+                                elevation: 10,
                             }}>
-                                {data?.spenderUserIdName}
-                            </Text>
-                        </View>
 
-                        <View
-                            style={{
-                                flexDirection: "row",
-                                alignItems: "center",
-                                justifyContent: "space-between",
-                                paddingHorizontal: 16,
-                                marginBottom: 8
-                            }}
-                        >
-                            <Text style={{ color: "#000000", fontSize: 13, fontWeight: "bold" }}>Tarih</Text>
+                                <View
+                                    style={{
+                                        flexDirection: "row",
+                                        alignItems: "center",
+                                        justifyContent: "space-between",
+                                        paddingHorizontal: 16,
+                                        marginBottom: 8
+                                    }}
+                                >
+                                    <Text style={{ color: "#000000", fontSize: 13, fontWeight: "bold" }}>Harcayan</Text>
 
-                            <Text style={{
-                                color: "#000000",
-                                fontSize: 17,
-                                flex: 1,
-                                lineHeight: 22,
-                                textAlign: "right"
-                            }}>
-                                {fixDateCalc(data?.dateOfEntry)}
-                            </Text>
-                        </View>
+                                    <Text style={{
+                                        color: "#000000",
+                                        fontSize: 17,
+                                        flex: 1,
+                                        lineHeight: 22,
+                                        textAlign: 'right',
+                                        marginLeft: 16
+                                    }}>
+                                        {data?.spenderUserIdName}
+                                    </Text>
+                                </View>
 
-                        <View
-                            style={{
-                                flexDirection: "row",
-                                alignItems: "center",
-                                justifyContent: "space-between",
-                                paddingHorizontal: 16,
-                                marginBottom: 8
-                            }}
-                        >
-                            <Text style={{ color: "#000000", fontSize: 13, fontWeight: "bold" }}>Toplam</Text>
+                                <View
+                                    style={{
+                                        flexDirection: "row",
+                                        alignItems: "center",
+                                        justifyContent: "space-between",
+                                        paddingHorizontal: 16,
+                                        marginBottom: 8
+                                    }}
+                                >
+                                    <Text style={{ color: "#000000", fontSize: 13, fontWeight: "bold" }}>Tarih</Text>
 
-                            <Text style={{
-                                color: "#000000",
-                                fontSize: 17,
-                                flex: 1,
-                                lineHeight: 22,
-                                textAlign: "right"
-                            }}>
-                                {totalAmount.toString()} {data?.currencyCode}
-                            </Text>
-                        </View>
+                                    <Text style={{
+                                        color: "#000000",
+                                        fontSize: 17,
+                                        flex: 1,
+                                        lineHeight: 22,
+                                        textAlign: "right"
+                                    }}>
+                                        {fixDateCalc(data?.dateOfEntry)}
+                                    </Text>
+                                </View>
 
-                        <View
-                            style={{
-                                flexDirection: "row",
-                                alignItems: "center",
-                                paddingHorizontal: 16,
-                                marginTop: 10,
-                                fontWeight: "bold"
-                            }}
-                        >
+                                <View
+                                    style={{
+                                        flexDirection: "row",
+                                        alignItems: "center",
+                                        justifyContent: "space-between",
+                                        paddingHorizontal: 16,
+                                        marginBottom: 8
+                                    }}
+                                >
+                                    <Text style={{ color: "#000000", fontSize: 13, fontWeight: "bold" }}>Toplam</Text>
 
-                            <Text style={{
-                                color: "#000000",
-                                fontSize: 15,
-                                lineHeight: 22,
-                                fontWeight: 'bold'
-                            }}>
-                                Dosya
-                            </Text>
+                                    <Text style={{
+                                        color: "#000000",
+                                        fontSize: 17,
+                                        flex: 1,
+                                        lineHeight: 22,
+                                        textAlign: "right"
+                                    }}>
+                                        {totalAmount.toString()} {data?.currencyCode}
+                                    </Text>
+                                </View>
 
-                            <View style={{ justifyContent: "flex-end", flexDirection: "row", flex: 1 }}>
                                 {
-                                    expenceFileHeader?.map((item, index) => {
+                                    expenceFileHeader?.length > 0 &&
+
+                                    <View
+                                        style={{
+                                            flexDirection: "row",
+                                            alignItems: "center",
+                                            paddingHorizontal: 16,
+                                            marginTop: 10,
+                                            fontWeight: "bold"
+                                        }}
+                                    >
+
+                                        <Text style={{
+                                            color: "#000000",
+                                            fontSize: 15,
+                                            lineHeight: 22,
+                                            fontWeight: 'bold'
+                                        }}>
+                                            Dosya
+                                        </Text>
+
+                                        <View style={{ justifyContent: "flex-end", flexDirection: "row", flex: 1 }}>
+                                            {
+                                                expenceFileHeader?.map((item, index) => {
+                                                    return (
+                                                        <View key={index}>
+                                                            <TouchableOpacity onPress={() => downloadFromUrl(item)}>
+                                                                <Icon
+                                                                    name="ios-attach-sharp"
+                                                                    type="ionicon"
+                                                                    size={26}
+                                                                    color="black"
+                                                                />
+                                                            </TouchableOpacity>
+                                                        </View>
+                                                    )
+                                                })
+                                            }
+                                        </View>
+
+                                    </View>
+
+                                }
+                                <View
+                                    style={{
+                                        flexDirection: "row",
+                                        alignItems: "center",
+                                        justifyContent: "space-between",
+                                        paddingHorizontal: 16,
+                                        marginTop: 16
+                                    }}
+                                >
+                                    <View style={{ paddingRight: 5 }}>
+
+                                        <TouchableOpacity
+                                            style={styles.denialButton}
+                                            onPress={handleOnRecordRejected}
+                                        >
+                                            <Text style={{ color: "#DA291C", fontWeight: "600" }} >
+                                                Reddet
+                                            </Text>
+                                        </TouchableOpacity>
+                                    </View>
+
+                                    <View>
+
+                                        <TouchableOpacity
+                                            style={styles.approveButton}
+                                            onPress={handleOnRecordApprove}
+                                        >
+                                            <Text style={{ color: "#007041", fontWeight: "600" }} >
+                                                Onayla
+                                            </Text>
+                                        </TouchableOpacity>
+                                    </View>
+
+                                </View>
+
+                            </View>
+                        </View>
+
+                        <View style={{ backgroundColor: "#FFFFFF" }}>
+                            <VStack style={{ borderBottomColor: "#F2F2F2", borderBottomWidth: 1 }}>
+                                <SearchBar
+                                    placeholder="Search"
+                                    theme="light"
+                                    platform="ios"
+                                    inputContainerStyle={{ backgroundColor: "rgba(118, 118, 128, 0.12)", height: 36 }}
+                                    searchIcon={{ color: "#3C3C43" }}
+                                    onChangeText={updateSearch}
+                                    value={search}
+                                />
+                            </VStack>
+                        </View>
+
+                        <KeyboardAwareScrollView
+                            extraHeight={0}
+                            style={{
+                                width: "100%",
+                                backgroundColor: "#FFFFFF",
+                            }}
+                            contentContainerStyle={{ paddingBottom: 700 }}
+
+                        >
+                            <ScrollView contentContainerStyle={{ flex: 1 }} style={{ backgroundColor: "#F5F5F5" }}>
+
+                                {
+                                    dataLines?.map((item, index) => {
+
                                         return (
-                                            <View key={index}>
-                                                <TouchableOpacity onPress={() => downloadFromUrl(item)}>
-                                                    <Icon
-                                                        name="ios-attach-sharp"
-                                                        type="ionicon"
-                                                        size={26}
-                                                        color="black"
-                                                    />
-                                                </TouchableOpacity>
-                                            </View>
+                                            <CostApprovalDetailLine
+                                                key={index}
+                                                index={index}
+                                                item={item}
+                                                data={data}
+                                            />
+
                                         )
                                     })
                                 }
-                            </View>
 
-                        </View>
+                                <VStack style={{ backgroundColor: "#FFFFFF", paddingBottom: 80 }} />
+                            </ScrollView>
+                        </KeyboardAwareScrollView>
 
-                        <View
-                            style={{
-                                flexDirection: "row",
-                                alignItems: "center",
-                                justifyContent: "space-between",
-                                paddingHorizontal: 16,
-                                marginTop: 16
-                            }}
-                        >
-                            <View style={{ paddingRight: 5 }}>
-
-                                <TouchableOpacity
-                                    style={styles.denialButton}
-                                    onPress={handleOnRecordRejected}
-                                >
-                                    <Text style={{ color: "#DA291C", fontWeight: "600" }} >
-                                        Reddet
-                                    </Text>
-                                </TouchableOpacity>
-                            </View>
-
-                            <View>
-
-                                <TouchableOpacity
-                                    style={styles.approveButton}
-                                    onPress={handleOnRecordApprove}
-                                >
-                                    <Text style={{ color: "#007041", fontWeight: "600" }} >
-                                        Onayla
-                                    </Text>
-                                </TouchableOpacity>
-                            </View>
-
-                        </View>
-
-                    </View>
-                </View>
-
-                <View style={{ backgroundColor: "#FFFFFF" }}>
-                    <VStack style={{ borderBottomColor: "#F2F2F2", borderBottomWidth: 1 }}>
-                        <SearchBar
-                            placeholder="Search"
-                            theme="light"
-                            platform="ios"
-                            inputContainerStyle={{ backgroundColor: "rgba(118, 118, 128, 0.12)", height: 36 }}
-                            searchIcon={{ color: "#3C3C43" }}
-                            onChangeText={updateSearch}
-                            value={search}
-                        />
-                    </VStack>
-                </View>
-
-                <KeyboardAwareScrollView
-                    extraHeight={0}
-                    style={{
-                        width: "100%",
-                        backgroundColor: "#FFFFFF",
-                    }}
-                    contentContainerStyle={{ paddingBottom: 700 }}
-
-                >
-                    <ScrollView contentContainerStyle={{ flex: 1 }} style={{ backgroundColor: "#F5F5F5" }}>
-
-                        {
-                            dataLines?.map((item, index) => {
-
-                                return (
-                                    <CostApprovalDetailLine
-                                        key={index}
-                                        index={index}
-                                        item={item}
-                                        data={data}
-                                    />
-
-                                )
-                            })
-                        }
-
-                        <VStack style={{ backgroundColor: "#FFFFFF", paddingBottom: 80 }} />
-                    </ScrollView>
-                </KeyboardAwareScrollView>
-
-            </View >
+                    </View >
+                    :
+                    <ActivityIndicator size={'small'} color="#CCE2D9" />
+            }
 
         </SafeAreaView >
     )

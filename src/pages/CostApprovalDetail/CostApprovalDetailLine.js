@@ -2,20 +2,25 @@
 import React, { useEffect, useState } from 'react'
 
 // React Native
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity,Platform } from 'react-native'
 import { VStack, HStack } from 'native-base'
 import { Icon } from 'react-native-elements'
 
 // Styles
 import { styles } from './CostApprovalDetailStyle'
 import moment from 'moment'
-import { useSelector } from 'react-redux'
+
+// Api
 import getExpenceFileLineRequests from '../../common/api/expence/getExpenceFileLineRequests'
 
 // File Library
 import * as FileSystem from "expo-file-system"
 import { shareAsync } from "expo-sharing"
-import { Platform } from 'react-native'
+
+// Redux
+import { useSelector } from 'react-redux'
+
+// Navigation
 import { useNavigation } from '@react-navigation/native'
 import { MENU_NAV } from '../../navigations/constants'
 
@@ -45,7 +50,6 @@ export default function CostApprovalDetailLine({
     }, [])
 
     useEffect(() => {
-        debugger
         if (expenceFileLine?.length > 0) {
             setHasFileLine(true)
         }
