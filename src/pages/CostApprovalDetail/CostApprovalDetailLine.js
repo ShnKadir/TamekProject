@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 
 // React Native
-import { View, Text, TouchableOpacity,Platform } from 'react-native'
+import { View, Text, TouchableOpacity, Platform } from 'react-native'
 import { VStack, HStack } from 'native-base'
 import { Icon } from 'react-native-elements'
 
@@ -34,8 +34,6 @@ export default function CostApprovalDetailLine({
 
     const expenceFileLine = useSelector(state => state.expence?.expenceFileLine?.resultObject)
 
-    const [hasFileLine, setHasFileLine] = useState(false)
-
     const fixDateCalc = (date) => {
 
         let datee = date?.substring(0, 10)
@@ -44,19 +42,8 @@ export default function CostApprovalDetailLine({
     }
 
     useEffect(() => {
-
         getExpenceFileLineRequests(item?.expenseRequestFormHeader)
-
     }, [])
-
-    useEffect(() => {
-        if (expenceFileLine?.length > 0) {
-            setHasFileLine(true)
-        }
-        else {
-            setHasFileLine(false)
-        }
-    }, [expenceFileLine])
 
     const save = async (uri, filename, mimetype) => {
         if (Platform.OS === "android") {
@@ -76,29 +63,25 @@ export default function CostApprovalDetailLine({
         }
     };
 
-    const downloadFromUrl = async (expenseRequestFormHeader) => {
+    const downloadFromUrl = async (file) => {
 
-        getExpenceFileLineRequests(expenseRequestFormHeader)
-
-        let fileData = expenceFileLine[0]
-        let extension = fileData?.substring(fileData?.lastIndexOf('.') + 1, fileData?.length)
+        let extension = file?.substring(file?.lastIndexOf('.') + 1, file?.length)
 
         if (extension === "jpg" || extension === "jpeg" || extension === "pdf") {
 
-            navigation.navigate(MENU_NAV.OPEN_FILE, { data: fileData })
+            navigation.navigate(MENU_NAV.OPEN_FILE, { data: file })
         }
         else {
 
-            let fileType = fileData?.substring(fileData?.lastIndexOf('.') + 1, fileData?.length)
+            let fileType = file?.substring(file?.lastIndexOf('.') + 1, file?.length)
             const filename = "file." + fileType;
             const result = await FileSystem.downloadAsync(
-                fileData,
+                file,
                 FileSystem.documentDirectory + filename
             )
             save(result.uri, filename, result.headers["Content-Type"])
         }
     }
-
 
     return (
 
@@ -148,16 +131,23 @@ export default function CostApprovalDetailLine({
             </HStack>
 
             {
-                hasFileLine &&
-                <TouchableOpacity TouchableOpacity onPress={() => downloadFromUrl(item?.expenseRequestFormHeader)}>
-                    <Icon
-                        name="ios-attach-sharp"
-                        type="ionicon"
-                        size={24}
-                        color="black"
-                        style={{ marginRight: 12 }}
-                    />
-                </TouchableOpacity>
+                expenceFileLine?.files?.map((fileLine) => {
+
+                    return (
+
+                        fileLine?.satirNo === item?.lineNum &&
+
+                        <TouchableOpacity TouchableOpacity onPress={() => downloadFromUrl(fileLine?.file)}>
+                            <Icon
+                                name="ios-attach-sharp"
+                                type="ionicon"
+                                size={24}
+                                color="black"
+                                style={{ marginRight: 12 }}
+                            />
+                        </TouchableOpacity>
+                    )
+                })
             }
 
         </HStack>

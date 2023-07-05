@@ -66,8 +66,14 @@ export default function WaitingApprovalScreen() {
     let total = 0
     let converterCost = 0
     for (let i = 0; i < item?.lines?.length; i++) {
-      total += parseFloat((item?.lines?.[i]?.amount).toLocaleString('en-US', { style: 'decimal', currency: item?.currencyCode }).replace(',', ''))
-      converterCost = (total).toLocaleString('en-US', { style: 'decimal', currency: item?.currencyCode })
+      if (item?.currencyCode) {
+        total += parseFloat((item?.lines?.[i]?.amount).toLocaleString('en-US', { style: 'decimal', currency: item?.currencyCode }).replace(',', ''))
+        converterCost = (total).toLocaleString('en-US', { style: 'decimal', currency: item?.currencyCode })
+      }
+      else {
+        total += parseFloat((item?.lines?.[i]?.amount).toLocaleString('en-US', { style: 'decimal' }).replace(',', ''))
+        converterCost = (total).toLocaleString('en-US', { style: 'decimal' })
+      }
     }
     return converterCost
   }
