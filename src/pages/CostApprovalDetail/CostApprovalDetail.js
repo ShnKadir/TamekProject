@@ -253,7 +253,7 @@ export default function CostApprovalDetail({
 
                                         <Text style={{
                                             color: "#000000",
-                                            fontSize: 15,
+                                            fontSize: 13,
                                             lineHeight: 22,
                                             fontWeight: 'bold'
                                         }}>
@@ -282,6 +282,34 @@ export default function CostApprovalDetail({
                                     </View>
 
                                 }
+
+
+                                <View style={{
+                                    paddingHorizontal: 16,
+                                    marginTop: 16
+                                }}>
+                                    <Text style={{
+                                        color: "#000000",
+                                        fontSize: 13,
+                                        lineHeight: 22,
+                                        fontWeight: 'bold'
+                                    }}>
+                                        Açıklama
+                                    </Text>
+
+                                    <Text style={{
+                                        marginTop: 8,
+                                        color: "#000000",
+                                        fontSize: 14,
+                                        lineHeight: 22,
+                                    }}
+                                        numberOfLines={4}
+                                    >
+                                        {data?.aciklama}
+                                    </Text>
+                                </View>
+
+
                                 <View
                                     style={{
                                         flexDirection: "row",

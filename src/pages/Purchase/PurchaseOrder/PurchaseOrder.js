@@ -118,7 +118,7 @@ export default function PurchaseOrder() {
                                                             <Text style={{ fontSize: 13, color: "#6C6C6C" }}>
                                                                 {item?.createdBy}
                                                             </Text>
-                                                            <Text style={{ flexWrap: "wrap", fontSize: 13, fontWeight: "bold" }}>
+                                                            <Text style={{ flexWrap: "wrap", fontSize: 13 }}>
                                                                 {item.amount}  {item.currencyCode}
                                                             </Text>
 

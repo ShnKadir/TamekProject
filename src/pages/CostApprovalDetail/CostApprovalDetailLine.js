@@ -85,7 +85,7 @@ export default function CostApprovalDetailLine({
 
     return (
 
-        <HStack style={styles.list} >
+        <HStack style={styles.list} key={index}>
             <HStack style={{ alignItems: "center" }}>
                 <View
                     style={{
@@ -111,7 +111,7 @@ export default function CostApprovalDetailLine({
                     </Text>
                 </View>
                 <VStack style={{ marginLeft: 16, maxWidth: 270 }} space={"4px"}>
-                    <Text style={{ fontWeight: "bold" }}>
+                    <Text style={{ fontWeight: "bold", fontSize: 14 }}>
                         Kategori: {item?.expenseCategory}
                     </Text>
                     <Text style={{ fontSize: 13, lineHeight: 18 }}>
@@ -123,7 +123,7 @@ export default function CostApprovalDetailLine({
                     <Text style={{ fontSize: 13, lineHeight: 18 }}>
                         Kredi Kart: {item?.creditCard}
                     </Text>
-                    <Text style={{ flexWrap: "wrap" }}>
+                    <Text style={{ flexWrap: "wrap", fontSize: 13, lineHeight: 18 }}>
                         Açıklama: {item?.description}
                     </Text>
                 </VStack>
@@ -131,13 +131,13 @@ export default function CostApprovalDetailLine({
             </HStack>
 
             {
-                expenceFileLine?.files?.map((fileLine) => {
+                expenceFileLine?.files?.map((fileLine, index) => {
 
                     return (
 
                         fileLine?.satirNo === item?.lineNum &&
 
-                        <TouchableOpacity TouchableOpacity onPress={() => downloadFromUrl(fileLine?.file)}>
+                        <TouchableOpacity TouchableOpacity onPress={() => downloadFromUrl(fileLine?.file)} key={index}>
                             <Icon
                                 name="ios-attach-sharp"
                                 type="ionicon"

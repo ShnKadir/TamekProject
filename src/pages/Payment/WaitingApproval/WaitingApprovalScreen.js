@@ -137,11 +137,11 @@ export default function WaitingApprovalScreen() {
                                 </Text>
                               </View>
                               <VStack style={{ paddingLeft: 8, maxWidth: 284, paddingTop: 8 }} space={"5px"}>
-                                <Text style={{ fontWeight: "bold", flexWrap: "wrap", fontSize: 13 }}>
+                                <Text style={{ fontWeight: "bold", flexWrap: "wrap", fontSize: 14 }}>
                                   {item?.spenderUserIdName}
                                 </Text>
 
-                                <Text style={{ fontSize: 15, fontSize: 13 }}>
+                                <Text style={{ fontSize: 13 }}>
 
                                   {fixDateCalc(item?.dateOfEntry)}
 
@@ -150,12 +150,15 @@ export default function WaitingApprovalScreen() {
                                 <HStack style={{ width: 260, justifyContent: "space-between", maxWidth: 260 }}>
                                   <HStack style={{ maxWidth: 156, paddingRight: 68 }}>
                                     <Text style={{ flexWrap: "wrap", fontSize: 13, fontWeight: "500", color: "#6C6C6C" }}>
-
                                       {calculateCost(item)} {item?.currencyCode}
                                     </Text>
                                   </HStack>
 
                                 </HStack>
+
+                                <Text style={{ fontSize: 13 }} numberOfLines={4}>
+                                  {item?.aciklama}
+                                </Text>
                               </VStack>
                             </HStack>
                             <VStack>
