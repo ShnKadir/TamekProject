@@ -67,7 +67,7 @@ export default function CostApprovalDetail({
         let total = 0
         for (let i = 0; i < data?.lines?.length; i++) {
             total += parseFloat((data?.lines?.[i]?.amount).toLocaleString('en-US', { style: 'decimal', currency: 'TL' }).replace(',', ''))
-            let converterCost = (total).toLocaleString('en-US', { style: 'decimal', currency: 'USD' })
+            let converterCost = (total).toLocaleString('en-US', { style: 'decimal', currency: 'USD' }).replace(",", "")
             setTotalAmount(converterCost)
         }
 

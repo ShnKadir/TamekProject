@@ -65,14 +65,15 @@ export default function WaitingApprovalScreen() {
   const calculateCost = (item) => {
     let total = 0
     let converterCost = 0
+    let toplamTutar = 0;
     for (let i = 0; i < item?.lines?.length; i++) {
       if (item?.currencyCode) {
         total += parseFloat((item?.lines?.[i]?.amount).toLocaleString('en-US', { style: 'decimal', currency: item?.currencyCode }).replace(',', ''))
-        converterCost = (total).toLocaleString('en-US', { style: 'decimal', currency: item?.currencyCode })
+        converterCost = (total).toLocaleString('en-US', { style: 'decimal', currency: item?.currencyCode }).replace(",", "")
       }
       else {
         total += parseFloat((item?.lines?.[i]?.amount).toLocaleString('en-US', { style: 'decimal' }).replace(',', ''))
-        converterCost = (total).toLocaleString('en-US', { style: 'decimal' })
+        converterCost = (total).toLocaleString('en-US', { style: 'decimal' }).replace(",", "")
       }
     }
     return converterCost

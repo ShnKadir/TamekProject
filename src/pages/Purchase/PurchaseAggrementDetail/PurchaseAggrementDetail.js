@@ -1,5 +1,5 @@
 // React
-import React, { useLayoutEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 // React Native
 import {
@@ -40,13 +40,13 @@ export default function PurchaseAggrementDetail({
     }, [route])
 
     const calculateCost = (data) => {
-        let total = 0
-        let converterCost = 0
+
+        let toplamTutar = 0;
         for (let i = 0; i < data?.lines?.length; i++) {
-            total += parseFloat((data?.lines?.[i]?.netAmount).toLocaleString('en-US', { style: 'decimal', currency: data?.currency }).replace(',', ''))
-            converterCost = (total)?.toLocaleString('en-US', { style: 'decimal', currency: data?.currency })
+            const tutarSayisal = parseFloat(data?.lines?.[i]?.netAmount.replace(",", ""));
+            toplamTutar += tutarSayisal;
         }
-        return converterCost
+        return toplamTutar
     }
 
     const fixDateCalc = (date) => {
@@ -60,9 +60,9 @@ export default function PurchaseAggrementDetail({
 
     const divideCalculation = (item) => {
 
-        let totalCost = parseFloat(item?.netAmount)
+        let totalCost = parseFloat((item?.netAmount).toLocaleString('en-US', { style: 'decimal', currency: data?.currency }).replace(',', ''))
 
-        let qty = parseFloat(item?.qty)
+        let qty = parseFloat((item?.qty).toLocaleString('en-US', { style: 'decimal', currency: data?.currency }).replace(',', ''))
 
         return totalCost / qty
     }

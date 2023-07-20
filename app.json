@@ -19,21 +19,22 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.filizzgursan.TamekProject"
+      "bundleIdentifier": "com.tamek.tektik",
+      "buildNumber": "1"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.filizzgursan.TamekProject"
+      "package": "com.tamek.tektik"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "b455fbc5-988d-40ad-a001-078cf2205b32"
+        "projectId": "cda4725f-dcb9-4b70-a94c-06eb1d7ebbfa"
       }
     }
   }
