@@ -14,13 +14,14 @@ import apiCall from "../apiCall"
 import postLogin from "./postLogin"
 import { LOGIN_NAV } from "../../../navigations/constants"
 
-export default async function postCreatePassword(userMail, newPassword, navigation) {
+export default async function postCreatePassword(userMail, newPassword, activationCode, navigation) {
 
     store.dispatch(postCreatePasswordRequest())
 
     const requestBody = {
         userMail: userMail,
         password: newPassword,
+        activationCode: activationCode
     }
 
     const response = await apiCall({

@@ -9,10 +9,12 @@ const initialState = {
     email: null,
     password: null,
     changePassword: null,
+    sendMail:null,
 
     loginApiStatus: API_STATUS.NONE,
     createPasswordApiStatus: API_STATUS.NONE,
-    changePasswordApiStatus: API_STATUS.NONE
+    changePasswordApiStatus: API_STATUS.NONE,
+    sendMailApiStatus:API_STATUS.NONE
 }
 
 const authSlice = createSlice({
@@ -71,6 +73,18 @@ const authSlice = createSlice({
             state.loginFailure = action.payload
         },
 
+        postSendMailRequest: state => {
+            state.sendMailApiStatus = API_STATUS.REQUEST
+        },
+        postSendMailSuccess: (state, action) => {            
+            state.sendMail = action.payload
+            state.sendMailApiStatus = API_STATUS.SUCCESS
+        },
+        postSendMailFailure: (state, action) => {
+            state.sendMailApiStatus = API_STATUS.FAILURE
+            state.loginFailure = action.payload
+        },
+
 
         logout: () => initialState
     }
@@ -94,6 +108,10 @@ export const {
     postChangePasswordRequest,
     postChangePasswordSuccess,
     postChangePasswordFailure,
+
+    postSendMailRequest,
+    postSendMailSuccess,
+    postSendMailFailure,
 
     logout
 } = authSlice.actions

@@ -2,7 +2,7 @@
 import React, { useState, useLayoutEffect, useEffect } from 'react'
 
 // React Native
-import { Text, TouchableOpacity } from 'react-native'
+import { Text, TouchableOpacity, View } from 'react-native'
 import { ScrollView, VStack } from 'native-base'
 import { Icon } from 'react-native-elements'
 import { HelperText } from 'react-native-paper'
@@ -13,7 +13,10 @@ import { styles } from "./SetNewPasswordScreenStyle"
 //Components
 import InputArea from '../../../../components/InputArea/InputArea'
 import CommonButton from '../../../CommonButton/CommonButton'
+
+// Api
 import postCreatePassword from '../../../../common/api/auth/postCreatePassword'
+import postSendMail from '../../../../common/api/auth/postSendMail'
 
 // Navigations
 import { useNavigation } from '@react-navigation/native'
@@ -31,11 +34,13 @@ export default function SetNewPasswordScreen({
     const [isNewPasswordVisible, setIsNewPasswordVisible] = useState(false)
     const [isNewPasswordVisibleAgain, setIsNewPasswordVisibleAgain] = useState(false)
     const [passWordIsFocused, setPasswordIsFocused] = useState(false)
+    const [activationCodeIsFocused, setActivationCodeIsFocused] = useState(false)
     const [passWordAgainIsFocused, setPasswordAgainIsFocused] = useState(false)
     const [isLoginButtonDisable, setIsLoginButtonDisable] = useState(true)
     const [passwordSecurityMessage, setPasswordSecurityMessage] = useState()
     const [unMatchMessage, setUnMatchMessage] = useState()
     const [isUnMatchPassword, setIsUnMatchPassword] = useState(false)
+    const [activationCode, setActivationCode] = useState(null)
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -56,6 +61,14 @@ export default function SetNewPasswordScreen({
     const newPasswordFocus = () => {
         setPasswordIsFocused(true)
         setPasswordSecurityMessage("Yeni şifre,büyük veya küçük harfler ve 10 tabanlı basamak (0'dan 9'a kadar) dahil olmak üzere en az 8 karakter içermelidir.")
+    }
+
+    const activationCodeFocus = () => {
+        setActivationCodeIsFocused(true)
+    }
+
+    const activationCodeBlur = () => {
+        setActivationCodeIsFocused(false)
     }
 
     const newPasswordBlur = () => {
@@ -97,7 +110,7 @@ export default function SetNewPasswordScreen({
         if (newPassword?.length > 0 && newPasswordAgain?.length > 0 && (newPassword === newPasswordAgain)) {
 
             setIsLoginButtonDisable(true)
-            postCreatePassword(route.params.userMail, newPassword, navigation)
+            postCreatePassword(route.params.userMail, newPassword, activationCode, navigation)
         }
     }
 
@@ -111,6 +124,9 @@ export default function SetNewPasswordScreen({
         }
     }, [newPassword, newPasswordAgain])
 
+    const sendActivationCode = () => {
+        postSendMail()
+    }
     return (
         <TouchableWithoutFeedback
             touchSoundDisabled={true}
@@ -129,6 +145,35 @@ export default function SetNewPasswordScreen({
                         Yeni şifreniz daha önce kullandığınız şifreden farklı olmalıdır.
                     </HelperText>
 
+                    <InputArea
+                        value={activationCode}
+                        setValue={setActivationCode}
+                        inputStyle={[
+                            activationCodeIsFocused ?
+                                { borderColor: "#007041" } :
+                                { borderColor: "#808080" },
+                            {
+                                height: 56,
+                                borderRadius: 36,
+                                borderWidth: 1,
+                                marginBottom: 8,
+                                marginTop: 4
+                            }]}
+                        placeholder={"Aktivasyon Kodu"}
+                        placeholderTextColor='#808080'
+                        textInputStyle={[activationCodeIsFocused ?
+                            { color: "#007041" } :
+                            { color: "#000000" }]}
+
+                        onFocus={activationCodeFocus}
+                        onBlur={activationCodeBlur}
+                    />
+                    <View style={{ flex: 1, flexDirection: "row", justifyContent: "flex-end", paddingHorizontal: 16, marginBottom: 8 }}>
+                        <Text style={{ marginRight: 8 }}>Kodu almadınız mı?</Text>
+                        <TouchableOpacity onPress={sendActivationCode}>
+                            <Text style={{ fontWeight: "bold", color: "#007041" }}>Yeniden Gönder</Text>
+                        </TouchableOpacity>
+                    </View>
                     <InputArea
                         value={newPassword}
                         setValue={setNewPassword}

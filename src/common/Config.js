@@ -13,6 +13,10 @@ export const API = {
         CHANGE_PASSWORD: {
             path: "/api/Auth/ChangePassword",
             method: "POST"
+        },
+        SEND_MAIL:{
+            path:"/api/Auth/SendMailTest",
+            method:"POST"
         }
     },
     GET_COMPANIES_LIST: {
