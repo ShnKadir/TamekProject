@@ -12,7 +12,10 @@ export const MENU_NAV = {
   PURCHASE_ORDER: "PurchaseOrder",
   PURCHASE_ORDER_DETAIL:"PurchaseOrderDetail",
   MENU: "Menu",
-  OPEN_FILE:"OpenFile"
+  OPEN_FILE:"OpenFile",
+  RAW_MATERIAL_APPROVE:"RawMaterialApprove",
+  RAW_MATERIAL_PURCHASE:"RawMaterialPurchase",
+  RAW_CREATE_MATERIAL:"CreateRawMaterial"
 }
 
 export const PAYMENT_NAV = {

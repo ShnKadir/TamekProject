@@ -29,6 +29,7 @@ export const styles = StyleSheet.create({
 		fontSize: 17,
 		lineHeight: 22,
 		color: "#FFFFFF",
-		fontWeight: "600"
+		fontWeight: "600",
+		maxWidth:185
 	}
 })

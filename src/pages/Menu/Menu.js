@@ -40,6 +40,8 @@ import purchaseContract from '../../../assets/image/purchaseContract.png'
 import purchaseInvoice from '../../../assets/image/purchaseInvoice.png'
 import purchaseOrder from '../../../assets/image/purchaseOrder.png'
 import purchaseRequest from '../../../assets/image/purchaseRequest.png'
+import rawMaterialApprove from '../../../assets/image/rawMaterialApprove.png'
+import rawMaterialPurchase from '../../../assets/image/rawMaterialPurchase.png'
 
 export default function Menu() {
 
@@ -146,6 +148,32 @@ export default function Menu() {
                 style={{ height: 30, width: 30 }}
             />
         },
+        /* Geliştirme yaparken açılacak
+        {
+            id: "7",
+            name: "Serbest Hammade Alım Onayı",
+            iconName: "file-invoice-dollar",
+            iconType: "font-awesome-5",
+            icon: <Image
+                source={rawMaterialApprove}
+                resizeMode='cover'
+                alt=''
+                style={{ height: 30, width: 30 }}
+            />
+        },
+        {
+            id: "8",
+            name: "Serbest Hammade Alımı",
+            iconName: "file-invoice-dollar",
+            iconType: "font-awesome-5",
+            icon: <Image
+                source={rawMaterialPurchase}
+                resizeMode='cover'
+                alt=''
+                style={{ height: 30, width: 30 }}
+            />
+        }
+        */
     ]
 
     const goToWaitingApprovalScreen = (id) => {
@@ -167,6 +195,14 @@ export default function Menu() {
         else if (id === "6") {
             navigation.navigate(MENU_NAV.PURCHASE_INVOICES)
         }
+        /* geliştirme yaparken açılacak
+        else if (id === "7") {
+            navigation.navigate(MENU_NAV.RAW_MATERIAL_APPROVE)
+        }
+        else if (id === "8") {
+            navigation.navigate(MENU_NAV.RAW_MATERIAL_PURCHASE)
+        }
+        */
     }
 
     const calculateHeader = (id) => {
@@ -248,7 +284,12 @@ export default function Menu() {
 
                 <ScrollView
                     showsVerticalScrollIndicator={false}
-                    contentContainerStyle={{ justifyContent: "center", flex: 1 }}
+                    contentContainerStyle={{
+                        justifyContent: "center",
+                        flex: 1,
+                        alignItems: "center",
+                        paddingBottom: 0
+                    }}
                     refreshControl={
                         <RefreshControl
                             refreshing={refreshing}
@@ -261,7 +302,8 @@ export default function Menu() {
                         menuData?.map((item, index) => {
                             return (
 
-                                <TouchableOpacity onPress={() => goToWaitingApprovalScreen(item?.id)} key={index}>
+                                <TouchableOpacity onPress={() =>
+                                    goToWaitingApprovalScreen(item?.id)} key={index}>
 
                                     <VStack style={styles.subContainer} >
                                         <HStack style={styles.list}>
@@ -325,6 +367,7 @@ export default function Menu() {
                     {showActivityIndicator && <ActivityIndicator size="small" color="#FFFFFF" style={{ padding: 5 }} />}
 
                 </ScrollView>
+
             </View>
         </SafeAreaView>
     )

@@ -19,6 +19,9 @@ import PurchaseAggrementDetail from '../../pages/Purchase/PurchaseAggrementDetai
 import PurchaseOrder from '../../pages/Purchase/PurchaseOrder/PurchaseOrder'
 import PurchaseOrderDetailScreen from '../../pages/Purchase/PurchaseOrderDetailScreen/PurchaseOrderDetailScreen'
 import OpenFile from '../../pages/Payment/PaymentRequestDetail/OpenFile'
+import RawMaterialApprove from './../../pages/RawMaterial/RawMaterialApprove/RawMaterialApprove';
+import RawMaterialPurchase from './../../pages/RawMaterial/RawMaterialPurchase/RawMaterialPurchase';
+import CreateRawMaterial from '../../pages/RawMaterial/RawMaterialPurchase/CreateRawMaterial'
 
 export default paymentRequestRoutes = [
     {
@@ -47,13 +50,13 @@ export default paymentRequestRoutes = [
     {
         name: MENU_NAV.PAYMENT_REQUEST,
         component: PaymentRequest,
-        
+
     },
     {
         name: MENU_NAV.PAYMENT_REQUEST_DETAIL,
         component: PaymentRequestDetail,
         screenOption: {
-            title:"Ödeme Talep Kaydı"
+            title: "Ödeme Talep Kaydı"
         }
     },
     {
@@ -105,6 +108,27 @@ export default paymentRequestRoutes = [
         component: OpenFile,
         screenOption: {
             headerShown: true
+        }
+    },
+    {
+        name: MENU_NAV.RAW_MATERIAL_APPROVE,
+        component: RawMaterialApprove,
+        screenOption: {
+            title: "Serbest Hammadde Alım Onayı"
+        }
+    },
+    {
+        name: MENU_NAV.RAW_MATERIAL_PURCHASE,
+        component: RawMaterialPurchase,
+        screenOption: {
+            title: "Serbest Hammadde Alımı"
+        }
+    },
+    {
+        name: MENU_NAV.RAW_CREATE_MATERIAL,
+        component: CreateRawMaterial,
+        screenOption: {
+            title: "Serbest Hammadde Alımı"
         }
     },
 ]
