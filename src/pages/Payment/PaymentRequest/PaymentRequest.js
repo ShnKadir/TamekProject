@@ -119,7 +119,8 @@ export default function PaymentRequest() {
                                                             <HStack style={{ width: 260, justifyContent: "space-between", maxWidth: 260, flexWrap: "wrap" }}>
                                                                 <HStack>
                                                                     <Text style={{ fontSize: 13, fontWeight: "600" }}>
-                                                                        {item?.amount} {item?.currencyCode}
+                                                                        {item?.amount.toLocaleString('en-US', { style: 'decimal', currency: item?.currencyCode }).replace(",", "")
+                                                                        } {item?.currencyCode}
                                                                     </Text>
                                                                 </HStack>
                                                                 <HStack style={{}}>

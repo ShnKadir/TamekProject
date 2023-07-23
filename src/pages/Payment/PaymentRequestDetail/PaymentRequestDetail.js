@@ -77,7 +77,7 @@ export default function PaymentRequestDetail({
     const downloadFromUrl = async () => {
         if (fileExtension === "jpg" || fileExtension === "jpeg" || fileExtension === "pdf") {
 
-            navigation.navigate(MENU_NAV.OPEN_FILE,{data:paymentFile})
+            navigation.navigate(MENU_NAV.OPEN_FILE, { data: paymentFile })
         }
         else {
 
@@ -280,11 +280,10 @@ export default function PaymentRequestDetail({
                                     lineHeight: 22,
                                     textAlign: 'right'
                                 }}>
-                                    {data?.amount} {data?.currencyCode}
+                                    {data?.amount.toLocaleString('en-US', { style: 'decimal', currency: data?.currencyCode }).replace(",", "")
+                                    } {data?.currencyCode}
                                 </Text>
                             </View>
-
-
                         </View>
 
                         <View

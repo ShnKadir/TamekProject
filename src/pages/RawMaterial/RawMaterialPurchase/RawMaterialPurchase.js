@@ -18,7 +18,7 @@ export default function RawMaterialPurchase() {
             name="plus"
             type="antdesign"
             size={22}
-            color="#4173ff"
+            color="#007041"
           />
         </TouchableOpacity>
       ),

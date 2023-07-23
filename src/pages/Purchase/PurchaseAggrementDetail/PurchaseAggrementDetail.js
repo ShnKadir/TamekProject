@@ -305,7 +305,8 @@ export default function PurchaseAggrementDetail({
                                             </Text>
 
                                             <Text style={{ fontSize: 11 }}>
-                                                Tutar: {item?.netAmount} {data?.currency}
+                                                Tutar: {item?.netAmount.toLocaleString('en-US', { style: 'decimal', currency: data?.currencyCode }).replace(",", "")
+                                                } {data?.currency}
                                             </Text>
 
                                             <Text style={{ fontSize: 11 }}>
